@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeonP</title>
+
+  <!-- ✅ GOOGLE IDENTITY SERVICES LIBRARY -->
+  <script src="https://accounts.google.com/gsi/client"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #0a0a0a;
+      --subtext: #666666;
+      --border: #e8e8e8;
+      --card: #f8f8f8;
+      --input: #f0f0f0;
+      --btn-bg: #0a0a0a;
+      --btn-text: #ffffff;
+    }
+    body.dark {
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --subtext: #888888;
+      --border: #222222;
+      --card: #111111;
+      --input: #1a1a1a;
+      --btn-bg: #ffffff;
+      --btn-text: #0a0a0a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, serif;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: flex; }
+
+    /* ─── LOADING ─── */
+    #screen-loading {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+    .logo-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      opacity: 0; transform: scale(0.6);
+      transition: all 0.55s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .logo-wrap.show { opacity: 1; transform: scale(1); }
+    .logo-title { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: var(--text); }
+    .logo-from {
+      position: absolute; bottom: 32px; font-size: 13px; color: var(--subtext);
+      opacity: 0; transition: opacity 0.5s 0.4s;
+    }
+    .logo-from.show { opacity: 1; }
+
+    /* ─── SHARED ─── */
+    .dark-toggle {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: 1.5px solid var(--border); border-radius: 20px;
+      color: var(--text); padding: 4px 12px; font-size: 12px; cursor: pointer;
+      font-family: Georgia, serif;
+    }
+    .back-btn {
+      position: absolute; top: 16px; left: 16px;
+      background: none; border: none; color: var(--text);
+      font-size: 22px; cursor: pointer;
+    }
+
+    /* ─── LOGIN ─── */
+    #screen-login {
+      flex-direction: column; align-items: center;
+      min-height: 100vh; padding: 60px 24px 40px;
+      position: relative;
+    }
+    .login-header { margin-bottom: 36px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .login-title { font-size: 26px; font-weight: 700; letter-spacing: -1px; }
+    .login-sub { font-size: 14px; color: var(--subtext); text-align: center; }
+    .auth-btns { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; }
+    .auth-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 13px 20px; border-radius: 12px; border: 1.5px solid var(--border);
+      background: var(--card); color: var(--text); font-size: 15px; cursor: pointer;
+      font-family: Georgia, serif; font-weight: 500; transition: opacity 0.2s;
+      width: 100%;
+    }
+    .auth-btn:hover { opacity: 0.8; }
+    .auth-btn.primary {
+      background: var(--btn-bg); color: var(--btn-text); border: none; font-weight: 600;
+    }
+    .auth-btn.outline { background: transparent; }
+    .divider { display: flex; align-items: center; gap: 10px; margin: 4px 0; }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-txt { color: var(--subtext); font-size: 13px; }
+    .terms-txt { font-size: 12px; color: var(--subtext); text-align: center; line-height: 1.6; margin-top: 6px; }
+    .terms-txt span { color: var(--text); text-decoration: underline; cursor: pointer; }
+
+    /* ─── SIGNUP ─── */
+    #screen-signup {
+      flex-direction: column; align-items: center;
+      min-height: 100vh; padding: 50px 24px 40px;
+      position: relative;
+    }
+    .signup-title { font-size: 22px; font-weight: 700; margin: 12px 0 4px; }
+    .signup-sub { font-size: 14px; color: var(--subtext); margin-bottom: 24px; }
+    .form-wrap { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; }
+    .input-card {
+      background: var(--card); border-radius: 14px; border: 1.5px solid var(--border);
+      overflow: hidden;
+    }
+    .input-card input {
+      display: block; width: 100%; padding: 13px 14px;
+      border: none; border-bottom: 1px solid var(--border);
+      background: transparent; color: var(--text);
+      font-size: 15px; font-family: Georgia, serif; outline: none;
+    }
+    .input-card input:last-child { border-bottom: none; }
+    .input-card input::placeholder { color: var(--subtext); }
+    .input-card input.error { border-bottom: 1.5px solid #e53e3e; }
+    .err-msg { font-size: 12px; color: #e53e3e; padding-left: 4px; margin-top: -4px; }
+    .agree-row { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; margin-top: 4px; }
+    .checkbox {
+      width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--border); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .checkbox.checked { background: var(--btn-bg); border-color: var(--btn-bg); }
+    .checkbox.checked::after { content: "✓"; color: var(--btn-text); font-size: 13px; font-weight: 700; }
+    .agree-txt { font-size: 13px; color: var(--subtext); line-height: 1.6; }
+    .agree-txt span { color: var(--text); text-decoration: underline; }
+    .confirm-btn {
+      margin-top: 8px; padding: 14px; border-radius: 12px;
+      background: var(--btn-bg); color: var(--btn-text);
+      border: none; font-size: 16px; cursor: pointer;
+      font-family: Georgia, serif; font-weight: 700; transition: all 0.2s;
+      width: 100%;
+    }
+    .confirm-btn:disabled {
+      background: #ddd; color: #999; cursor: not-allowed;
+    }
+    body.dark .confirm-btn:disabled { background: #333; color: #666; }
+
+    /* ─── FEED ─── */
+    #screen-feed {
+      max-width: 600px; margin: 0 auto; width: 100%; position: relative;
+      min-height: 100vh;
+    }
+    .sidenav {
+      position: fixed; top: 0;
+      width: 60px; height: 100vh;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 16px 0; gap: 4px; background: var(--bg);
+      z-index: 100;
+    }
+    .sidenav-logo { margin-bottom: 20px; }
+    .nav-btn {
+      width: 44px; height: 44px; border-radius: 12px; border: none;
+      background: transparent; color: var(--text);
+      font-size: 18px; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-btn:hover { background: var(--card); }
+    .nav-btn.active { background: var(--btn-bg); color: var(--btn-text); }
+    .nav-spacer { flex: 1; }
+    .main-feed { margin-left: 60px; border-right: 1px solid var(--border); min-height: 100vh; }
+    .feed-header {
+      position: sticky; top: 0; background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(12px); z-index: 50;
+    }
+    .feed-title { font-size: 18px; font-weight: 700; }
+    .feed-date { font-size: 12px; color: var(--subtext); }
+    .compose-box {
+      padding: 14px 18px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 12px;
+    }
+    .compose-input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--text); font-size: 16px; font-family: Georgia, serif;
+      padding-top: 8px; resize: none;
+    }
+    .compose-input::placeholder { color: var(--subtext); }
+    .post-btn {
+      padding: 7px 18px; border-radius: 20px; background: var(--btn-bg);
+      color: var(--btn-text); border: none; font-size: 14px;
+      font-family: Georgia, serif; font-weight: 600; cursor: pointer;
+    }
+    .post-item {
+      padding: 16px 18px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 12px;
+    }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--btn-bg); color: var(--btn-text);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+    }
+    .post-meta { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; flex-wrap: wrap; }
+    .post-name { font-weight: 700; font-size: 14px; }
+    .post-handle, .post-time { color: var(--subtext); font-size: 13px; }
+    .post-content { font-size: 15px; line-height: 1.5; margin: 0; }
+    .post-actions { display: flex; gap: 20px; margin-top: 12px; }
+    .action-btn {
+      background: none; border: none; color: var(--subtext);
+      cursor: pointer; font-size: 13px; font-family: Georgia, serif;
+      display: flex; align-items: center; gap: 4px; padding: 0;
+      transition: color 0.2s;
+    }
+    .action-btn.liked { color: #e53e3e; }
+
+    /* Search */
+    .search-input {
+      width: 100%; padding: 12px 16px; border-radius: 24px;
+      border: 1.5px solid var(--border); background: var(--input);
+      color: var(--text); font-size: 15px; font-family: Georgia, serif; outline: none;
+    }
+    .search-hint { color: var(--subtext); margin-top: 20px; text-align: center; font-size: 14px; }
+
+    /* Profile */
+    .cover { height: 100px; background: var(--card); }
+    .profile-content { padding: 0 18px; }
+    .profile-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--btn-bg); color: var(--btn-text);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700;
+      border: 3px solid var(--bg); margin-top: -32px;
+    }
+    .profile-name { font-weight: 700; font-size: 18px; margin-top: 10px; }
+    .profile-handle { color: var(--subtext); font-size: 13px; margin-top: 2px; }
+    .profile-stats { display: flex; gap: 16px; margin-top: 14px; font-size: 14px; }
+    .profile-stats span span { color: var(--subtext); }
+    .edit-profile-btn {
+      margin-top: 14px; padding: 8px 20px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: transparent;
+      color: var(--text); font-size: 14px; cursor: pointer; font-family: Georgia, serif;
+    }
+    .profile-empty { color: var(--subtext); text-align: center; font-size: 14px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+    /* Side menu popup */
+    .side-popup {
+      position: fixed; bottom: 80px;
+      width: 180px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 8px; z-index: 200;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      display: none;
+    }
+    .side-popup.open { display: block; }
+    .popup-item {
+      width: 100%; padding: 10px 12px; background: none;
+      border: none; color: var(--text); text-align: left;
+      font-size: 14px; cursor: pointer; border-radius: 8px;
+      font-family: Georgia, serif; transition: background 0.15s;
+    }
+    .popup-item:hover { background: var(--input); }
+    .popup-item.danger { color: #e53e3e; }
+
+    /* Google sign-in button hidden override */
+    #g_id_onload { display: none; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* user pic in avatar */
+    .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     🔑  STEP 1 — APNA CLIENT ID YAHAN DAALO
+     Google Cloud Console > APIs & Services > Credentials > Create OAuth Client ID
+     Authorized JS Origins mein apni website ka URL daalo
+     ════════════════════════════════ -->
+<div id="g_id_onload"
+  data-client_id="308328899731-0p1lkablev2ffcq68em7dtlgvlggmq2k.apps.googleusercontent.com"
+  data-callback="handleGoogleLogin"
+  data-auto_prompt="false">
+</div>
+
+<!-- ═══════════ LOADING SCREEN ═══════════ -->
+<div id="screen-loading" class="screen active">
+  <div class="logo-wrap" id="logoWrap">
+    <svg width="72" height="72" viewBox="0 0 100 100" fill="none">
+      <rect width="100" height="100" rx="24" fill="#0a0a0a"/>
+      <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif"
+        font-weight="700" font-size="52" fill="#fff" letter-spacing="-2">N</text>
+      <circle cx="72" cy="34" r="8" fill="#fff" opacity="0.85"/>
+    </svg>
+    <div class="logo-title">NeonP</div>
+  </div>
+  <div class="logo-from" id="logoFrom">from NeonP Inc.</div>
+</div>
+
+<!-- ═══════════ LOGIN SCREEN ═══════════ -->
+<div id="screen-login" class="screen" style="position:relative;">
+  <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+
+  <div class="login-header">
+    <svg width="56" height="56" viewBox="0 0 100 100" fill="none">
+      <rect width="100" height="100" rx="24" fill="var(--btn-bg)"/>
+      <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif"
+        font-weight="700" font-size="52" fill="var(--btn-text)" letter-spacing="-2">N</text>
+      <circle cx="72" cy="34" r="8" fill="var(--btn-text)" opacity="0.85"/>
+    </svg>
+    <div class="login-title">NeonP</div>
+    <div class="login-sub">Share your world. Connect deeper.</div>
+  </div>
+
+  <div class="auth-btns">
+
+    <!-- ✅ REAL GOOGLE SIGN IN BUTTON -->
+    <button class="auth-btn" onclick="triggerGoogleLogin()">
+      <svg width="20" height="20" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <button class="auth-btn">
+      <svg width="20" height="20" viewBox="0 0 814 1000" fill="currentColor">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76.5 0-103.7 40.8-165.9 40.8s-105-37.5-165.4-120.8C113.5 754 73.2 681.1 73.2 610.4c0-148.4 96.6-226.8 188.8-226.8 50.1 0 91.7 32.8 122.8 32.8 29.6 0 76.5-35.4 131.5-35.4 20.7 0 123.1 1.9 186.3 87.4z"/>
+      </svg>
+      Continue with Apple
+    </button>
+
+    <button class="auth-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="5" y="2" width="14" height="20" rx="2"/>
+        <line x1="12" y1="18" x2="12.01" y2="18"/>
+      </svg>
+      Continue with Phone
+    </button>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-txt">or</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <button class="auth-btn primary" onclick="showScreen('signup')">Create account</button>
+    <button class="auth-btn outline" onclick="showScreen('feed')">Sign in</button>
+
+    <p class="terms-txt">
+      By continuing, you agree to NeonP's
+      <span>Terms</span> and <span>Privacy Policy</span>.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ SIGNUP SCREEN ═══════════ -->
+<div id="screen-signup" class="screen" style="position:relative; flex-direction:column; align-items:center; min-height:100vh; padding:50px 24px 40px;">
+  <button class="back-btn" onclick="showScreen('login')">←</button>
+  <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+
+  <svg width="44" height="44" viewBox="0 0 100 100" fill="none">
+    <rect width="100" height="100" rx="24" fill="var(--btn-bg)"/>
+    <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif"
+      font-weight="700" font-size="52" fill="var(--btn-text)" letter-spacing="-2">N</text>
+    <circle cx="72" cy="34" r="8" fill="var(--btn-text)" opacity="0.85"/>
+  </svg>
+  <div class="signup-title">Create your account</div>
+  <div class="signup-sub">One step to join NeonP</div>
+
+  <!-- Google account info banner (shown after Google login) -->
+  <div id="google-account-banner" style="display:none; width:100%; max-width:360px; padding:12px 14px; background:var(--card); border:1.5px solid var(--border); border-radius:12px; margin-bottom:8px; display:none; align-items:center; gap:12px;">
+    <img id="google-avatar-img" src="" width="36" height="36" style="border-radius:50%; display:none;" />
+    <div>
+      <div id="google-name-display" style="font-size:14px; font-weight:600;"></div>
+      <div id="google-email-display" style="font-size:12px; color:var(--subtext);"></div>
+    </div>
+    <svg style="margin-left:auto; color:#34A853;" width="18" height="18" viewBox="0 0 48 48">
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      <circle cx="38" cy="10" r="10" fill="#34A853"/>
+      <path fill="white" d="M34 10l3 3 6-6" stroke="white" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="form-wrap">
+    <div class="input-card">
+      <input type="text" id="inp-fname" placeholder="First Name" oninput="checkForm()"/>
+      <input type="text" id="inp-lname" placeholder="Last Name" oninput="checkForm()"/>
+      <input type="password" id="inp-pass" placeholder="Password" oninput="checkForm()"/>
+      <input type="password" id="inp-repass" placeholder="Re-enter Password" oninput="checkForm()" id="inp-repass"/>
+    </div>
+    <div id="pass-err" class="err-msg" style="display:none;">Passwords don't match</div>
+
+    <div class="agree-row" onclick="toggleAgree()">
+      <div class="checkbox" id="agree-box"></div>
+      <div class="agree-txt">
+        I agree to NeonP's <span>Terms of Service</span>,
+        <span>Privacy Policy</span>, and <span>Community Guidelines</span>.
+      </div>
+    </div>
+
+    <button class="confirm-btn" id="confirm-btn" disabled onclick="goToFeed()">
+      Confirm &amp; Continue →
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ FEED SCREEN ═══════════ -->
+<div id="screen-feed" class="screen" style="flex-direction:column;">
+  <div style="max-width:600px; margin:0 auto; width:100%; display:flex; position:relative;">
+
+    <!-- Side Nav -->
+    <nav class="sidenav" id="sidenav">
+      <div class="sidenav-logo">
+        <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+          <rect width="100" height="100" rx="24" fill="var(--btn-bg)"/>
+          <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif"
+            font-weight="700" font-size="52" fill="var(--btn-text)" letter-spacing="-2">N</text>
+          <circle cx="72" cy="34" r="8" fill="var(--btn-text)" opacity="0.85"/>
+        </svg>
+      </div>
+      <button class="nav-btn active" id="nav-home" onclick="switchTab('home')" title="Home">⌂</button>
+      <button class="nav-btn" id="nav-search" onclick="switchTab('search')" title="Search">⊘</button>
+      <button class="nav-btn" id="nav-profile" onclick="switchTab('profile')" title="Profile">◉</button>
+      <div class="nav-spacer"></div>
+      <button class="nav-btn" onclick="toggleDark()" title="Toggle theme" id="theme-nav-btn">☾</button>
+      <button class="nav-btn" id="more-btn" onclick="toggleSideMenu()" title="More">···</button>
+    </nav>
+
+    <!-- Side popup menu -->
+    <div class="side-popup" id="side-popup" style="left:70px;">
+      <button class="popup-item">⚙️ Settings</button>
+      <button class="popup-item">🔖 Bookmarks</button>
+      <button class="popup-item">📋 Lists</button>
+      <button class="popup-item">🔔 Notifications</button>
+      <button class="popup-item danger" onclick="showScreen('login'); toggleSideMenu()">🚪 Log out</button>
+    </div>
+
+    <!-- Main Feed -->
+    <div class="main-feed" style="flex:1;">
+      <!-- Header -->
+      <div class="feed-header">
+        <div class="feed-title" id="feed-title">Home</div>
+        <div class="feed-date" id="feed-date"></div>
+      </div>
+
+      <!-- Home Tab -->
+      <div id="tab-home" class="tab-content active">
+        <div class="compose-box">
+          <div class="avatar" id="compose-avatar">YO</div>
+          <div style="flex:1;">
+            <textarea class="compose-input" placeholder="What's happening?" rows="2"></textarea>
+            <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+              <button class="post-btn" onclick="addPost()">Post</button>
+            </div>
+          </div>
+        </div>
+        <div id="posts-container"></div>
+      </div>
+
+      <!-- Search Tab -->
+      <div id="tab-search" class="tab-content">
+        <div style="padding:16px 18px;">
+          <input class="search-input" placeholder="Search NeonP..." />
+          <p class="search-hint">Search for people, posts, topics...</p>
+        </div>
+      </div>
+
+      <!-- Profile Tab -->
+      <div id="tab-profile" class="tab-content">
+        <div class="cover"></div>
+        <div class="profile-content">
+          <div class="profile-avatar" id="profile-avatar">YO</div>
+          <div class="profile-name" id="profile-name">Your Name</div>
+          <div class="profile-handle">@you</div>
+          <div class="profile-stats">
+            <span><strong>0</strong> <span>Following</span></span>
+            <span><strong>0</strong> <span>Followers</span></span>
+          </div>
+          <button class="edit-profile-btn">Edit Profile</button>
+          <div class="profile-empty">No posts yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let isDark = false;
+let agreed = false;
+let currentUser = { name: "You", initials: "YO", picture: null };
+let posts = [
+  { id:1, user:"Alex Ray",   handle:"@alexray", initials:"AR", time:"2m",  content:"NeonP pe pehla post! Kya amazing platform hai 🔥",                  likes:42,  views:312, liked:false },
+  { id:2, user:"Zara K",     handle:"@zarakhan", initials:"ZK", time:"8m",  content:"Finally ek aisa platform jahan sab kuch ek jagah! Follow karo mujhe 👋", likes:128, views:940, liked:false },
+  { id:3, user:"Dev Singh",  handle:"@devsingh", initials:"DS", time:"15m", content:"NeonP UI bahut clean hai. X aur Instagram ka perfect mix 💯",           likes:87,  views:601, liked:false },
+];
+let activeTab = "home";
+
+// ═══════════════════════════════════════════
+//  LOADING ANIMATION
+// ═══════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('logoWrap').classList.add('show');
+    document.getElementById('logoFrom').classList.add('show');
+  }, 100);
+  setTimeout(() => showScreen('login'), 2000);
+
+  // Set date
+  document.getElementById('feed-date').textContent =
+    new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+
+  renderPosts();
+});
+
+// ═══════════════════════════════════════════
+//  SCREEN SWITCHING
+// ═══════════════════════════════════════════
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  if (name === 'feed') renderPosts();
+}
+
+// ═══════════════════════════════════════════
+//  DARK MODE
+// ═══════════════════════════════════════════
+function toggleDark() {
+  isDark = !isDark;
+  document.body.classList.toggle('dark', isDark);
+  const label = isDark ? '☀️ Light' : '🌙 Dark';
+  document.querySelectorAll('.dark-toggle').forEach(b => b.textContent = label);
+  document.getElementById('theme-nav-btn').textContent = isDark ? '☀' : '☾';
+}
+
+// ═══════════════════════════════════════════
+//  ✅ REAL GOOGLE LOGIN
+//  Google calls this function after user picks account
+// ═══════════════════════════════════════════
+function triggerGoogleLogin() {
+  if (typeof google === 'undefined') {
+    alert('Google login load nahi hua. Internet connection check karo aur page reload karo.');
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: '308328899731-0p1lkablev2ffcq68em7dtlgvlggmq2k.apps.googleusercontent.com',
+    callback: handleGoogleLogin,
+    auto_select: false,
+    cancel_on_tap_outside: true,
+  });
+  google.accounts.id.prompt(notification => {
+    // Agar One-Tap kaam na kare toh popup fallback
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      google.accounts.oauth2 && google.accounts.oauth2.initCodeClient({
+        client_id: '308328899731-0p1lkablev2ffcq68em7dtlgvlggmq2k.apps.googleusercontent.com',
+        scope: 'email profile',
+        callback: () => {},
+      });
+    }
+  });
+}
+
+function handleGoogleLogin(response) {
+  // Decode the JWT token from Google
+  const payload = parseJwt(response.credential);
+
+  // Extract user info from Google account
+  const firstName = payload.given_name || '';
+  const lastName  = payload.family_name || '';
+  const email     = payload.email || '';
+  const picture   = payload.picture || '';
+  const name      = payload.name || (firstName + ' ' + lastName);
+
+  // Store for later
+  currentUser = { name, initials: getInitials(name), picture };
+
+  // Pre-fill signup form
+  document.getElementById('inp-fname').value = firstName;
+  document.getElementById('inp-lname').value = lastName;
+
+  // Show Google account banner
+  const banner = document.getElementById('google-account-banner');
+  banner.style.display = 'flex';
+  document.getElementById('google-name-display').textContent = name;
+  document.getElementById('google-email-display').textContent = email;
+  if (picture) {
+    const img = document.getElementById('google-avatar-img');
+    img.src = picture;
+    img.style.display = 'block';
+  }
+
+  checkForm();
+  showScreen('signup');
+}
+
+function parseJwt(token) {
+  try {
+    const base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+    return JSON.parse(decodeURIComponent(atob(base64).split('').map(c =>
+      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+  } catch { return {}; }
+}
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+}
+
+// ═══════════════════════════════════════════
+//  SIGNUP FORM
+// ═══════════════════════════════════════════
+function checkForm() {
+  const fn = document.getElementById('inp-fname').value.trim();
+  const ln = document.getElementById('inp-lname').value.trim();
+  const pw = document.getElementById('inp-pass').value;
+  const rp = document.getElementById('inp-repass').value;
+  const errEl = document.getElementById('pass-err');
+  const btn   = document.getElementById('confirm-btn');
+  const rpInp = document.getElementById('inp-repass');
+
+  const mismatch = rp.length > 0 && pw !== rp;
+  errEl.style.display   = mismatch ? 'block' : 'none';
+  rpInp.classList.toggle('error', mismatch);
+
+  const ok = fn && ln && pw && rp && pw === rp && agreed;
+  btn.disabled = !ok;
+}
+
+function toggleAgree() {
+  agreed = !agreed;
+  document.getElementById('agree-box').classList.toggle('checked', agreed);
+  checkForm();
+}
+
+function goToFeed() {
+  const fn = document.getElementById('inp-fname').value.trim();
+  const ln = document.getElementById('inp-lname').value.trim();
+  const name = fn + (ln ? ' ' + ln : '');
+  currentUser.name = name;
+  currentUser.initials = getInitials(name);
+
+  document.getElementById('profile-name').textContent = name;
+  document.getElementById('profile-avatar').innerHTML =
+    currentUser.picture
+      ? `<img src="${currentUser.picture}" />`
+      : currentUser.initials;
+  document.getElementById('compose-avatar').innerHTML =
+    currentUser.picture
+      ? `<img src="${currentUser.picture}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />`
+      : currentUser.initials;
+
+  showScreen('feed');
+}
+
+// ═══════════════════════════════════════════
+//  FEED
+// ═══════════════════════════════════════════
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn[id^="nav-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('nav-' + tab).classList.add('active');
+  const titles = { home:'Home', search:'Search', profile:'Profile' };
+  document.getElementById('feed-title').textContent = titles[tab];
+}
+
+function renderPosts() {
+  const container = document.getElementById('posts-container');
+  if (!container) return;
+  container.innerHTML = posts.map(p => `
+    <div class="post-item">
+      <div class="avatar">${p.initials}</div>
+      <div style="flex:1;">
+        <div class="post-meta">
+          <span class="post-name">${p.user}</span>
+          <span class="post-handle">${p.handle}</span>
+          <span class="post-time">· ${p.time}</span>
+        </div>
+        <p class="post-content">${p.content}</p>
+        <div class="post-actions">
+          <button class="action-btn ${p.liked ? 'liked' : ''}" onclick="toggleLike(${p.id})">
+            ${p.liked ? '♥' : '♡'} ${p.likes}
+          </button>
+          <span class="action-btn" style="cursor:default;">◎ ${p.views}</span>
+          <button class="action-btn">↑ Share</button>
+          <button class="action-btn">◎ Reply</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleLike(id) {
+  posts = posts.map(p => p.id === id
+    ? { ...p, liked: !p.liked, likes: p.liked ? p.likes-1 : p.likes+1 }
+    : p);
+  renderPosts();
+}
+
+function addPost() {
+  const ta = document.querySelector('.compose-input');
+  const txt = ta.value.trim();
+  if (!txt) return;
+  posts.unshift({
+    id: Date.now(), user: currentUser.name,
+    handle: '@' + currentUser.name.toLowerCase().replace(/\s/g,''),
+    initials: currentUser.initials, time: 'now',
+    content: txt, likes: 0, views: 0, liked: false,
+  });
+  ta.value = '';
+  renderPosts();
+}
+
+function toggleSideMenu() {
+  document.getElementById('side-popup').classList.toggle('open');
+}
+
+document.addEventListener('click', e => {
+  const popup = document.getElementById('side-popup');
+  const btn = document.getElementById('more-btn');
+  if (popup && !popup.contains(e.target) && !btn.contains(e.target)) {
+    popup.classList.remove('open');
+  }
+});
+</script>
+
+<!--
+╔══════════════════════════════════════════════════════════╗
+║        📋  GOOGLE LOGIN SETUP — STEP BY STEP            ║
+╠══════════════════════════════════════════════════════════╣
+║                                                          ║
+║  1. console.cloud.google.com par jaao                    ║
+║  2. New Project banao — naam: NeonP                      ║
+║  3. APIs & Services > OAuth consent screen               ║
+║     - User Type: External > Create                       ║
+║     - App name: NeonP, apni email daalo > Save           ║
+║  4. Credentials > Create Credentials > OAuth Client ID   ║
+║     - Type: Web application                              ║
+║     - Authorized JS Origins: apni website ka URL         ║
+║       (ya testing ke liye: http://localhost)             ║
+║  5. Client ID copy karo                                  ║
+║  6. Is file mein line dhundo:                            ║
+║     data-client_id="308328899731-0p1lkablev2ffcq68em7dtlgvlggmq2k.apps.googleusercontent.com"          ║
+║     Wahan apna Client ID paste karo                      ║
+║  7. Done! Real Google login kaam karega ✅               ║
+╚══════════════════════════════════════════════════════════╝
+-->
+</body>
+</html>
