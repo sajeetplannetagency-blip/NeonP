@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,6 +9,7 @@
     :root{--bg:#fff;--text:#0a0a0a;--subtext:#666;--border:#e8e8e8;--card:#f8f8f8;--input:#f0f0f0;--btn:#0a0a0a;--btnT:#fff;}
     body.dark{--bg:#0a0a0a;--text:#fff;--subtext:#888;--border:#222;--card:#111;--input:#1a1a1a;--btn:#fff;--btnT:#0a0a0a;}
     body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100vh;transition:background .3s,color .3s;}
+    body.rtl{direction:rtl;text-align:right;}
     .screen{display:none;} .screen.active{display:flex;}
     #screen-loading{flex-direction:column;align-items:center;justify-content:center;height:100vh;position:relative;}
     .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:scale(0.6);transition:all .55s cubic-bezier(0.34,1.56,0.64,1);}
@@ -17,7 +18,9 @@
     .logo-from{position:absolute;bottom:32px;font-size:13px;color:var(--subtext);opacity:0;transition:opacity .5s .4s;}
     .logo-from.show{opacity:1;}
     .dark-toggle{position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);border-radius:20px;color:var(--text);padding:4px 12px;font-size:12px;cursor:pointer;font-family:Georgia,serif;}
+    body.rtl .dark-toggle{right:auto;left:16px;}
     .back-btn{position:absolute;top:16px;left:16px;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;}
+    body.rtl .back-btn{left:auto;right:16px;}
     #screen-login,#screen-signup,#screen-signin{flex-direction:column;align-items:center;min-height:100vh;padding:60px 24px 40px;position:relative;}
     .login-title{font-size:26px;font-weight:700;letter-spacing:-1px;}
     .login-sub{font-size:14px;color:var(--subtext);text-align:center;margin-top:6px;margin-bottom:36px;}
@@ -51,11 +54,13 @@
     #screen-feed{flex-direction:column;}
     .feed-wrap{max-width:600px;margin:0 auto;width:100%;display:flex;}
     .sidenav{position:fixed;top:0;width:60px;height:100vh;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:4px;background:var(--bg);z-index:100;}
+    body.rtl .sidenav{border-right:none;border-left:1px solid var(--border);right:0;left:auto;}
     .nav-btn{width:44px;height:44px;border-radius:12px;border:none;background:transparent;color:var(--text);font-size:18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
     .nav-btn:hover{background:var(--card);}
     .nav-btn.active{background:var(--btn);color:var(--btnT);}
     .nav-spacer{flex:1;}
     .main-feed{margin-left:60px;flex:1;border-right:1px solid var(--border);min-height:100vh;}
+    body.rtl .main-feed{margin-left:0;margin-right:60px;border-right:none;border-left:1px solid var(--border);}
     .feed-header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;z-index:50;}
     .feed-title{font-size:18px;font-weight:700;}
     .compose-box{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:12px;}
@@ -64,8 +69,8 @@
     .post-btn{padding:7px 18px;border-radius:20px;background:var(--btn);color:var(--btnT);border:none;font-size:14px;font-family:Georgia,serif;font-weight:600;cursor:pointer;}
     .post-item{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;gap:12px;animation:fadeIn .3s ease;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;}}
-    .avatar{width:40px;height:40px;border-radius:50%;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;overflow:hidden;}
-    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+    .avatar{width:40px;height:40px;border-radius:10px;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;overflow:hidden;}
+    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:8px;}
     .post-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
     .post-name{font-weight:700;font-size:14px;}
     .post-handle,.post-time{color:var(--subtext);font-size:13px;}
@@ -74,7 +79,6 @@
     .action-btn{background:none;border:none;color:var(--subtext);cursor:pointer;font-size:13px;font-family:Georgia,serif;display:flex;align-items:center;gap:4px;padding:0;transition:color .2s;}
     .action-btn:hover{color:var(--text);}
     .action-btn.liked{color:#e53e3e;}
-    /* REPLIES */
     .reply-box{margin-top:10px;display:none;border-top:1px solid var(--border);padding-top:10px;}
     .reply-box.open{display:block;}
     .reply-input-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;}
@@ -82,16 +86,21 @@
     .reply-input::placeholder{color:var(--subtext);}
     .reply-send-btn{padding:8px 14px;border-radius:10px;background:var(--btn);color:var(--btnT);border:none;font-size:13px;cursor:pointer;font-family:Georgia,serif;font-weight:600;white-space:nowrap;}
     .reply-item{display:flex;gap:8px;padding:6px 0;border-top:1px solid var(--border);}
-    .reply-avatar{width:28px;height:28px;border-radius:50%;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;overflow:hidden;}
-    .reply-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
+    .reply-avatar{width:28px;height:28px;border-radius:7px;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;overflow:hidden;}
+    .reply-avatar img{width:100%;height:100%;border-radius:5px;object-fit:cover;}
     .reply-name{font-weight:700;font-size:13px;}
     .reply-time{color:var(--subtext);font-size:12px;margin-left:4px;}
     .reply-text{font-size:13px;line-height:1.4;margin-top:2px;color:var(--text);}
-    /* PROFILE */
-    .cover{height:100px;background:linear-gradient(135deg,var(--btn) 0%,var(--subtext) 100%);}
+    .cover{height:120px;background:linear-gradient(135deg,var(--btn) 0%,var(--subtext) 100%);position:relative;cursor:pointer;overflow:hidden;}
+    .cover-img{width:100%;height:100%;object-fit:cover;display:none;}
+    .cover:hover .cover-overlay{opacity:1;}
+    .cover-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-family:Georgia,serif;gap:6px;opacity:0;transition:opacity .2s;pointer-events:none;}
     .profile-content{padding:0 18px 40px;}
-    .profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;border:3px solid var(--bg);margin-top:-32px;overflow:hidden;}
-    .profile-avatar img{width:100%;height:100%;object-fit:cover;}
+    .profile-avatar{width:72px;height:72px;border-radius:18px;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;border:3px solid var(--bg);margin-top:-36px;overflow:hidden;cursor:pointer;position:relative;transition:opacity .2s;}
+    .profile-avatar:hover{opacity:.85;}
+    .profile-avatar .upload-hint{position:absolute;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;border-radius:15px;color:#fff;font-size:11px;text-align:center;}
+    .profile-avatar:hover .upload-hint{display:flex;}
+    .profile-avatar img{width:100%;height:100%;object-fit:cover;border-radius:15px;}
     .profile-name{font-weight:700;font-size:18px;margin-top:10px;}
     .profile-handle{color:var(--subtext);font-size:13px;margin-top:2px;}
     .profile-bio{font-size:14px;margin-top:8px;line-height:1.5;color:var(--text);}
@@ -104,23 +113,20 @@
     .pd-row:last-child{border-bottom:none;}
     .pd-label{font-size:13px;color:var(--subtext);}
     .pd-value{font-size:13px;text-align:right;max-width:60%;word-break:break-all;}
-    /* SIDE POPUP */
     .side-popup{position:fixed;bottom:80px;left:70px;width:180px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,.15);display:none;}
+    body.rtl .side-popup{left:auto;right:70px;}
     .side-popup.open{display:block;}
     .popup-item{width:100%;padding:10px 12px;background:none;border:none;color:var(--text);text-align:left;font-size:14px;cursor:pointer;border-radius:8px;font-family:Georgia,serif;}
+    body.rtl .popup-item{text-align:right;}
     .popup-item:hover{background:var(--input);}
     .popup-item.danger{color:#e53e3e;}
-    /* TABS */
     .tab-content{display:none;} .tab-content.active{display:block;}
     .loading-posts{text-align:center;padding:30px;color:var(--subtext);font-size:14px;}
-    /* TOAST */
     .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0a0a0a;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-family:Georgia,serif;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
     body.dark .toast{background:#fff;color:#0a0a0a;}
     .toast.show{opacity:1;}
-    /* SEARCH */
     .search-input{width:100%;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--input);color:var(--text);font-size:15px;font-family:Georgia,serif;outline:none;}
     .search-empty{text-align:center;padding:40px 20px;color:var(--subtext);font-size:14px;}
-    /* EDIT PROFILE MODAL */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center;}
     .modal-overlay.open{display:flex;}
     .modal-box{background:var(--bg);border-radius:20px 20px 0 0;width:100%;max-width:600px;padding:24px 20px 40px;display:flex;flex-direction:column;gap:14px;max-height:90vh;overflow-y:auto;}
@@ -131,6 +137,19 @@
     .modal-save-btn{padding:14px;border-radius:12px;background:var(--btn);color:var(--btnT);border:none;font-size:16px;cursor:pointer;font-family:Georgia,serif;font-weight:700;width:100%;margin-top:4px;}
     .modal-cancel-btn{padding:12px;border-radius:12px;background:transparent;color:var(--subtext);border:1.5px solid var(--border);font-size:15px;cursor:pointer;font-family:Georgia,serif;width:100%;}
     .forgot-btn{background:none;border:none;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;margin-top:4px;}
+    /* SETTINGS */
+    .settings-section{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+    .settings-head{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:14px;background:var(--card);}
+    .settings-row{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+    .settings-row:last-child{border-bottom:none;}
+    .settings-row:hover{background:var(--card);}
+    .settings-label{font-size:14px;}
+    .settings-value{font-size:13px;color:var(--subtext);}
+    .lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 0;}
+    .lang-btn{padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;font-family:Georgia,serif;text-align:left;transition:all .2s;}
+    .lang-btn:hover{background:var(--card);}
+    .lang-btn.active{background:var(--btn);color:var(--btnT);border-color:var(--btn);}
+    .lang-flag{font-size:16px;margin-right:6px;}
   </style>
 </head>
 <body>
@@ -145,7 +164,7 @@
     </svg>
     <div class="logo-title">NeonP</div>
   </div>
-  <div class="logo-from" id="logoFrom">from NeonP Inc.</div>
+  <div class="logo-from" id="logoFrom">from Plannet</div>
 </div>
 
 <!-- LOGIN -->
@@ -157,19 +176,19 @@
     <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
   </svg>
   <div class="login-title">NeonP</div>
-  <div class="login-sub">Share your world. Connect deeper.</div>
+  <div class="login-sub" data-t="login_sub"></div>
   <div class="auth-btns">
     <button class="auth-btn" onclick="signInWithGoogle()">
       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Continue with Google
+      <span data-t="google_btn"></span>
     </button>
     <button class="auth-btn" onclick="showScreen('signin')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
-      Sign in with Email
+      <span data-t="email_btn"></span>
     </button>
-    <div class="divider"><div class="divider-line"></div><span class="divider-txt">or</span><div class="divider-line"></div></div>
-    <button class="auth-btn primary" onclick="showScreen('signup')">Create account</button>
-    <p class="terms-txt">By continuing, you agree to NeonP's <span>Terms</span> and <span>Privacy Policy</span>.</p>
+    <div class="divider"><div class="divider-line"></div><span class="divider-txt" data-t="or"></span><div class="divider-line"></div></div>
+    <button class="auth-btn primary" onclick="showScreen('signup')" data-t="create_btn"></button>
+    <p class="terms-txt"><span data-t="terms_pre"></span> <span data-t="terms_link1"></span> <span data-t="terms_and"></span> <span data-t="terms_link2"></span>.</p>
   </div>
 </div>
 
@@ -182,8 +201,8 @@
     <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
     <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
   </svg>
-  <div class="signup-title">Create your account</div>
-  <div class="signup-sub">One step to join NeonP</div>
+  <div class="signup-title" data-t="signup_title"></div>
+  <div class="signup-sub" data-t="signup_sub"></div>
   <div class="form-wrap">
     <div id="google-banner" style="display:none;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;align-items:center;gap:12px;flex-direction:row;">
       <img id="google-banner-img" src="" width="36" height="36" style="border-radius:50%;display:none;"/>
@@ -191,21 +210,21 @@
       <svg style="margin-left:auto;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34A853" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
     <div class="input-card">
-      <input type="text" id="su-fname" placeholder="First Name" oninput="checkSignupForm()"/>
-      <input type="text" id="su-lname" placeholder="Last Name" oninput="checkSignupForm()"/>
-      <input type="email" id="su-email" placeholder="Email Address" oninput="checkSignupForm()"/>
-      <input type="password" id="su-pass" placeholder="Create Password" oninput="checkSignupForm()"/>
-      <input type="password" id="su-repass" placeholder="Re-enter Password" oninput="checkSignupForm()"/>
+      <input type="text" id="su-fname" data-ph="fname" oninput="checkSignupForm()"/>
+      <input type="text" id="su-lname" data-ph="lname" oninput="checkSignupForm()"/>
+      <input type="email" id="su-email" data-ph="email_ph" oninput="checkSignupForm()"/>
+      <input type="password" id="su-pass" data-ph="create_pass" oninput="checkSignupForm()"/>
+      <input type="password" id="su-repass" data-ph="reenter_pass" oninput="checkSignupForm()"/>
     </div>
     <div id="su-err" class="err-msg" style="display:none;"></div>
     <div class="agree-row" onclick="toggleAgree()">
       <div class="checkbox" id="agree-box"></div>
-      <div class="agree-txt">I agree to NeonP's <span>Terms of Service</span>, <span>Privacy Policy</span>, and <span>Community Guidelines</span>.</div>
+      <div class="agree-txt" data-t="agree_txt"></div>
     </div>
-    <button class="confirm-btn" id="confirm-btn" disabled onclick="createAccount()">Confirm &amp; Continue →</button>
+    <button class="confirm-btn" id="confirm-btn" disabled onclick="createAccount()" data-t="confirm_btn"></button>
     <button class="auth-btn" onclick="signInWithGoogle()">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Sign up with Google instead
+      <span data-t="google_signup"></span>
     </button>
   </div>
 </div>
@@ -219,20 +238,20 @@
     <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
     <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
   </svg>
-  <div class="signup-title">Welcome back</div>
-  <div class="signup-sub">Sign in to NeonP</div>
+  <div class="signup-title" data-t="welcome"></div>
+  <div class="signup-sub" data-t="signin_sub"></div>
   <div class="form-wrap">
     <div class="input-card">
-      <input type="email" id="si-email" placeholder="Email Address" oninput="checkSigninForm()"/>
-      <input type="password" id="si-pass" placeholder="Password" oninput="checkSigninForm()"/>
+      <input type="email" id="si-email" data-ph="email_ph" oninput="checkSigninForm()"/>
+      <input type="password" id="si-pass" data-ph="password_ph" oninput="checkSigninForm()"/>
     </div>
     <div id="si-err" class="err-msg" style="display:none;"></div>
-    <button class="confirm-btn" id="signin-btn" disabled onclick="signInWithEmail()">Sign In →</button>
+    <button class="confirm-btn" id="signin-btn" disabled onclick="signInWithEmail()" data-t="signin_btn"></button>
     <button class="auth-btn" onclick="signInWithGoogle()">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Sign in with Google
+      <span data-t="google_signin"></span>
     </button>
-    <button class="forgot-btn" onclick="forgotPassword()">Forgot password?</button>
+    <button class="forgot-btn" onclick="forgotPassword()" data-t="forgot"></button>
   </div>
 </div>
 
@@ -255,59 +274,61 @@
       <button class="nav-btn" id="more-btn" onclick="toggleSideMenu()" title="More">···</button>
     </nav>
     <div class="side-popup" id="side-popup">
-      <button class="popup-item">⚙️ Settings</button>
-      <button class="popup-item">🔖 Bookmarks</button>
-      <button class="popup-item">🔔 Notifications</button>
-      <button class="popup-item danger" onclick="logOut()">🚪 Log out</button>
+      <button class="popup-item" onclick="openSettings()">⚙️ <span data-t="settings_lbl"></span></button>
+      <button class="popup-item">🔖 <span data-t="bookmarks_lbl"></span></button>
+      <button class="popup-item">🔔 <span data-t="notif_lbl"></span></button>
+      <button class="popup-item danger" onclick="logOut()">🚪 <span data-t="logout_lbl"></span></button>
     </div>
     <div class="main-feed">
       <div class="feed-header">
-        <div class="feed-title" id="feed-title">Home</div>
+        <div class="feed-title" id="feed-title"></div>
         <div style="font-size:12px;color:var(--subtext);" id="feed-date"></div>
       </div>
-
-      <!-- HOME TAB -->
       <div id="tab-home" class="tab-content active">
         <div class="compose-box">
           <div class="avatar" id="compose-avatar">YO</div>
           <div style="flex:1;">
-            <textarea class="compose-input" id="compose-text" placeholder="What's happening?" rows="2"></textarea>
+            <textarea class="compose-input" id="compose-text" data-ph="whats_happening" rows="2"></textarea>
             <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-              <button class="post-btn" onclick="addPost()">Post</button>
+              <button class="post-btn" onclick="addPost()" data-t="post_btn"></button>
             </div>
           </div>
         </div>
-        <div id="posts-container"><div class="loading-posts">Loading posts...</div></div>
+        <div id="posts-container"><div class="loading-posts" data-t="loading_posts"></div></div>
       </div>
-
-      <!-- SEARCH TAB -->
       <div id="tab-search" class="tab-content">
         <div style="padding:16px 18px;">
-          <input class="search-input" id="search-input" placeholder="Search posts, people..." oninput="searchPosts(this.value)"/>
+          <input class="search-input" id="search-input" data-ph="search_ph" oninput="searchPosts(this.value)"/>
           <div id="search-results" style="margin-top:4px;"></div>
         </div>
       </div>
-
-      <!-- PROFILE TAB -->
       <div id="tab-profile" class="tab-content">
-        <div class="cover"></div>
+        <div class="cover" onclick="triggerCoverUpload()">
+          <img class="cover-img" id="cover-img" src="" alt=""/>
+          <div class="cover-overlay">📷 <span data-t="change_cover"></span></div>
+          <input type="file" id="cover-upload" accept="image/*" style="display:none;" onchange="handleCoverUpload(event)"/>
+        </div>
         <div class="profile-content">
-          <div class="profile-avatar" id="profile-avatar">YO</div>
+          <div class="profile-avatar" id="profile-avatar" onclick="triggerAvatarUpload()">
+            YO
+            <div class="upload-hint">📷<br><span data-t="change"></span></div>
+            <input type="file" id="avatar-upload" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)"/>
+          </div>
           <div class="profile-name" id="profile-name">Your Name</div>
           <div class="profile-handle" id="profile-handle">@you</div>
           <div class="profile-bio" id="profile-bio"></div>
           <div class="profile-stats">
-            <span><strong>0</strong> <span style="color:var(--subtext)">Following</span></span>
-            <span><strong id="posts-count">0</strong> <span style="color:var(--subtext)">Posts</span></span>
+            <span><strong>0</strong> <span style="color:var(--subtext)" data-t="following_lbl"></span></span>
+            <span><strong id="posts-count">0</strong> <span style="color:var(--subtext)" data-t="posts_lbl"></span></span>
           </div>
-          <button class="edit-profile-btn" onclick="openEditModal()">✏️ Edit Profile</button>
+          <button class="edit-profile-btn" onclick="openEditModal()" data-t="edit_profile_btn"></button>
           <div class="pd-box">
-            <div class="pd-head">🔐 Personal Details</div>
-            <div class="pd-row"><span class="pd-label">Full Name</span><span class="pd-value" id="detail-name">—</span></div>
-            <div class="pd-row"><span class="pd-label">Email</span><span class="pd-value" id="detail-email">—</span></div>
-            <div class="pd-row"><span class="pd-label">Password</span><span class="pd-value" id="detail-password">••••••••</span></div>
-            <div class="pd-row"><span class="pd-label">Login Type</span><span class="pd-value" id="detail-logintype">—</span></div>
-            <div class="pd-row"><span class="pd-label">Member since</span><span class="pd-value" id="detail-joined">—</span></div>
+            <div class="pd-head" data-t="personal_details"></div>
+            <div class="pd-row"><span class="pd-label" data-t="full_name_lbl"></span><span class="pd-value" id="detail-name">—</span></div>
+            <div class="pd-row"><span class="pd-label" data-t="email_lbl"></span><span class="pd-value" id="detail-email">—</span></div>
+            <div class="pd-row"><span class="pd-label" data-t="password_lbl"></span><span class="pd-value" id="detail-password">••••••••</span></div>
+            <div class="pd-row"><span class="pd-label" data-t="login_type_lbl"></span><span class="pd-value" id="detail-logintype">—</span></div>
+            <div class="pd-row"><span class="pd-label" data-t="member_since_lbl"></span><span class="pd-value" id="detail-joined">—</span></div>
           </div>
         </div>
       </div>
@@ -318,25 +339,49 @@
 <!-- EDIT PROFILE MODAL -->
 <div class="modal-overlay" id="edit-modal" onclick="closeEditOnOverlay(event)">
   <div class="modal-box">
-    <div class="modal-title">✏️ Edit Profile</div>
-    <div>
-      <div class="modal-label">First Name</div>
-      <input class="modal-input" id="edit-fname" placeholder="First Name"/>
+    <div class="modal-title" data-t="edit_profile_title"></div>
+    <div><div class="modal-label" data-t="fname"></div><input class="modal-input" id="edit-fname" data-ph="fname"/></div>
+    <div><div class="modal-label" data-t="lname"></div><input class="modal-input" id="edit-lname" data-ph="lname"/></div>
+    <div><div class="modal-label" data-t="bio_lbl"></div><input class="modal-input" id="edit-bio" data-ph="bio_ph"/></div>
+    <div><div class="modal-label" data-t="username_lbl"></div><input class="modal-input" id="edit-handle" data-ph="username_ph"/></div>
+    <button class="modal-save-btn" onclick="saveProfile()" data-t="save_changes"></button>
+    <button class="modal-cancel-btn" onclick="closeEditModal()" data-t="cancel_btn"></button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settings-modal" onclick="closeSettingsOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-title">⚙️ <span data-t="settings_title"></span></div>
+
+    <!-- Language -->
+    <div class="settings-section">
+      <div class="settings-head">🌐 <span data-t="language_lbl"></span></div>
+      <div style="padding:12px 16px;">
+        <div class="lang-grid" id="lang-grid">
+          <button class="lang-btn" onclick="setLang('en_us')"><span class="lang-flag">🇺🇸</span>English (US)</button>
+          <button class="lang-btn" onclick="setLang('en_uk')"><span class="lang-flag">🇬🇧</span>English (UK)</button>
+          <button class="lang-btn" onclick="setLang('hi')"><span class="lang-flag">🇮🇳</span>हिंदी</button>
+          <button class="lang-btn" onclick="setLang('hinglish')"><span class="lang-flag">🇮🇳</span>Hinglish</button>
+          <button class="lang-btn" onclick="setLang('ja')"><span class="lang-flag">🇯🇵</span>日本語</button>
+          <button class="lang-btn" onclick="setLang('zh')"><span class="lang-flag">🇨🇳</span>中文</button>
+          <button class="lang-btn" onclick="setLang('tr')"><span class="lang-flag">🇹🇷</span>Türkçe</button>
+          <button class="lang-btn" onclick="setLang('ar')"><span class="lang-flag">🇸🇦</span>العربية</button>
+          <button class="lang-btn" onclick="setLang('ur')"><span class="lang-flag">🇵🇰</span>اردو</button>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="modal-label">Last Name</div>
-      <input class="modal-input" id="edit-lname" placeholder="Last Name"/>
+
+    <!-- Theme -->
+    <div class="settings-section">
+      <div class="settings-head">🎨 <span data-t="theme_lbl"></span></div>
+      <div class="settings-row" onclick="toggleDark()">
+        <span class="settings-label" data-t="dark_mode_lbl"></span>
+        <span class="settings-value" id="dark-status"></span>
+      </div>
     </div>
-    <div>
-      <div class="modal-label">Bio (apne baare mein kuch likho)</div>
-      <input class="modal-input" id="edit-bio" placeholder="e.g. Designer | Mumbai | Love coffee ☕"/>
-    </div>
-    <div>
-      <div class="modal-label">Username (@handle)</div>
-      <input class="modal-input" id="edit-handle" placeholder="e.g. sajeet123"/>
-    </div>
-    <button class="modal-save-btn" onclick="saveProfile()">💾 Save Changes</button>
-    <button class="modal-cancel-btn" onclick="closeEditModal()">Cancel</button>
+
+    <button class="modal-cancel-btn" onclick="closeSettings()" data-t="close_btn"></button>
   </div>
 </div>
 
@@ -345,7 +390,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, doc, updateDoc, increment, query, orderBy, onSnapshot, serverTimestamp, setDoc, getDoc, getDocs, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, doc, updateDoc, increment, query, orderBy, onSnapshot, serverTimestamp, setDoc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const app = initializeApp({
     apiKey: "AIzaSyDj4aolC2isMJrsU3inZupbL7gqIfKJqrA",
@@ -359,211 +404,551 @@
   const db = getFirestore(app);
   const gProvider = new GoogleAuthProvider();
 
-  // ── Google Sign In ──
   window.signInWithGoogle = async () => {
     try {
-      showToast('Google khul raha hai...');
+      showToast(t('connecting'));
       const r = await signInWithPopup(auth, gProvider);
       const user = r.user;
-      const snap = await getDoc(doc(db, 'users', user.uid));
-      if (snap.exists()) {
-        await handleUser(user, 'google');
-      } else {
+      const snap = await getDoc(doc(db,'users',user.uid));
+      if (snap.exists()) { await handleUser(user,'google'); }
+      else {
         window._pendingGoogleUser = user;
         const parts = (user.displayName||'').split(' ');
         document.getElementById('su-fname').value = parts[0]||'';
         document.getElementById('su-lname').value = parts.slice(1).join(' ')||'';
-        const emailInput = document.getElementById('su-email');
-        emailInput.style.display = 'none';
-        emailInput.value = user.email;
-        const banner = document.getElementById('google-banner');
-        banner.style.display = 'flex';
-        document.getElementById('google-banner-name').textContent = user.displayName||'';
-        document.getElementById('google-banner-email').textContent = user.email||'';
-        const img = document.getElementById('google-banner-img');
-        if (user.photoURL) { img.src = user.photoURL; img.style.display = 'block'; }
-        agreed = false;
-        document.getElementById('agree-box').classList.remove('checked');
-        checkSignupForm();
-        showScreen('signup');
+        const ei = document.getElementById('su-email');
+        ei.style.display='none'; ei.value=user.email;
+        const bn = document.getElementById('google-banner');
+        bn.style.display='flex';
+        document.getElementById('google-banner-name').textContent=user.displayName||'';
+        document.getElementById('google-banner-email').textContent=user.email||'';
+        const img=document.getElementById('google-banner-img');
+        if(user.photoURL){img.src=user.photoURL;img.style.display='block';}
+        agreed=false; document.getElementById('agree-box').classList.remove('checked');
+        checkSignupForm(); showScreen('signup');
       }
-    } catch(e) { showToast('❌ ' + (e.code === 'auth/popup-closed-by-user' ? 'Popup band ho gaya' : e.message)); }
+    } catch(e){showToast('❌ '+(e.code==='auth/popup-closed-by-user'?t('popup_closed'):e.message));}
   };
 
-  // ── Create Account ──
   window.createAccount = async () => {
-    const fn = document.getElementById('su-fname').value.trim();
-    const ln = document.getElementById('su-lname').value.trim();
-    const pass = document.getElementById('su-pass').value;
-    const err = document.getElementById('su-err');
+    const fn=document.getElementById('su-fname').value.trim(), ln=document.getElementById('su-lname').value.trim();
+    const pass=document.getElementById('su-pass').value, err=document.getElementById('su-err');
     try {
-      document.getElementById('confirm-btn').textContent = 'Creating...';
-      document.getElementById('confirm-btn').disabled = true;
-      if (window._pendingGoogleUser) {
-        const user = window._pendingGoogleUser;
-        window._pendingGoogleUser = null;
-        document.getElementById('su-email').style.display = 'block';
-        document.getElementById('google-banner').style.display = 'none';
-        await handleUser(user, 'google', fn + ' ' + ln);
-        return;
+      document.getElementById('confirm-btn').textContent=t('creating'); document.getElementById('confirm-btn').disabled=true;
+      if(window._pendingGoogleUser){
+        const user=window._pendingGoogleUser; window._pendingGoogleUser=null;
+        document.getElementById('su-email').style.display='block';
+        document.getElementById('google-banner').style.display='none';
+        await handleUser(user,'google',fn+' '+ln); return;
       }
-      const email = document.getElementById('su-email').value.trim();
-      const r = await createUserWithEmailAndPassword(auth, email, pass);
-      await updateProfile(r.user, { displayName: fn + ' ' + ln });
-      await handleUser(r.user, 'email');
-    } catch(e) {
-      err.style.display = 'block';
-      err.textContent = e.code === 'auth/email-already-in-use' ? '⚠️ Email pehle se registered hai!' : e.code === 'auth/weak-password' ? '⚠️ Password kam se kam 6 characters!' : e.message;
-      document.getElementById('confirm-btn').textContent = 'Confirm & Continue →';
-      document.getElementById('confirm-btn').disabled = false;
+      const email=document.getElementById('su-email').value.trim();
+      const r=await createUserWithEmailAndPassword(auth,email,pass);
+      await updateProfile(r.user,{displayName:fn+' '+ln});
+      await handleUser(r.user,'email');
+    } catch(e){
+      err.style.display='block';
+      err.textContent=e.code==='auth/email-already-in-use'?t('email_exists'):e.code==='auth/weak-password'?t('weak_pass'):e.message;
+      document.getElementById('confirm-btn').textContent=t('confirm_btn'); document.getElementById('confirm-btn').disabled=false;
     }
   };
 
-  // ── Sign In ──
   window.signInWithEmail = async () => {
-    const email = document.getElementById('si-email').value.trim();
-    const pass = document.getElementById('si-pass').value;
-    const err = document.getElementById('si-err');
+    const email=document.getElementById('si-email').value.trim(), pass=document.getElementById('si-pass').value;
+    const err=document.getElementById('si-err');
     try {
-      document.getElementById('signin-btn').textContent = 'Signing in...';
-      document.getElementById('signin-btn').disabled = true;
-      await signInWithEmailAndPassword(auth, email, pass);
-    } catch(e) {
-      err.style.display = 'block';
-      err.textContent = '⚠️ Email ya password galat hai!';
-      document.getElementById('signin-btn').textContent = 'Sign In →';
-      document.getElementById('signin-btn').disabled = false;
+      document.getElementById('signin-btn').textContent=t('signing_in'); document.getElementById('signin-btn').disabled=true;
+      await signInWithEmailAndPassword(auth,email,pass);
+    } catch(e){
+      err.style.display='block'; err.textContent='⚠️ '+t('wrong_creds');
+      document.getElementById('signin-btn').textContent=t('signin_btn'); document.getElementById('signin-btn').disabled=false;
     }
   };
 
   window.forgotPassword = async () => {
-    const email = document.getElementById('si-email').value.trim();
-    if (!email) { showToast('Pehle email daalo!'); return; }
-    try { await sendPasswordResetEmail(auth, email); showToast('Reset email bhej diya! 📧'); }
-    catch(e) { showToast('Error: ' + e.message); }
+    const email=document.getElementById('si-email').value.trim();
+    if(!email){showToast(t('enter_email_first'));return;}
+    try{await sendPasswordResetEmail(auth,email);showToast(t('reset_sent'));}
+    catch(e){showToast('Error: '+e.message);}
   };
 
   window.logOut = async () => {
     await signOut(auth);
-    if (window.unsubPosts) window.unsubPosts();
-    toggleSideMenu();
-    showScreen('login');
-    showToast('Logged out! 👋');
+    if(window.unsubPosts)window.unsubPosts();
+    toggleSideMenu(); showScreen('login'); showToast(t('logged_out'));
   };
 
-  // ── Handle User ──
   async function handleUser(user, loginType, overrideName) {
-    const name = overrideName || user.displayName || user.email.split('@')[0];
-    const uid = user.uid;
-    const joined = new Date().toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'});
-    const ref = doc(db, 'users', uid);
-    const snap = await getDoc(ref);
-    let bio = '', handle = '@'+name.toLowerCase().replace(/\s+/g,'');
-    if (!snap.exists()) {
-      await setDoc(ref, { name, email: user.email, picture: user.photoURL||'', loginType, joined, handle, bio: '' });
+    const name=overrideName||user.displayName||user.email.split('@')[0];
+    const uid=user.uid;
+    const joined=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+    const ref=doc(db,'users',uid); const snap=await getDoc(ref);
+    let bio='', handle='@'+name.toLowerCase().replace(/\s+/g,'');
+    if(!snap.exists()){
+      await setDoc(ref,{name,email:user.email,picture:user.photoURL||'',loginType,joined,handle,bio:''});
     } else {
-      const d = snap.data();
-      if (d.joined) window._joined = d.joined; else window._joined = joined;
-      bio = d.bio || '';
-      handle = d.handle || handle;
+      const d=snap.data();
+      if(d.joined)window._joined=d.joined; else window._joined=joined;
+      bio=d.bio||''; handle=d.handle||handle;
     }
-    window.currentUser = { name, initials: getInitials(name), picture: user.photoURL||'', email: user.email, uid, loginType, joined: window._joined || joined, bio, handle };
-    updateProfileUI();
-    showScreen('feed');
-    startListening();
-    showToast('Welcome, ' + name.split(' ')[0] + '! 🎉');
+    window.currentUser={name,initials:getInitials(name),picture:user.photoURL||'',email:user.email,uid,loginType,joined:window._joined||joined,bio,handle};
+    updateProfileUI(); showScreen('feed'); startListening();
+    showToast(t('welcome_msg').replace('{name}',name.split(' ')[0]));
   }
 
-  // ── Auth Observer ──
-  onAuthStateChanged(auth, user => {
-    if (user) handleUser(user, user.providerData[0]?.providerId==='google.com'?'google':'email');
-    else if (document.getElementById('screen-loading').classList.contains('active')) showScreen('login');
+  onAuthStateChanged(auth,user=>{
+    if(user) handleUser(user,user.providerData[0]?.providerId==='google.com'?'google':'email');
+    else if(document.getElementById('screen-loading').classList.contains('active')) showScreen('login');
   });
 
-  // ── Save Post ──
   window.savePost = async txt => {
-    const u = window.currentUser;
-    await addDoc(collection(db,'posts'), {
-      content: txt,
-      authorName: u.name,
-      authorHandle: u.handle || '@'+u.name.toLowerCase().replace(/\s+/g,''),
-      authorInitials: u.initials,
-      authorPicture: u.picture,
-      authorEmail: u.email,
-      authorUid: u.uid,
-      likes: 0,
-      views: 0,
-      replyCount: 0,
-      createdAt: serverTimestamp()
-    });
+    const u=window.currentUser;
+    await addDoc(collection(db,'posts'),{content:txt,authorName:u.name,authorHandle:u.handle||('@'+u.name.toLowerCase().replace(/\s+/g,'')),authorInitials:u.initials,authorPicture:u.picture,authorEmail:u.email,authorUid:u.uid,likes:0,views:0,replyCount:0,createdAt:serverTimestamp()});
   };
-
-  // ── Like Post ──
-  window.likePost = async (id, liked) => {
-    await updateDoc(doc(db,'posts',id), { likes: increment(liked?-1:1) });
+  window.likePost = async(id,liked)=>await updateDoc(doc(db,'posts',id),{likes:increment(liked?-1:1)});
+  window.incrementView = async id=>await updateDoc(doc(db,'posts',id),{views:increment(1)});
+  window.addReply = async(postId,text)=>{
+    const u=window.currentUser;
+    await addDoc(collection(db,'posts',postId,'replies'),{text:text.trim(),authorName:u.name,authorHandle:u.handle||('@'+u.name.toLowerCase().replace(/\s+/g,'')),authorInitials:u.initials,authorPicture:u.picture,authorUid:u.uid,createdAt:serverTimestamp()});
+    await updateDoc(doc(db,'posts',postId),{replyCount:increment(1)});
   };
-
-  // ── Increment Views ──
-  window.incrementView = async (id) => {
-    await updateDoc(doc(db,'posts',id), { views: increment(1) });
+  window.loadReplies = async postId=>{
+    const snap=await getDocs(query(collection(db,'posts',postId,'replies'),orderBy('createdAt','asc')));
+    return snap.docs.map(d=>({id:d.id,...d.data()}));
   };
-
-  // ── Add Reply ──
-  window.addReply = async (postId, text) => {
-    const u = window.currentUser;
-    if (!u || !text.trim()) return;
-    const replyRef = collection(db, 'posts', postId, 'replies');
-    await addDoc(replyRef, {
-      text: text.trim(),
-      authorName: u.name,
-      authorHandle: u.handle || '@'+u.name.toLowerCase().replace(/\s+/g,''),
-      authorInitials: u.initials,
-      authorPicture: u.picture,
-      authorUid: u.uid,
-      createdAt: serverTimestamp()
-    });
-    await updateDoc(doc(db,'posts',postId), { replyCount: increment(1) });
-  };
-
-  // ── Load Replies ──
-  window.loadReplies = async (postId) => {
-    const snap = await getDocs(query(collection(db,'posts',postId,'replies'), orderBy('createdAt','asc')));
-    return snap.docs.map(d => ({id: d.id, ...d.data()}));
-  };
-
-  // ── Listen Posts ──
-  window.startListening = function() {
-    if (window.unsubPosts) window.unsubPosts();
-    const q = query(collection(db,'posts'), orderBy('createdAt','desc'));
-    window.unsubPosts = onSnapshot(q, snap => {
-      window.allPosts = snap.docs.map(d => ({id:d.id,...d.data()}));
+  window.startListening = ()=>{
+    if(window.unsubPosts)window.unsubPosts();
+    window.unsubPosts=onSnapshot(query(collection(db,'posts'),orderBy('createdAt','desc')),snap=>{
+      window.allPosts=snap.docs.map(d=>({id:d.id,...d.data()}));
       renderPosts(window.allPosts);
     });
   };
-
-  // ── Save Profile ──
-  window.saveProfileFirestore = async (data) => {
-    const uid = window.currentUser.uid;
-    await updateDoc(doc(db,'users',uid), data);
-    // Also update posts authored by this user
-    if (data.name) {
-      await updateProfile(auth.currentUser, { displayName: data.name });
-    }
+  window.saveProfileFirestore = async data=>{
+    await updateDoc(doc(db,'users',window.currentUser.uid),data);
+    if(data.name&&auth.currentUser) await updateProfile(auth.currentUser,{displayName:data.name});
   };
-
-  // ── Search Posts (real) ──
-  window.doSearch = function(q) {
-    if (!q.trim()) return [];
-    const lower = q.toLowerCase();
-    return (window.allPosts||[]).filter(p =>
-      (p.content||'').toLowerCase().includes(lower) ||
-      (p.authorName||'').toLowerCase().includes(lower) ||
-      (p.authorHandle||'').toLowerCase().includes(lower)
-    );
+  window.doSearch = q=>{
+    const lower=q.toLowerCase();
+    return(window.allPosts||[]).filter(p=>(p.content||'').toLowerCase().includes(lower)||(p.authorName||'').toLowerCase().includes(lower)||(p.authorHandle||'').toLowerCase().includes(lower));
   };
 </script>
 
 <script>
+// ═══════════════════════════════════════════
+// TRANSLATIONS
+// ═══════════════════════════════════════════
+const LANGS = {
+  en_us: {
+    name:'English (US)', rtl:false,
+    login_sub:'Share your world. Connect deeper.',
+    google_btn:'Continue with Google', email_btn:'Sign in with Email',
+    create_btn:'Create account', or:'or',
+    terms_pre:"By continuing, you agree to NeonP's", terms_link1:'Terms', terms_and:'and', terms_link2:'Privacy Policy',
+    signup_title:'Create your account', signup_sub:'One step to join NeonP',
+    fname:'First Name', lname:'Last Name', email_ph:'Email Address',
+    create_pass:'Create Password', reenter_pass:'Re-enter Password',
+    agree_txt:"I agree to NeonP's Terms of Service, Privacy Policy, and Community Guidelines.",
+    confirm_btn:'Confirm & Continue →', google_signup:'Sign up with Google instead',
+    welcome:'Welcome back', signin_sub:'Sign in to NeonP',
+    signin_btn:'Sign In →', google_signin:'Sign in with Google', forgot:'Forgot password?',
+    home:'Home', search_tab:'Search', profile_tab:'Profile',
+    whats_happening:"What's happening?", post_btn:'Post',
+    settings_lbl:'Settings', bookmarks_lbl:'Bookmarks', notif_lbl:'Notifications', logout_lbl:'Log out',
+    personal_details:'🔐 Personal Details', full_name_lbl:'Full Name', email_lbl:'Email',
+    password_lbl:'Password', login_type_lbl:'Login Type', member_since_lbl:'Member since',
+    edit_profile_btn:'✏️ Edit Profile', edit_profile_title:'Edit Profile',
+    bio_lbl:'Bio', bio_ph:'e.g. Designer | Mumbai | Love coffee ☕',
+    username_lbl:'Username (@handle)', username_ph:'e.g. sajeet123',
+    save_changes:'💾 Save Changes', cancel_btn:'Cancel', close_btn:'Close',
+    search_ph:'Search posts, people...', change_cover:'Change cover photo', change:'Change',
+    following_lbl:'Following', posts_lbl:'Posts',
+    settings_title:'Settings', language_lbl:'Language', theme_lbl:'Theme',
+    dark_mode_lbl:'Dark Mode', on:'On', off:'Off',
+    connecting:'Opening Google...', popup_closed:'Popup was closed',
+    creating:'Creating...', signing_in:'Signing in...',
+    email_exists:'⚠️ This email is already registered!', weak_pass:'⚠️ Password must be at least 6 characters!',
+    wrong_creds:'Incorrect email or password!', enter_email_first:'Please enter your email first!',
+    reset_sent:'Reset email sent! 📧 Check your inbox!', logged_out:'Logged out! 👋',
+    welcome_msg:'Welcome, {name}! 🎉', post_done:'Posted! ✅',
+    reply_done:'Reply posted! 💬', link_copied:'Link copied! 📋',
+    profile_saved:'Profile updated! ✅', avatar_saved:'Profile photo updated! ✅',
+    cover_saved:'Cover photo updated! 🎨', no_posts:'Be the first to post! 🚀',
+    no_replies:'No replies yet. Be the first! 💬', no_results:'No results found 🔍',
+    loading_posts:'Loading posts...', search_hint:'Search posts or people 🔍',
+    write_something:'Write something first! ✍️', img_too_large:'Image must be under 2MB!',
+    lang_changed:'Language changed! 🌐',
+  },
+  en_uk: {
+    name:'English (UK)', rtl:false,
+    login_sub:'Share your world. Connect deeper.',
+    google_btn:'Continue with Google', email_btn:'Sign in with Email',
+    create_btn:'Create account', or:'or',
+    terms_pre:"By continuing, you agree to NeonP's", terms_link1:'Terms', terms_and:'and', terms_link2:'Privacy Policy',
+    signup_title:'Create your account', signup_sub:'One step to join NeonP',
+    fname:'First Name', lname:'Last Name', email_ph:'Email Address',
+    create_pass:'Create Password', reenter_pass:'Re-enter Password',
+    agree_txt:"I agree to NeonP's Terms of Service, Privacy Policy, and Community Guidelines.",
+    confirm_btn:'Confirm & Continue →', google_signup:'Sign up with Google instead',
+    welcome:'Welcome back', signin_sub:'Sign in to NeonP',
+    signin_btn:'Sign In →', google_signin:'Sign in with Google', forgot:'Forgot your password?',
+    home:'Home', search_tab:'Search', profile_tab:'Profile',
+    whats_happening:"What's on your mind?", post_btn:'Post',
+    settings_lbl:'Settings', bookmarks_lbl:'Bookmarks', notif_lbl:'Notifications', logout_lbl:'Log out',
+    personal_details:'🔐 Personal Details', full_name_lbl:'Full Name', email_lbl:'Email',
+    password_lbl:'Password', login_type_lbl:'Login Type', member_since_lbl:'Member since',
+    edit_profile_btn:'✏️ Edit Profile', edit_profile_title:'Edit Profile',
+    bio_lbl:'Bio', bio_ph:'e.g. Designer | London | Love tea ☕',
+    username_lbl:'Username (@handle)', username_ph:'e.g. sajeet123',
+    save_changes:'💾 Save Changes', cancel_btn:'Cancel', close_btn:'Close',
+    search_ph:'Search posts, people...', change_cover:'Change cover photo', change:'Change',
+    following_lbl:'Following', posts_lbl:'Posts',
+    settings_title:'Settings', language_lbl:'Language', theme_lbl:'Theme',
+    dark_mode_lbl:'Dark Mode', on:'On', off:'Off',
+    connecting:'Opening Google...', popup_closed:'Popup was closed',
+    creating:'Creating...', signing_in:'Signing in...',
+    email_exists:'⚠️ This email is already registered!', weak_pass:'⚠️ Password must be at least 6 characters!',
+    wrong_creds:'Incorrect email or password!', enter_email_first:'Please enter your email first!',
+    reset_sent:'Reset email sent! 📧 Check your inbox!', logged_out:'Logged out! 👋',
+    welcome_msg:'Welcome, {name}! 🎉', post_done:'Posted! ✅',
+    reply_done:'Reply posted! 💬', link_copied:'Link copied! 📋',
+    profile_saved:'Profile updated! ✅', avatar_saved:'Profile photo updated! ✅',
+    cover_saved:'Cover photo updated! 🎨', no_posts:'Be the first to post! 🚀',
+    no_replies:'No replies yet. Be the first! 💬', no_results:'No results found 🔍',
+    loading_posts:'Loading posts...', search_hint:'Search posts or people 🔍',
+    write_something:'Write something first! ✍️', img_too_large:'Image must be under 2MB!',
+    lang_changed:'Language changed! 🌐',
+  },
+  hi: {
+    name:'हिंदी', rtl:false,
+    login_sub:'अपनी दुनिया साझा करें। गहराई से जुड़ें।',
+    google_btn:'Google से जारी रखें', email_btn:'ईमेल से साइन इन करें',
+    create_btn:'खाता बनाएं', or:'या',
+    terms_pre:"जारी रखकर, आप NeonP की", terms_link1:'शर्तों', terms_and:'और', terms_link2:'गोपनीयता नीति',
+    signup_title:'अपना खाता बनाएं', signup_sub:'NeonP से जुड़ने का एक कदम',
+    fname:'पहला नाम', lname:'अंतिम नाम', email_ph:'ईमेल पता',
+    create_pass:'पासवर्ड बनाएं', reenter_pass:'पासवर्ड दोबारा डालें',
+    agree_txt:"मैं NeonP की सेवा शर्तों, गोपनीयता नीति और सामुदायिक दिशानिर्देशों से सहमत हूं।",
+    confirm_btn:'पुष्टि करें →', google_signup:'Google से साइन अप करें',
+    welcome:'वापस स्वागत है', signin_sub:'NeonP में साइन इन करें',
+    signin_btn:'साइन इन →', google_signin:'Google से साइन इन करें', forgot:'पासवर्ड भूल गए?',
+    home:'होम', search_tab:'खोज', profile_tab:'प्रोफ़ाइल',
+    whats_happening:"क्या हो रहा है?", post_btn:'पोस्ट करें',
+    settings_lbl:'सेटिंग्स', bookmarks_lbl:'बुकमार्क', notif_lbl:'सूचनाएं', logout_lbl:'लॉग आउट',
+    personal_details:'🔐 व्यक्तिगत विवरण', full_name_lbl:'पूरा नाम', email_lbl:'ईमेल',
+    password_lbl:'पासवर्ड', login_type_lbl:'लॉगिन प्रकार', member_since_lbl:'सदस्य बने',
+    edit_profile_btn:'✏️ प्रोफ़ाइल संपादित करें', edit_profile_title:'प्रोफ़ाइल संपादित करें',
+    bio_lbl:'बायो', bio_ph:'जैसे: डिज़ाइनर | मुंबई | चाय पसंद ☕',
+    username_lbl:'यूज़रनेम (@हैंडल)', username_ph:'जैसे: sajeet123',
+    save_changes:'💾 बदलाव सहेजें', cancel_btn:'रद्द करें', close_btn:'बंद करें',
+    search_ph:'पोस्ट, लोग खोजें...', change_cover:'कवर फोटो बदलें', change:'बदलें',
+    following_lbl:'फॉलोइंग', posts_lbl:'पोस्ट',
+    settings_title:'सेटिंग्स', language_lbl:'भाषा', theme_lbl:'थीम',
+    dark_mode_lbl:'डार्क मोड', on:'चालू', off:'बंद',
+    connecting:'Google खुल रहा है...', popup_closed:'पॉपअप बंद हो गया',
+    creating:'बना रहे हैं...', signing_in:'साइन इन हो रहा है...',
+    email_exists:'⚠️ यह ईमेल पहले से पंजीकृत है!', weak_pass:'⚠️ पासवर्ड कम से कम 6 अक्षर का होना चाहिए!',
+    wrong_creds:'ईमेल या पासवर्ड गलत है!', enter_email_first:'पहले ईमेल डालें!',
+    reset_sent:'रीसेट ईमेल भेज दिया! 📧 इनबॉक्स देखें!', logged_out:'लॉग आउट हो गए! 👋',
+    welcome_msg:'स्वागत है, {name}! 🎉', post_done:'पोस्ट हो गया! ✅',
+    reply_done:'रिप्लाई हो गया! 💬', link_copied:'लिंक कॉपी हो गया! 📋',
+    profile_saved:'प्रोफ़ाइल अपडेट हो गई! ✅', avatar_saved:'प्रोफ़ाइल फोटो अपडेट हो गई! ✅',
+    cover_saved:'कवर फोटो अपडेट हो गी! 🎨', no_posts:'पहली पोस्ट आप करें! 🚀',
+    no_replies:'अभी कोई रिप्लाई नहीं। पहले आप करें! 💬', no_results:'कोई परिणाम नहीं मिला 🔍',
+    loading_posts:'पोस्ट लोड हो रहे हैं...', search_hint:'पोस्ट या लोग खोजें 🔍',
+    write_something:'पहले कुछ लिखें! ✍️', img_too_large:'इमेज 2MB से छोटी होनी चाहिए!',
+    lang_changed:'भाषा बदल गई! 🌐',
+  },
+  hinglish: {
+    name:'Hinglish', rtl:false,
+    login_sub:'Apni duniya share karo. Gehraai se judo.',
+    google_btn:'Google se continue karo', email_btn:'Email se sign in karo',
+    create_btn:'Account banao', or:'ya',
+    terms_pre:"Continue karke aap NeonP ki", terms_link1:'Terms', terms_and:'aur', terms_link2:'Privacy Policy',
+    signup_title:'Apna account banao', signup_sub:'NeonP join karne ka ek kadam',
+    fname:'Pehla Naam', lname:'Aakhri Naam', email_ph:'Email Address',
+    create_pass:'Password banao', reenter_pass:'Password dobara likho',
+    agree_txt:"Main NeonP ki Terms of Service, Privacy Policy aur Community Guidelines se raazi hoon.",
+    confirm_btn:'Confirm karo →', google_signup:'Google se sign up karo',
+    welcome:'Wapas aagaye!', signin_sub:'NeonP mein sign in karo',
+    signin_btn:'Sign In karo →', google_signin:'Google se sign in karo', forgot:'Password bhool gaye?',
+    home:'Home', search_tab:'Search', profile_tab:'Profile',
+    whats_happening:"Kya ho raha hai?", post_btn:'Post karo',
+    settings_lbl:'Settings', bookmarks_lbl:'Bookmarks', notif_lbl:'Notifications', logout_lbl:'Log out',
+    personal_details:'🔐 Personal Details', full_name_lbl:'Poora Naam', email_lbl:'Email',
+    password_lbl:'Password', login_type_lbl:'Login Type', member_since_lbl:'Member bane',
+    edit_profile_btn:'✏️ Profile Edit karo', edit_profile_title:'Profile Edit karo',
+    bio_lbl:'Bio', bio_ph:'Jaise: Designer | Mumbai | Coffee pasand ☕',
+    username_lbl:'Username (@handle)', username_ph:'Jaise: sajeet123',
+    save_changes:'💾 Changes save karo', cancel_btn:'Cancel', close_btn:'Band karo',
+    search_ph:'Posts ya log search karo...', change_cover:'Cover photo badlo', change:'Badlo',
+    following_lbl:'Following', posts_lbl:'Posts',
+    settings_title:'Settings', language_lbl:'Language', theme_lbl:'Theme',
+    dark_mode_lbl:'Dark Mode', on:'On', off:'Off',
+    connecting:'Google khul raha hai...', popup_closed:'Popup band ho gaya',
+    creating:'Ban raha hai...', signing_in:'Sign in ho raha hai...',
+    email_exists:'⚠️ Yeh email pehle se registered hai!', weak_pass:'⚠️ Password kam se kam 6 characters ka hona chahiye!',
+    wrong_creds:'Email ya password galat hai!', enter_email_first:'Pehle email daalo!',
+    reset_sent:'Reset email bhej diya! 📧 Inbox dekho!', logged_out:'Logged out! 👋',
+    welcome_msg:'Welcome, {name}! 🎉', post_done:'Post ho gaya! ✅',
+    reply_done:'Reply ho gaya! 💬', link_copied:'Link copy ho gaya! 📋',
+    profile_saved:'Profile update ho gaya! ✅', avatar_saved:'Profile photo update ho gaya! ✅',
+    cover_saved:'Cover photo update ho gaya! 🎨', no_posts:'Pehli post aap karo! 🚀',
+    no_replies:'Koi reply nahi abhi. Pehle aap karo! 💬', no_results:'Koi result nahi mila 🔍',
+    loading_posts:'Posts load ho rahe hain...', search_hint:'Posts ya log search karo 🔍',
+    write_something:'Kuch likho pehle! ✍️', img_too_large:'Image 2MB se chhoti honi chahiye!',
+    lang_changed:'Language badal gayi! 🌐',
+  },
+  ja: {
+    name:'日本語', rtl:false,
+    login_sub:'あなたの世界をシェアしよう。深くつながろう。',
+    google_btn:'Googleで続ける', email_btn:'メールでサインイン',
+    create_btn:'アカウント作成', or:'または',
+    terms_pre:"続けることで、NeonPの", terms_link1:'利用規約', terms_and:'および', terms_link2:'プライバシーポリシー',
+    signup_title:'アカウントを作成', signup_sub:'NeonPへの一歩',
+    fname:'名', lname:'姓', email_ph:'メールアドレス',
+    create_pass:'パスワードを作成', reenter_pass:'パスワードを再入力',
+    agree_txt:"NeonPの利用規約、プライバシーポリシー、コミュニティガイドラインに同意します。",
+    confirm_btn:'確認して続ける →', google_signup:'Googleで登録',
+    welcome:'おかえりなさい', signin_sub:'NeonPにサインイン',
+    signin_btn:'サインイン →', google_signin:'Googleでサインイン', forgot:'パスワードを忘れましたか？',
+    home:'ホーム', search_tab:'検索', profile_tab:'プロフィール',
+    whats_happening:"今何してる？", post_btn:'投稿',
+    settings_lbl:'設定', bookmarks_lbl:'ブックマーク', notif_lbl:'通知', logout_lbl:'ログアウト',
+    personal_details:'🔐 個人情報', full_name_lbl:'フルネーム', email_lbl:'メール',
+    password_lbl:'パスワード', login_type_lbl:'ログインタイプ', member_since_lbl:'メンバー登録日',
+    edit_profile_btn:'✏️ プロフィール編集', edit_profile_title:'プロフィール編集',
+    bio_lbl:'自己紹介', bio_ph:'例：デザイナー | 東京 | コーヒー好き ☕',
+    username_lbl:'ユーザー名 (@ハンドル)', username_ph:'例：sajeet123',
+    save_changes:'💾 保存', cancel_btn:'キャンセル', close_btn:'閉じる',
+    search_ph:'投稿・ユーザーを検索...', change_cover:'カバー写真を変更', change:'変更',
+    following_lbl:'フォロー中', posts_lbl:'投稿',
+    settings_title:'設定', language_lbl:'言語', theme_lbl:'テーマ',
+    dark_mode_lbl:'ダークモード', on:'オン', off:'オフ',
+    connecting:'Googleを開いています...', popup_closed:'ポップアップが閉じられました',
+    creating:'作成中...', signing_in:'サインイン中...',
+    email_exists:'⚠️ このメールは既に登録済みです！', weak_pass:'⚠️ パスワードは6文字以上必要です！',
+    wrong_creds:'メールまたはパスワードが間違っています！', enter_email_first:'まずメールを入力してください！',
+    reset_sent:'リセットメールを送信しました！ 📧', logged_out:'ログアウトしました！ 👋',
+    welcome_msg:'{name}さん、ようこそ！ 🎉', post_done:'投稿しました！ ✅',
+    reply_done:'返信しました！ 💬', link_copied:'リンクをコピーしました！ 📋',
+    profile_saved:'プロフィールを更新しました！ ✅', avatar_saved:'プロフィール写真を更新しました！ ✅',
+    cover_saved:'カバー写真を更新しました！ 🎨', no_posts:'最初の投稿をしてみましょう！ 🚀',
+    no_replies:'まだ返信がありません。最初に返信しましょう！ 💬', no_results:'結果が見つかりません 🔍',
+    loading_posts:'投稿を読み込み中...', search_hint:'投稿やユーザーを検索 🔍',
+    write_something:'まず何か書いてください！ ✍️', img_too_large:'画像は2MB未満にしてください！',
+    lang_changed:'言語が変更されました！ 🌐',
+  },
+  zh: {
+    name:'中文', rtl:false,
+    login_sub:'分享你的世界。深度连接。',
+    google_btn:'使用Google继续', email_btn:'使用邮箱登录',
+    create_btn:'创建账户', or:'或',
+    terms_pre:"继续即表示您同意NeonP的", terms_link1:'服务条款', terms_and:'和', terms_link2:'隐私政策',
+    signup_title:'创建您的账户', signup_sub:'加入NeonP只需一步',
+    fname:'名字', lname:'姓氏', email_ph:'电子邮箱',
+    create_pass:'创建密码', reenter_pass:'重新输入密码',
+    agree_txt:"我同意NeonP的服务条款、隐私政策和社区准则。",
+    confirm_btn:'确认并继续 →', google_signup:'使用Google注册',
+    welcome:'欢迎回来', signin_sub:'登录NeonP',
+    signin_btn:'登录 →', google_signin:'使用Google登录', forgot:'忘记密码？',
+    home:'主页', search_tab:'搜索', profile_tab:'个人资料',
+    whats_happening:"发生了什么？", post_btn:'发布',
+    settings_lbl:'设置', bookmarks_lbl:'书签', notif_lbl:'通知', logout_lbl:'退出登录',
+    personal_details:'🔐 个人详情', full_name_lbl:'全名', email_lbl:'邮箱',
+    password_lbl:'密码', login_type_lbl:'登录类型', member_since_lbl:'加入时间',
+    edit_profile_btn:'✏️ 编辑个人资料', edit_profile_title:'编辑个人资料',
+    bio_lbl:'简介', bio_ph:'例如：设计师 | 上海 | 爱喝咖啡 ☕',
+    username_lbl:'用户名 (@句柄)', username_ph:'例如：sajeet123',
+    save_changes:'💾 保存更改', cancel_btn:'取消', close_btn:'关闭',
+    search_ph:'搜索帖子、用户...', change_cover:'更换封面照片', change:'更换',
+    following_lbl:'关注中', posts_lbl:'帖子',
+    settings_title:'设置', language_lbl:'语言', theme_lbl:'主题',
+    dark_mode_lbl:'深色模式', on:'开', off:'关',
+    connecting:'正在打开Google...', popup_closed:'弹窗已关闭',
+    creating:'创建中...', signing_in:'登录中...',
+    email_exists:'⚠️ 该邮箱已被注册！', weak_pass:'⚠️ 密码至少需要6个字符！',
+    wrong_creds:'邮箱或密码错误！', enter_email_first:'请先输入邮箱！',
+    reset_sent:'重置邮件已发送！ 📧', logged_out:'已退出登录！ 👋',
+    welcome_msg:'欢迎, {name}！ 🎉', post_done:'发布成功！ ✅',
+    reply_done:'回复成功！ 💬', link_copied:'链接已复制！ 📋',
+    profile_saved:'个人资料已更新！ ✅', avatar_saved:'头像已更新！ ✅',
+    cover_saved:'封面照片已更新！ 🎨', no_posts:'成为第一个发帖的人！ 🚀',
+    no_replies:'还没有回复。成为第一个！ 💬', no_results:'未找到结果 🔍',
+    loading_posts:'正在加载帖子...', search_hint:'搜索帖子或用户 🔍',
+    write_something:'请先写点什么！ ✍️', img_too_large:'图片必须小于2MB！',
+    lang_changed:'语言已更改！ 🌐',
+  },
+  tr: {
+    name:'Türkçe', rtl:false,
+    login_sub:'Dünyanı paylaş. Daha derin bağlan.',
+    google_btn:"Google ile devam et", email_btn:'E-posta ile giriş yap',
+    create_btn:'Hesap oluştur', or:'veya',
+    terms_pre:"Devam ederek NeonP'nin", terms_link1:'Şartlarını', terms_and:'ve', terms_link2:'Gizlilik Politikasını',
+    signup_title:'Hesabını oluştur', signup_sub:"NeonP'ye katılmak için bir adım",
+    fname:'Ad', lname:'Soyad', email_ph:'E-posta Adresi',
+    create_pass:'Şifre oluştur', reenter_pass:'Şifreyi tekrar gir',
+    agree_txt:"NeonP Hizmet Şartlarını, Gizlilik Politikasını ve Topluluk Yönergelerini kabul ediyorum.",
+    confirm_btn:'Onayla ve Devam Et →', google_signup:"Google ile kayıt ol",
+    welcome:'Tekrar hoş geldiniz', signin_sub:"NeonP'ye giriş yap",
+    signin_btn:'Giriş Yap →', google_signin:'Google ile giriş yap', forgot:'Şifreni mi unuttun?',
+    home:'Ana Sayfa', search_tab:'Ara', profile_tab:'Profil',
+    whats_happening:"Ne oluyor?", post_btn:'Paylaş',
+    settings_lbl:'Ayarlar', bookmarks_lbl:'Yer İmleri', notif_lbl:'Bildirimler', logout_lbl:'Çıkış Yap',
+    personal_details:'🔐 Kişisel Bilgiler', full_name_lbl:'Tam Ad', email_lbl:'E-posta',
+    password_lbl:'Şifre', login_type_lbl:'Giriş Türü', member_since_lbl:'Üyelik tarihi',
+    edit_profile_btn:'✏️ Profili Düzenle', edit_profile_title:'Profili Düzenle',
+    bio_lbl:'Biyografi', bio_ph:'Örn: Tasarımcı | İstanbul | Kahve sever ☕',
+    username_lbl:'Kullanıcı adı (@handle)', username_ph:'Örn: sajeet123',
+    save_changes:'💾 Değişiklikleri Kaydet', cancel_btn:'İptal', close_btn:'Kapat',
+    search_ph:'Gönderi, kişi ara...', change_cover:'Kapak fotoğrafını değiştir', change:'Değiştir',
+    following_lbl:'Takip Edilenler', posts_lbl:'Gönderiler',
+    settings_title:'Ayarlar', language_lbl:'Dil', theme_lbl:'Tema',
+    dark_mode_lbl:'Karanlık Mod', on:'Açık', off:'Kapalı',
+    connecting:"Google açılıyor...", popup_closed:'Açılır pencere kapatıldı',
+    creating:'Oluşturuluyor...', signing_in:'Giriş yapılıyor...',
+    email_exists:'⚠️ Bu e-posta zaten kayıtlı!', weak_pass:'⚠️ Şifre en az 6 karakter olmalı!',
+    wrong_creds:'E-posta veya şifre yanlış!', enter_email_first:'Önce e-postanı gir!',
+    reset_sent:'Sıfırlama e-postası gönderildi! 📧', logged_out:'Çıkış yapıldı! 👋',
+    welcome_msg:'Hoş geldin, {name}! 🎉', post_done:'Paylaşıldı! ✅',
+    reply_done:'Yanıtlandı! 💬', link_copied:'Bağlantı kopyalandı! 📋',
+    profile_saved:'Profil güncellendi! ✅', avatar_saved:'Profil fotoğrafı güncellendi! ✅',
+    cover_saved:'Kapak fotoğrafı güncellendi! 🎨', no_posts:'İlk gönderiyi sen yap! 🚀',
+    no_replies:'Henüz yanıt yok. İlk sen ol! 💬', no_results:'Sonuç bulunamadı 🔍',
+    loading_posts:'Gönderiler yükleniyor...', search_hint:'Gönderi veya kişi ara 🔍',
+    write_something:'Önce bir şeyler yaz! ✍️', img_too_large:'Resim 2MB altında olmalı!',
+    lang_changed:'Dil değiştirildi! 🌐',
+  },
+  ar: {
+    name:'العربية', rtl:true,
+    login_sub:'شارك عالمك. تواصل بعمق.',
+    google_btn:'متابعة مع Google', email_btn:'تسجيل الدخول بالبريد الإلكتروني',
+    create_btn:'إنشاء حساب', or:'أو',
+    terms_pre:"بالمتابعة، أنت توافق على", terms_link1:'شروط NeonP', terms_and:'و', terms_link2:'سياسة الخصوصية',
+    signup_title:'إنشاء حسابك', signup_sub:'خطوة واحدة للانضمام إلى NeonP',
+    fname:'الاسم الأول', lname:'اسم العائلة', email_ph:'البريد الإلكتروني',
+    create_pass:'إنشاء كلمة مرور', reenter_pass:'إعادة إدخال كلمة المرور',
+    agree_txt:"أوافق على شروط خدمة NeonP وسياسة الخصوصية وإرشادات المجتمع.",
+    confirm_btn:'تأكيد والمتابعة →', google_signup:'التسجيل بـ Google',
+    welcome:'مرحباً بعودتك', signin_sub:'تسجيل الدخول إلى NeonP',
+    signin_btn:'تسجيل الدخول →', google_signin:'تسجيل الدخول بـ Google', forgot:'نسيت كلمة المرور؟',
+    home:'الرئيسية', search_tab:'بحث', profile_tab:'الملف الشخصي',
+    whats_happening:"ما الذي يحدث؟", post_btn:'نشر',
+    settings_lbl:'الإعدادات', bookmarks_lbl:'الإشارات المرجعية', notif_lbl:'الإشعارات', logout_lbl:'تسجيل الخروج',
+    personal_details:'🔐 التفاصيل الشخصية', full_name_lbl:'الاسم الكامل', email_lbl:'البريد الإلكتروني',
+    password_lbl:'كلمة المرور', login_type_lbl:'نوع تسجيل الدخول', member_since_lbl:'عضو منذ',
+    edit_profile_btn:'✏️ تعديل الملف الشخصي', edit_profile_title:'تعديل الملف الشخصي',
+    bio_lbl:'نبذة', bio_ph:'مثال: مصمم | دبي | أحب القهوة ☕',
+    username_lbl:'اسم المستخدم (@المعرف)', username_ph:'مثال: sajeet123',
+    save_changes:'💾 حفظ التغييرات', cancel_btn:'إلغاء', close_btn:'إغلاق',
+    search_ph:'ابحث عن منشورات، أشخاص...', change_cover:'تغيير صورة الغلاف', change:'تغيير',
+    following_lbl:'يتابع', posts_lbl:'منشورات',
+    settings_title:'الإعدادات', language_lbl:'اللغة', theme_lbl:'المظهر',
+    dark_mode_lbl:'الوضع الداكن', on:'تشغيل', off:'إيقاف',
+    connecting:'فتح Google...', popup_closed:'تم إغلاق النافذة المنبثقة',
+    creating:'جارٍ الإنشاء...', signing_in:'جارٍ تسجيل الدخول...',
+    email_exists:'⚠️ هذا البريد الإلكتروني مسجل مسبقاً!', weak_pass:'⚠️ يجب أن تكون كلمة المرور 6 أحرف على الأقل!',
+    wrong_creds:'البريد الإلكتروني أو كلمة المرور غير صحيحة!', enter_email_first:'أدخل بريدك الإلكتروني أولاً!',
+    reset_sent:'تم إرسال بريد إعادة التعيين! 📧', logged_out:'تم تسجيل الخروج! 👋',
+    welcome_msg:'مرحباً، {name}! 🎉', post_done:'تم النشر! ✅',
+    reply_done:'تم الرد! 💬', link_copied:'تم نسخ الرابط! 📋',
+    profile_saved:'تم تحديث الملف الشخصي! ✅', avatar_saved:'تم تحديث صورة الملف الشخصي! ✅',
+    cover_saved:'تم تحديث صورة الغلاف! 🎨', no_posts:'كن أول من ينشر! 🚀',
+    no_replies:'لا ردود بعد. كن الأول! 💬', no_results:'لم يتم العثور على نتائج 🔍',
+    loading_posts:'جارٍ تحميل المنشورات...', search_hint:'ابحث عن منشورات أو أشخاص 🔍',
+    write_something:'اكتب شيئاً أولاً! ✍️', img_too_large:'يجب أن تكون الصورة أقل من 2MB!',
+    lang_changed:'تم تغيير اللغة! 🌐',
+  },
+  ur: {
+    name:'اردو', rtl:true,
+    login_sub:'اپنی دنیا شیئر کریں۔ گہرائی سے جڑیں۔',
+    google_btn:'Google سے جاری رکھیں', email_btn:'ای میل سے سائن ان کریں',
+    create_btn:'اکاؤنٹ بنائیں', or:'یا',
+    terms_pre:"جاری رکھ کر، آپ NeonP کی", terms_link1:'شرائط', terms_and:'اور', terms_link2:'رازداری کی پالیسی',
+    signup_title:'اپنا اکاؤنٹ بنائیں', signup_sub:'NeonP میں شامل ہونے کا ایک قدم',
+    fname:'پہلا نام', lname:'آخری نام', email_ph:'ای میل پتہ',
+    create_pass:'پاسورڈ بنائیں', reenter_pass:'پاسورڈ دوبارہ لکھیں',
+    agree_txt:"میں NeonP کی سروس کی شرائط، رازداری کی پالیسی اور کمیونٹی رہنما اصولوں سے متفق ہوں۔",
+    confirm_btn:'تصدیق کریں →', google_signup:'Google سے سائن اپ کریں',
+    welcome:'واپس خوش آمدید', signin_sub:'NeonP میں سائن ان کریں',
+    signin_btn:'سائن ان کریں →', google_signin:'Google سے سائن ان کریں', forgot:'پاسورڈ بھول گئے؟',
+    home:'ہوم', search_tab:'تلاش', profile_tab:'پروفائل',
+    whats_happening:"کیا ہو رہا ہے؟", post_btn:'پوسٹ کریں',
+    settings_lbl:'سیٹنگز', bookmarks_lbl:'بک مارکس', notif_lbl:'اطلاعات', logout_lbl:'لاگ آؤٹ',
+    personal_details:'🔐 ذاتی تفصیلات', full_name_lbl:'پورا نام', email_lbl:'ای میل',
+    password_lbl:'پاسورڈ', login_type_lbl:'لاگ ان کی قسم', member_since_lbl:'ممبر بنے',
+    edit_profile_btn:'✏️ پروفائل تبدیل کریں', edit_profile_title:'پروفائل تبدیل کریں',
+    bio_lbl:'بائیو', bio_ph:'مثلاً: ڈیزائنر | کراچی | چائے پسند ☕',
+    username_lbl:'یوزرنیم (@ہینڈل)', username_ph:'مثلاً: sajeet123',
+    save_changes:'💾 تبدیلیاں محفوظ کریں', cancel_btn:'منسوخ', close_btn:'بند کریں',
+    search_ph:'پوسٹس، لوگ تلاش کریں...', change_cover:'کور فوٹو تبدیل کریں', change:'تبدیل کریں',
+    following_lbl:'فالو کر رہے ہیں', posts_lbl:'پوسٹس',
+    settings_title:'سیٹنگز', language_lbl:'زبان', theme_lbl:'تھیم',
+    dark_mode_lbl:'ڈارک موڈ', on:'آن', off:'آف',
+    connecting:'Google کھل رہا ہے...', popup_closed:'پاپ اپ بند ہو گیا',
+    creating:'بن رہا ہے...', signing_in:'سائن ان ہو رہا ہے...',
+    email_exists:'⚠️ یہ ای میل پہلے سے رجسٹرڈ ہے!', weak_pass:'⚠️ پاسورڈ کم از کم 6 حروف کا ہونا چاہیے!',
+    wrong_creds:'ای میل یا پاسورڈ غلط ہے!', enter_email_first:'پہلے ای میل ڈالیں!',
+    reset_sent:'ری سیٹ ای میل بھیج دی! 📧', logged_out:'لاگ آؤٹ ہو گئے! 👋',
+    welcome_msg:'خوش آمدید، {name}! 🎉', post_done:'پوسٹ ہو گئی! ✅',
+    reply_done:'جواب دے دیا! 💬', link_copied:'لنک کاپی ہو گیا! 📋',
+    profile_saved:'پروفائل اپڈیٹ ہو گئی! ✅', avatar_saved:'پروفائل فوٹو اپڈیٹ ہو گئی! ✅',
+    cover_saved:'کور فوٹو اپڈیٹ ہو گئی! 🎨', no_posts:'پہلی پوسٹ آپ کریں! 🚀',
+    no_replies:'ابھی کوئی جواب نہیں۔ پہلے آپ کریں! 💬', no_results:'کوئی نتیجہ نہیں ملا 🔍',
+    loading_posts:'پوسٹس لوڈ ہو رہی ہیں...', search_hint:'پوسٹس یا لوگ تلاش کریں 🔍',
+    write_something:'پہلے کچھ لکھیں! ✍️', img_too_large:'تصویر 2MB سے چھوٹی ہونی چاہیے!',
+    lang_changed:'زبان تبدیل ہو گئی! 🌐',
+  },
+};
+
+// ═══════════════════════════════════════════
+// LANGUAGE ENGINE
+// ═══════════════════════════════════════════
+let currentLang = localStorage.getItem('np_lang') || 'en_us';
+
+function t(key) { return (LANGS[currentLang]||LANGS.en_us)[key] || LANGS.en_us[key] || key; }
+
+function applyLang() {
+  const L = LANGS[currentLang] || LANGS.en_us;
+  // RTL
+  document.body.classList.toggle('rtl', !!L.rtl);
+  document.documentElement.setAttribute('dir', L.rtl ? 'rtl' : 'ltr');
+  // data-t elements
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (L[key] !== undefined) el.textContent = L[key];
+  });
+  // data-ph placeholders
+  document.querySelectorAll('[data-ph]').forEach(el => {
+    const key = el.getAttribute('data-ph');
+    if (L[key] !== undefined) el.placeholder = L[key];
+  });
+  // Feed title
+  const tab = document.querySelector('.nav-btn.active');
+  if (tab) {
+    const id = tab.id;
+    if (id==='nav-home') document.getElementById('feed-title').textContent = L.home;
+    else if (id==='nav-search') document.getElementById('feed-title').textContent = L.search_tab;
+    else if (id==='nav-profile') document.getElementById('feed-title').textContent = L.profile_tab;
+  }
+  // Dark status
+  const ds = document.getElementById('dark-status');
+  if (ds) ds.textContent = isDark ? L.on : L.off;
+  // Active lang button
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    const lang = b.getAttribute('onclick').match(/'(\w+)'/)[1];
+    b.classList.toggle('active', lang === currentLang);
+  });
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('np_lang', lang);
+  applyLang();
+  showToast(t('lang_changed'));
+}
+
+// ═══════════════════════════════════════════
+// CORE APP
+// ═══════════════════════════════════════════
 let isDark=false, agreed=false;
 let likedPosts = JSON.parse(localStorage.getItem('np_liked')||'{}');
 let viewedPosts = JSON.parse(localStorage.getItem('np_viewed')||'{}');
@@ -571,13 +956,25 @@ window.currentUser = null;
 window.allPosts = [];
 
 window.addEventListener('load', () => {
+  applyLang();
   setTimeout(()=>{ document.getElementById('logoWrap').classList.add('show'); document.getElementById('logoFrom').classList.add('show'); }, 100);
   setTimeout(()=>{ if(document.getElementById('screen-loading').classList.contains('active')) showScreen('login'); }, 3000);
   document.getElementById('feed-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+  // Init search hint
+  const sr = document.getElementById('search-results');
+  if (sr) sr.innerHTML = `<div class="search-empty">${t('search_hint')}</div>`;
 });
 
 function showScreen(n) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-'+n).classList.add('active'); }
-function toggleDark() { isDark=!isDark; document.body.classList.toggle('dark',isDark); document.querySelectorAll('.dark-toggle').forEach(b=>b.textContent=isDark?'☀️ Light':'🌙 Dark'); }
+
+function toggleDark() {
+  isDark=!isDark;
+  document.body.classList.toggle('dark',isDark);
+  document.querySelectorAll('.dark-toggle').forEach(b=>b.textContent=isDark?'☀️ Light':'🌙 Dark');
+  const ds=document.getElementById('dark-status');
+  if(ds) ds.textContent = isDark ? t('on') : t('off');
+}
+
 function toggleAgree() { agreed=!agreed; document.getElementById('agree-box').classList.toggle('checked',agreed); checkSignupForm(); }
 function getInitials(n){ return (n||'U').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
 
@@ -585,8 +982,8 @@ function checkSignupForm() {
   const fn=document.getElementById('su-fname').value.trim(), ln=document.getElementById('su-lname').value.trim();
   const em=document.getElementById('su-email').value.trim(), pw=document.getElementById('su-pass').value, rp=document.getElementById('su-repass').value;
   const err=document.getElementById('su-err'), mis=rp.length>0&&pw!==rp;
-  err.style.display=mis?'block':'none'; err.textContent=mis?"Passwords don't match!":'';
-  const emailOk = window._pendingGoogleUser || em;
+  err.style.display=mis?'block':'none'; err.textContent=mis?t('pass_mismatch'):'';
+  const emailOk=window._pendingGoogleUser||em;
   document.getElementById('confirm-btn').disabled=!(fn&&ln&&emailOk&&pw&&rp&&pw===rp&&agreed);
 }
 
@@ -598,191 +995,235 @@ function checkSigninForm() {
 function updateProfileUI() {
   const u=window.currentUser; if(!u) return;
   const av=u.picture?`<img src="${u.picture}"/>`:(u.initials||'YO');
-  document.getElementById('profile-avatar').innerHTML=av;
-  document.getElementById('compose-avatar').innerHTML=u.picture?`<img src="${u.picture}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"/>`:(u.initials||'YO');
+  document.getElementById('profile-avatar').innerHTML=av+`<div class="upload-hint">📷<br>${t('change')}</div><input type="file" id="avatar-upload" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)"/>`;
+  document.getElementById('compose-avatar').innerHTML=u.picture?`<img src="${u.picture}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;"/>`:(u.initials||'YO');
   document.getElementById('profile-name').textContent=u.name;
   document.getElementById('profile-handle').textContent=u.handle||('@'+u.name.toLowerCase().replace(/\s+/g,''));
   document.getElementById('profile-bio').textContent=u.bio||'';
   document.getElementById('detail-name').textContent=u.name;
   document.getElementById('detail-email').textContent=u.email;
-  document.getElementById('detail-password').textContent=u.loginType==='google'?'🔒 Google se secured':'•••••••• (encrypted)';
+  document.getElementById('detail-password').textContent=u.loginType==='google'?'🔒 Google':t('password_lbl')+' ••••••••';
   document.getElementById('detail-logintype').textContent=u.loginType==='google'?'🟢 Google Account':'📧 Email/Password';
   document.getElementById('detail-joined').textContent=u.joined||'—';
+  setTimeout(loadSavedImages, 100);
 }
 
 function renderPosts(posts, container) {
   const c=document.getElementById(container||'posts-container'); if(!c) return;
-  if (!container) document.getElementById('posts-count').textContent=posts.filter(p=>p.authorUid===window.currentUser?.uid).length;
-  if(!posts.length){c.innerHTML=`<div class="loading-posts">${container?'Koi result nahi mila 🔍':'Pehli post aap karo 🚀'}</div>`;return;}
+  if(!container) document.getElementById('posts-count').textContent=posts.filter(p=>p.authorUid===window.currentUser?.uid).length;
+  if(!posts.length){c.innerHTML=`<div class="loading-posts">${container?t('no_results'):t('no_posts')}</div>`;return;}
   c.innerHTML=posts.map(p=>{
     const liked=!!likedPosts[p.id];
     const av=p.authorPicture?`<img src="${p.authorPicture}"/>`:(p.authorInitials||'U');
-    const t=p.createdAt?getTimeAgo(p.createdAt.toDate?p.createdAt.toDate():new Date()):'now';
-    const replyCount=p.replyCount||0;
+    const ti=p.createdAt?getTimeAgo(p.createdAt.toDate?p.createdAt.toDate():new Date()):'now';
+    const rc=p.replyCount||0;
     return `<div class="post-item" id="post-${p.id}">
       <div class="avatar">${av}</div>
       <div style="flex:1;">
-        <div class="post-meta">
-          <span class="post-name">${escHtml(p.authorName||'User')}</span>
-          <span class="post-handle">${escHtml(p.authorHandle||'')}</span>
-          <span class="post-time">· ${t}</span>
-        </div>
+        <div class="post-meta"><span class="post-name">${escHtml(p.authorName||'User')}</span><span class="post-handle">${escHtml(p.authorHandle||'')}</span><span class="post-time">· ${ti}</span></div>
         <p class="post-content">${escHtml(p.content)}</p>
         <div class="post-actions">
           <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${p.id}',${liked})">${liked?'♥':'♡'} ${p.likes||0}</button>
-          <button class="action-btn" onclick="toggleReply('${p.id}')">💬 ${replyCount}</button>
+          <button class="action-btn" onclick="toggleReply('${p.id}')">💬 ${rc}</button>
           <span class="action-btn" style="cursor:default;">👁 ${p.views||0}</span>
-          <button class="action-btn" onclick="sharePost('${p.id}')">↑ Share</button>
+          <button class="action-btn" onclick="sharePost()">↑ Share</button>
         </div>
         <div class="reply-box" id="reply-box-${p.id}">
           <div class="reply-input-row">
-            <textarea class="reply-input" id="reply-input-${p.id}" placeholder="Reply likho..." rows="2"></textarea>
-            <button class="reply-send-btn" onclick="submitReply('${p.id}')">Send</button>
+            <textarea class="reply-input" id="reply-input-${p.id}" placeholder="${t('reply_placeholder')}" rows="2"></textarea>
+            <button class="reply-send-btn" onclick="submitReply('${p.id}')">${t('send_btn')||'Send'}</button>
           </div>
-          <div id="replies-list-${p.id}"><div style="text-align:center;padding:10px;color:var(--subtext);font-size:13px;">Loading replies...</div></div>
+          <div id="replies-list-${p.id}"><div style="text-align:center;padding:10px;color:var(--subtext);font-size:13px;">${t('loading_posts')}</div></div>
         </div>
       </div>
     </div>`;
   }).join('');
-  // Track views for visible posts
-  if (!container) trackViews(posts);
+  if(!container) trackViews(posts);
 }
 
-function escHtml(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+// Add missing translation keys
+LANGS.en_us.reply_placeholder = 'Write a reply...';
+LANGS.en_us.send_btn = 'Send';
+LANGS.en_uk.reply_placeholder = 'Write a reply...';
+LANGS.en_uk.send_btn = 'Send';
+LANGS.hi.reply_placeholder = 'जवाब लिखें...';
+LANGS.hi.send_btn = 'भेजें';
+LANGS.hinglish.reply_placeholder = 'Reply likho...';
+LANGS.hinglish.send_btn = 'Bhejo';
+LANGS.ja.reply_placeholder = '返信を書く...';
+LANGS.ja.send_btn = '送信';
+LANGS.zh.reply_placeholder = '写回复...';
+LANGS.zh.send_btn = '发送';
+LANGS.tr.reply_placeholder = 'Yanıt yaz...';
+LANGS.tr.send_btn = 'Gönder';
+LANGS.ar.reply_placeholder = 'اكتب ردًا...';
+LANGS.ar.send_btn = 'إرسال';
+LANGS.ur.reply_placeholder = 'جواب لکھیں...';
+LANGS.ur.send_btn = 'بھیجیں';
+LANGS.en_us.pass_mismatch = "Passwords don't match!";
+LANGS.en_uk.pass_mismatch = "Passwords don't match!";
+LANGS.hi.pass_mismatch = "पासवर्ड मेल नहीं खाते!";
+LANGS.hinglish.pass_mismatch = "Passwords match nahi kar rahe!";
+LANGS.ja.pass_mismatch = "パスワードが一致しません！";
+LANGS.zh.pass_mismatch = "密码不匹配！";
+LANGS.tr.pass_mismatch = "Şifreler eşleşmiyor!";
+LANGS.ar.pass_mismatch = "كلمات المرور غير متطابقة!";
+LANGS.ur.pass_mismatch = "پاسورڈ میل نہیں کھاتے!";
 
-function trackViews(posts) {
-  setTimeout(()=>{
-    posts.forEach(p=>{
-      if(!viewedPosts[p.id]){
-        viewedPosts[p.id]=true;
-        localStorage.setItem('np_viewed',JSON.stringify(viewedPosts));
-        if(window.incrementView) window.incrementView(p.id);
-      }
-    });
-  }, 2000);
+function escHtml(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function trackViews(posts){
+  setTimeout(()=>{posts.forEach(p=>{if(!viewedPosts[p.id]){viewedPosts[p.id]=true;localStorage.setItem('np_viewed',JSON.stringify(viewedPosts));if(window.incrementView)window.incrementView(p.id);}});},2000);
 }
 
 function getTimeAgo(d){const s=Math.floor((Date.now()-d)/1000);if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
 
-async function toggleLike(id,liked){
-  likedPosts[id]=!liked;
-  localStorage.setItem('np_liked',JSON.stringify(likedPosts));
-  if(window.likePost) await window.likePost(id,liked);
-}
+async function toggleLike(id,liked){likedPosts[id]=!liked;localStorage.setItem('np_liked',JSON.stringify(likedPosts));if(window.likePost)await window.likePost(id,liked);}
 
 async function addPost(){
   const ta=document.getElementById('compose-text'),txt=ta.value.trim();
-  if(!txt){showToast('Kuch likho pehle! ✍️');return;}
+  if(!txt){showToast(t('write_something'));return;}
   ta.value='';
-  if(window.savePost) await window.savePost(txt);
-  showToast('Post ho gaya! ✅');
+  if(window.savePost)await window.savePost(txt);
+  showToast(t('post_done'));
 }
 
-// ── REPLY ──
-async function toggleReply(postId) {
-  const box = document.getElementById('reply-box-'+postId);
-  const isOpen = box.classList.contains('open');
-  // Close all other reply boxes
+async function toggleReply(postId){
+  const box=document.getElementById('reply-box-'+postId);
+  const isOpen=box.classList.contains('open');
   document.querySelectorAll('.reply-box.open').forEach(b=>b.classList.remove('open'));
-  if (!isOpen) {
+  if(!isOpen){
     box.classList.add('open');
-    // Load replies
-    const replies = await window.loadReplies(postId);
-    renderReplies(postId, replies);
+    const replies=await window.loadReplies(postId);
+    renderReplies(postId,replies);
     document.getElementById('reply-input-'+postId).focus();
   }
 }
 
-function renderReplies(postId, replies) {
-  const c = document.getElementById('replies-list-'+postId);
-  if (!replies.length) { c.innerHTML='<div style="text-align:center;padding:8px;color:var(--subtext);font-size:13px;">Koi reply nahi abhi. Pehle reply karo! 💬</div>'; return; }
-  c.innerHTML = replies.map(r=>{
+function renderReplies(postId,replies){
+  const c=document.getElementById('replies-list-'+postId);
+  if(!replies.length){c.innerHTML=`<div style="text-align:center;padding:8px;color:var(--subtext);font-size:13px;">${t('no_replies')}</div>`;return;}
+  c.innerHTML=replies.map(r=>{
     const av=r.authorPicture?`<img src="${r.authorPicture}"/>`:(r.authorInitials||'U');
-    const t=r.createdAt?getTimeAgo(r.createdAt.toDate?r.createdAt.toDate():new Date()):'now';
-    return `<div class="reply-item">
-      <div class="reply-avatar">${av}</div>
-      <div style="flex:1;">
-        <span class="reply-name">${escHtml(r.authorName||'User')}</span>
-        <span class="reply-time">· ${t}</span>
-        <div class="reply-text">${escHtml(r.text)}</div>
-      </div>
-    </div>`;
+    const ti=r.createdAt?getTimeAgo(r.createdAt.toDate?r.createdAt.toDate():new Date()):'now';
+    return `<div class="reply-item"><div class="reply-avatar">${av}</div><div style="flex:1;"><span class="reply-name">${escHtml(r.authorName||'User')}</span><span class="reply-time">· ${ti}</span><div class="reply-text">${escHtml(r.text)}</div></div></div>`;
   }).join('');
 }
 
-async function submitReply(postId) {
-  const input = document.getElementById('reply-input-'+postId);
-  const txt = input.value.trim();
-  if (!txt) return;
-  input.value = '';
-  await window.addReply(postId, txt);
-  const replies = await window.loadReplies(postId);
-  renderReplies(postId, replies);
-  showToast('Reply ho gaya! 💬');
+async function submitReply(postId){
+  const input=document.getElementById('reply-input-'+postId);
+  const txt=input.value.trim(); if(!txt)return;
+  input.value='';
+  await window.addReply(postId,txt);
+  const replies=await window.loadReplies(postId);
+  renderReplies(postId,replies);
+  showToast(t('reply_done'));
 }
 
-// ── SEARCH (REAL) ──
-function searchPosts(q) {
-  const r = document.getElementById('search-results');
-  if (!q.trim()) { r.innerHTML = '<div class="search-empty">Posts ya log search karo 🔍</div>'; return; }
-  const results = window.doSearch ? window.doSearch(q) : [];
-  if (!results.length) { r.innerHTML = `<div class="search-empty">❌ "${escHtml(q)}" ke liye koi result nahi</div>`; return; }
-  renderPosts(results, 'search-results');
+function searchPosts(q){
+  const r=document.getElementById('search-results');
+  if(!q.trim()){r.innerHTML=`<div class="search-empty">${t('search_hint')}</div>`;return;}
+  const results=window.doSearch?window.doSearch(q):[];
+  if(!results.length){r.innerHTML=`<div class="search-empty">❌ "${escHtml(q)}" — ${t('no_results')}</div>`;return;}
+  renderPosts(results,'search-results');
 }
 
-// ── SHARE ──
-function sharePost(id) {
-  const txt = `https://sajeetplannetagency-blip.github.io/NeonP`;
-  if(navigator.share) navigator.share({title:'NeonP Post', url: txt});
-  else { navigator.clipboard.writeText(txt); showToast('Link copy ho gaya! 📋'); }
+function sharePost(){
+  const url='https://sajeetplannetagency-blip.github.io/NeonP';
+  if(navigator.share)navigator.share({title:'NeonP',url});
+  else{navigator.clipboard.writeText(url);showToast(t('link_copied'));}
 }
 
-// ── PROFILE EDIT ──
-function openEditModal() {
-  const u = window.currentUser; if (!u) return;
-  const parts = u.name.split(' ');
-  document.getElementById('edit-fname').value = parts[0]||'';
-  document.getElementById('edit-lname').value = parts.slice(1).join(' ')||'';
-  document.getElementById('edit-bio').value = u.bio||'';
-  document.getElementById('edit-handle').value = (u.handle||'').replace('@','');
+function openEditModal(){
+  const u=window.currentUser; if(!u) return;
+  const parts=u.name.split(' ');
+  document.getElementById('edit-fname').value=parts[0]||'';
+  document.getElementById('edit-lname').value=parts.slice(1).join(' ')||'';
+  document.getElementById('edit-bio').value=u.bio||'';
+  document.getElementById('edit-handle').value=(u.handle||'').replace('@','');
   document.getElementById('edit-modal').classList.add('open');
 }
 
-function closeEditModal() { document.getElementById('edit-modal').classList.remove('open'); }
-function closeEditOnOverlay(e) { if(e.target===document.getElementById('edit-modal')) closeEditModal(); }
+function closeEditModal(){document.getElementById('edit-modal').classList.remove('open');}
+function closeEditOnOverlay(e){if(e.target===document.getElementById('edit-modal'))closeEditModal();}
 
-async function saveProfile() {
-  const fn = document.getElementById('edit-fname').value.trim();
-  const ln = document.getElementById('edit-lname').value.trim();
-  const bio = document.getElementById('edit-bio').value.trim();
-  const handle = '@' + document.getElementById('edit-handle').value.trim().replace('@','').replace(/\s+/g,'').toLowerCase();
-  if (!fn) { showToast('Naam daalo!'); return; }
-  const name = fn + (ln ? ' '+ln : '');
-  const data = { name, bio, handle };
-  window.currentUser.name = name;
-  window.currentUser.bio = bio;
-  window.currentUser.handle = handle;
-  window.currentUser.initials = getInitials(name);
-  updateProfileUI();
-  closeEditModal();
-  if (window.saveProfileFirestore) await window.saveProfileFirestore(data);
-  showToast('Profile update ho gaya! ✅');
+async function saveProfile(){
+  const fn=document.getElementById('edit-fname').value.trim();
+  const ln=document.getElementById('edit-lname').value.trim();
+  const bio=document.getElementById('edit-bio').value.trim();
+  const handle='@'+document.getElementById('edit-handle').value.trim().replace('@','').replace(/\s+/g,'').toLowerCase();
+  if(!fn){showToast(t('fname'));return;}
+  const name=fn+(ln?' '+ln:'');
+  window.currentUser.name=name; window.currentUser.bio=bio; window.currentUser.handle=handle; window.currentUser.initials=getInitials(name);
+  updateProfileUI(); closeEditModal();
+  if(window.saveProfileFirestore)await window.saveProfileFirestore({name,bio,handle});
+  showToast(t('profile_saved'));
 }
 
-function switchTab(t){
+function openSettings(){
+  toggleSideMenu();
+  const ds=document.getElementById('dark-status');
+  if(ds)ds.textContent=isDark?t('on'):t('off');
+  document.getElementById('settings-modal').classList.add('open');
+}
+function closeSettings(){document.getElementById('settings-modal').classList.remove('open');}
+function closeSettingsOnOverlay(e){if(e.target===document.getElementById('settings-modal'))closeSettings();}
+
+function switchTab(tab){
   document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-btn[id^="nav-"]').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
-  document.getElementById('nav-'+t).classList.add('active');
-  document.getElementById('feed-title').textContent={home:'Home',search:'Search',profile:'Profile'}[t];
-  if (t==='search') {
-    const q = document.getElementById('search-input').value;
-    if (!q) document.getElementById('search-results').innerHTML='<div class="search-empty">Posts ya log search karo 🔍</div>';
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('nav-'+tab).classList.add('active');
+  const titles={home:t('home'),search:t('search_tab'),profile:t('profile_tab')};
+  document.getElementById('feed-title').textContent=titles[tab]||tab;
+  if(tab==='search'){const q=document.getElementById('search-input').value;if(!q)document.getElementById('search-results').innerHTML=`<div class="search-empty">${t('search_hint')}</div>`;}
+}
+
+function triggerCoverUpload(){document.getElementById('cover-upload').click();}
+function handleCoverUpload(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=document.getElementById('cover-img');
+    img.src=ev.target.result; img.style.display='block';
+    localStorage.setItem('np_cover_'+window.currentUser?.uid,ev.target.result);
+    showToast(t('cover_saved'));
+  };
+  reader.readAsDataURL(file);
+}
+
+function triggerAvatarUpload(){document.getElementById('avatar-upload').click();}
+function handleAvatarUpload(e){
+  const file=e.target.files[0]; if(!file) return;
+  if(file.size>2*1024*1024){showToast(t('img_too_large'));return;}
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const imgData=ev.target.result;
+    const pa=document.getElementById('profile-avatar');
+    pa.innerHTML=`<img src="${imgData}" style="width:100%;height:100%;object-fit:cover;border-radius:15px;"/><div class="upload-hint">📷<br>${t('change')}</div><input type="file" id="avatar-upload" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)"/>`;
+    document.getElementById('compose-avatar').innerHTML=`<img src="${imgData}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;"/>`;
+    localStorage.setItem('np_avatar_'+window.currentUser?.uid,imgData);
+    window.currentUser.picture=imgData;
+    showToast(t('avatar_saved'));
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadSavedImages(){
+  const uid=window.currentUser?.uid; if(!uid) return;
+  const savedAvatar=localStorage.getItem('np_avatar_'+uid);
+  if(savedAvatar){
+    const pa=document.getElementById('profile-avatar');
+    pa.innerHTML=`<img src="${savedAvatar}" style="width:100%;height:100%;object-fit:cover;border-radius:15px;"/><div class="upload-hint">📷<br>${t('change')}</div><input type="file" id="avatar-upload" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)"/>`;
+    document.getElementById('compose-avatar').innerHTML=`<img src="${savedAvatar}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;"/>`;
+    window.currentUser.picture=savedAvatar;
   }
+  const savedCover=localStorage.getItem('np_cover_'+uid);
+  if(savedCover){const ci=document.getElementById('cover-img');if(ci){ci.src=savedCover;ci.style.display='block';}}
 }
 
 function toggleSideMenu(){document.getElementById('side-popup').classList.toggle('open');}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg){const t2=document.getElementById('toast');t2.textContent=msg;t2.classList.add('show');setTimeout(()=>t2.classList.remove('show'),2500);}
 document.addEventListener('click',e=>{const p=document.getElementById('side-popup'),b=document.getElementById('more-btn');if(p&&!p.contains(e.target)&&b&&!b.contains(e.target))p.classList.remove('open');});
 </script>
 </body>
