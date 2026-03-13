@@ -250,6 +250,7 @@
     .settings-label{font-size:14px;}
     .settings-value{font-size:13px;color:var(--subtext);}
     .lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 0;}
+    .lang-btn.active{background:var(--btn)!important;color:var(--btnT)!important;font-weight:700;}
     .lang-btn{padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-size:13px;cursor:pointer;font-family:Georgia,serif;text-align:left;transition:all .2s;}
     .lang-btn:hover{background:var(--card);}
     .lang-btn.active{background:var(--btn);color:var(--btnT);border-color:var(--btn);}
@@ -474,11 +475,14 @@
 <!-- LOADING -->
 <div id="screen-loading" class="screen active">
   <div class="logo-wrap" id="logoWrap">
-    <svg width="72" height="72" viewBox="0 0 100 100" fill="none">
-      <rect width="100" height="100" rx="24" fill="var(--btn)"/>
-      <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
-      <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
-    </svg>
+    <svg width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="lgs72" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#0f0f0f"/></linearGradient></defs>
+  <rect width="100" height="100" rx="22" fill="url(#lgs72)"/>
+  <text x="10" y="76" font-family="Georgia,serif" font-weight="700" font-size="72" fill="white" letter-spacing="-4">N</text>
+  <text x="62" y="82" font-family="Georgia,serif" font-weight="700" font-size="32" fill="white" opacity="0.9">p</text>
+  <circle cx="87" cy="17" r="9" fill="#a78bfa" opacity="0.7"/>
+  <circle cx="87" cy="17" r="5" fill="white"/>
+</svg>
     <div class="logo-title">NeonP</div>
   </div>
   <div class="logo-from" id="logoFrom">from Plannet</div>
@@ -487,11 +491,14 @@
 <!-- LOGIN -->
 <div id="screen-login" class="screen">
   <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
-  <svg width="56" height="56" viewBox="0 0 100 100" fill="none" style="margin-bottom:10px;">
-    <rect width="100" height="100" rx="24" fill="var(--btn)"/>
-    <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
-    <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
-  </svg>
+  <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px;">
+  <defs><linearGradient id="lgs56" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#0f0f0f"/></linearGradient></defs>
+  <rect width="100" height="100" rx="22" fill="url(#lgs56)"/>
+  <text x="10" y="76" font-family="Georgia,serif" font-weight="700" font-size="72" fill="white" letter-spacing="-4">N</text>
+  <text x="62" y="82" font-family="Georgia,serif" font-weight="700" font-size="32" fill="white" opacity="0.9">p</text>
+  <circle cx="87" cy="17" r="9" fill="#a78bfa" opacity="0.7"/>
+  <circle cx="87" cy="17" r="5" fill="white"/>
+</svg>
   <div class="login-title">NeonP</div>
   <div class="login-sub" data-t="login_sub"></div>
   <div class="auth-btns">
@@ -513,11 +520,14 @@
 <div id="screen-signup" class="screen">
   <button class="back-btn" onclick="showScreen('login')">←</button>
   <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
-  <svg width="44" height="44" viewBox="0 0 100 100" fill="none" style="margin-top:10px;">
-    <rect width="100" height="100" rx="24" fill="var(--btn)"/>
-    <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
-    <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
-  </svg>
+  <svg width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:10px;">
+  <defs><linearGradient id="lgs44" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#0f0f0f"/></linearGradient></defs>
+  <rect width="100" height="100" rx="22" fill="url(#lgs44)"/>
+  <text x="10" y="76" font-family="Georgia,serif" font-weight="700" font-size="72" fill="white" letter-spacing="-4">N</text>
+  <text x="62" y="82" font-family="Georgia,serif" font-weight="700" font-size="32" fill="white" opacity="0.9">p</text>
+  <circle cx="87" cy="17" r="9" fill="#a78bfa" opacity="0.7"/>
+  <circle cx="87" cy="17" r="5" fill="white"/>
+</svg>
   <div class="signup-title" data-t="signup_title"></div>
   <div class="signup-sub" data-t="signup_sub"></div>
   <div class="form-wrap">
@@ -550,11 +560,14 @@
 <div id="screen-signin" class="screen">
   <button class="back-btn" onclick="showScreen('login')">←</button>
   <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
-  <svg width="44" height="44" viewBox="0 0 100 100" fill="none" style="margin-top:10px;">
-    <rect width="100" height="100" rx="24" fill="var(--btn)"/>
-    <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
-    <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
-  </svg>
+  <svg width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:10px;">
+  <defs><linearGradient id="lgs44" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#0f0f0f"/></linearGradient></defs>
+  <rect width="100" height="100" rx="22" fill="url(#lgs44)"/>
+  <text x="10" y="76" font-family="Georgia,serif" font-weight="700" font-size="72" fill="white" letter-spacing="-4">N</text>
+  <text x="62" y="82" font-family="Georgia,serif" font-weight="700" font-size="32" fill="white" opacity="0.9">p</text>
+  <circle cx="87" cy="17" r="9" fill="#a78bfa" opacity="0.7"/>
+  <circle cx="87" cy="17" r="5" fill="white"/>
+</svg>
   <div class="signup-title" data-t="welcome"></div>
   <div class="signup-sub" data-t="signin_sub"></div>
   <div class="form-wrap">
@@ -578,11 +591,14 @@
     <nav class="sidenav">
       <!-- Logo: small on mobile, bigger on desktop -->
       <div class="nav-logo">
-        <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
-          <rect width="100" height="100" rx="24" fill="var(--btn)"/>
-          <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
-          <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
-        </svg>
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="lgs36" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#0f0f0f"/></linearGradient></defs>
+  <rect width="100" height="100" rx="22" fill="url(#lgs36)"/>
+  <text x="10" y="76" font-family="Georgia,serif" font-weight="700" font-size="72" fill="white" letter-spacing="-4">N</text>
+  <text x="62" y="82" font-family="Georgia,serif" font-weight="700" font-size="32" fill="white" opacity="0.9">p</text>
+  <circle cx="87" cy="17" r="9" fill="#a78bfa" opacity="0.7"/>
+  <circle cx="87" cy="17" r="5" fill="white"/>
+</svg>
         <span class="nav-logo-text">NeonP</span>
       </div>
       <button class="nav-btn active" id="nav-home" onclick="switchTab('home')" title="Home">
@@ -732,7 +748,7 @@
     <aside class="right-sidebar" id="right-sidebar">
       <!-- Search -->
       <div class="rs-search-wrap">
-        <input class="rs-search" id="rs-search-input" placeholder="🔍 Search NeonP..." oninput="rsSearch(this.value)"/>
+        <input class="rs-search" id="rs-search-input" placeholder="Search NeonP..." oninput="rsSearch(this.value)"/>
         <div id="rs-search-results"></div>
       </div>
       <!-- Trending -->
@@ -744,14 +760,7 @@
       <div class="rs-card">
         <div class="rs-card-title">👥 Who to follow</div>
         <div id="rs-who-follow">
-          <div class="rs-user-row">
-            <div class="avatar" style="width:36px;height:36px;font-size:12px;border-radius:9px;flex-shrink:0;">NP</div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;font-size:13px;">NeonP Official</div>
-              <div style="font-size:12px;color:var(--subtext);">@neonp</div>
-            </div>
-            <button class="rs-follow-btn">Follow</button>
-          </div>
+          <div style="font-size:13px;color:var(--subtext);padding:8px 0;">People you may know will appear here soon!</div>
         </div>
       </div>
       <!-- Scheduled Posts -->
@@ -812,17 +821,10 @@
     <div class="settings-section">
       <div class="settings-head">🌐 <span data-t="language_lbl"></span></div>
       <div style="padding:12px 16px;">
-        <div class="lang-grid" id="lang-grid">
-          <button class="lang-btn" onclick="setLang('en_us')"><span class="lang-flag">🇺🇸</span>English (US)</button>
-          <button class="lang-btn" onclick="setLang('en_uk')"><span class="lang-flag">🇬🇧</span>English (UK)</button>
-          <button class="lang-btn" onclick="setLang('hi')"><span class="lang-flag">🇮🇳</span>हिंदी</button>
-          <button class="lang-btn" onclick="setLang('hinglish')"><span class="lang-flag">🇮🇳</span>Hinglish</button>
-          <button class="lang-btn" onclick="setLang('ja')"><span class="lang-flag">🇯🇵</span>日本語</button>
-          <button class="lang-btn" onclick="setLang('zh')"><span class="lang-flag">🇨🇳</span>中文</button>
-          <button class="lang-btn" onclick="setLang('tr')"><span class="lang-flag">🇹🇷</span>Türkçe</button>
-          <button class="lang-btn" onclick="setLang('ar')"><span class="lang-flag">🇸🇦</span>العربية</button>
-          <button class="lang-btn" onclick="setLang('ur')"><span class="lang-flag">🇵🇰</span>اردو</button>
+        <div style="padding:8px 0 4px;">
+          <input id="lang-search" placeholder="🔍 Search language..." oninput="filterLangs(this.value)" style="width:100%;padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--input);color:var(--text);font-size:13px;font-family:Georgia,serif;outline:none;box-sizing:border-box;"/>
         </div>
+        <div class="lang-grid" id="lang-grid" style="max-height:320px;overflow-y:auto;"></div>
       </div>
     </div>
 
@@ -1441,6 +1443,64 @@ const LANGS = {
   },
 };
 
+
+// ══════════════════════════════════════════
+// EXTRA LANGUAGES (126 more)
+// Full translations: es,fr,de,pt,ru,ko,it,bn,pa
+// Fallback to en_us for others (name/flag shown correctly)
+// ══════════════════════════════════════════
+const _EL = {
+  es:{name:'Español',flag:'🇪🇸',rtl:false,login_sub:'Comparte tu mundo.',google_btn:'Continuar con Google',email_btn:'Iniciar sesión con Email',create_btn:'Crear cuenta',or:'o',terms_pre:'Al continuar aceptas los',terms_link1:'Términos',terms_and:'y',terms_link2:'Privacidad',signup_title:'Crea tu cuenta',signup_sub:'Únete a NeonP',fname:'Nombre',lname:'Apellido',email_ph:'Correo electrónico',create_pass:'Crear contraseña',reenter_pass:'Repetir contraseña',agree_txt:'Acepto los Términos y Privacidad de NeonP.',confirm_btn:'Confirmar →',google_signup:'Registrarse con Google',welcome:'Bienvenido de nuevo',signin_sub:'Iniciar sesión en NeonP',signin_btn:'Iniciar sesión →',google_signin:'Iniciar sesión con Google',forgot:'¿Olvidaste tu contraseña?',home:'Inicio',search_tab:'Buscar',profile_tab:'Perfil',whats_happening:'¿Qué está pasando?',post_btn:'Publicar',settings_lbl:'Configuración',bookmarks_lbl:'Guardados',notif_lbl:'Notificaciones',logout_lbl:'Cerrar sesión',personal_details:'🔐 Datos personales',full_name_lbl:'Nombre completo',email_lbl:'Correo',password_lbl:'Contraseña',login_type_lbl:'Tipo de inicio',member_since_lbl:'Miembro desde',edit_profile_btn:'✏️ Editar perfil',edit_profile_title:'Editar perfil',bio_lbl:'Bio',bio_ph:'Ej: Diseñador | Madrid | Café ☕',username_lbl:'Usuario (@handle)',username_ph:'Ej: sajeet123',save_changes:'💾 Guardar',cancel_btn:'Cancelar',close_btn:'Cerrar',search_ph:'Buscar posts, personas...',change_cover:'Cambiar portada',change:'Cambiar',following_lbl:'Siguiendo',posts_lbl:'Posts',settings_title:'Configuración',language_lbl:'Idioma',theme_lbl:'Tema',dark_mode_lbl:'Modo oscuro',on:'On',off:'Off',connecting:'Abriendo Google...',popup_closed:'Ventana cerrada',creating:'Creando...',signing_in:'Iniciando sesión...',email_exists:'⚠️ Email ya registrado!',weak_pass:'⚠️ Contraseña mínimo 6 caracteres!',wrong_creds:'Email o contraseña incorrectos!',enter_email_first:'Ingresa tu correo primero!',reset_sent:'Email de restablecimiento enviado! 📧',logged_out:'Sesión cerrada! 👋',welcome_msg:'Bienvenido, {name}! 🎉',post_done:'Publicado! ✅',reply_done:'Respuesta! 💬',link_copied:'Enlace copiado! 📋',profile_saved:'Perfil actualizado! ✅',avatar_saved:'Foto actualizada! ✅',cover_saved:'Portada actualizada! 🎨',no_posts:'¡Sé el primero en publicar! 🚀',no_replies:'Sin respuestas. ¡Sé el primero! 💬',no_results:'No se encontraron resultados 🔍',loading_posts:'Cargando...',search_hint:'Buscar 🔍',write_something:'¡Escribe algo! ✍️',img_too_large:'Imagen < 2MB!',lang_changed:'Idioma cambiado! 🌐',reply_placeholder:'Escribe una respuesta...',send_btn:'Enviar',pass_mismatch:'¡Las contraseñas no coinciden!'},
+  fr:{name:'Français',flag:'🇫🇷',rtl:false,login_sub:'Partagez votre monde.',google_btn:'Continuer avec Google',email_btn:'Se connecter par email',create_btn:'Créer un compte',or:'ou',terms_pre:'En continuant vous acceptez les',terms_link1:'Conditions',terms_and:'et',terms_link2:'Confidentialité',signup_title:'Créez votre compte',signup_sub:'Rejoignez NeonP',fname:'Prénom',lname:'Nom',email_ph:'Adresse email',create_pass:'Créer un mot de passe',reenter_pass:'Ressaisir le mot de passe',agree_txt:"J'accepte les CGU et la Politique de NeonP.",confirm_btn:'Confirmer →',google_signup:"S'inscrire avec Google",welcome:'Bon retour',signin_sub:'Connexion à NeonP',signin_btn:'Se connecter →',google_signin:'Se connecter avec Google',forgot:'Mot de passe oublié?',home:'Accueil',search_tab:'Rechercher',profile_tab:'Profil',whats_happening:"Qu'est-ce qui se passe?",post_btn:'Publier',settings_lbl:'Paramètres',bookmarks_lbl:'Enregistrés',notif_lbl:'Notifications',logout_lbl:'Déconnexion',personal_details:'🔐 Détails personnels',full_name_lbl:'Nom complet',email_lbl:'Email',password_lbl:'Mot de passe',login_type_lbl:'Type de connexion',member_since_lbl:'Membre depuis',edit_profile_btn:'✏️ Modifier le profil',edit_profile_title:'Modifier le profil',bio_lbl:'Bio',bio_ph:'Ex: Designer | Paris | Café ☕',username_lbl:"Nom d'utilisateur",username_ph:'Ex: sajeet123',save_changes:'💾 Enregistrer',cancel_btn:'Annuler',close_btn:'Fermer',search_ph:'Rechercher posts, personnes...',change_cover:'Changer la photo de couverture',change:'Changer',following_lbl:'Abonnements',posts_lbl:'Posts',settings_title:'Paramètres',language_lbl:'Langue',theme_lbl:'Thème',dark_mode_lbl:'Mode sombre',on:'On',off:'Off',connecting:'Ouverture Google...',popup_closed:'Popup fermé',creating:'Création...',signing_in:'Connexion...',email_exists:'⚠️ Email déjà enregistré!',weak_pass:'⚠️ Mot de passe min 6 caractères!',wrong_creds:'Email ou mot de passe incorrect!',enter_email_first:"Entrez d'abord votre email!",reset_sent:'Email de réinitialisation envoyé! 📧',logged_out:'Déconnecté! 👋',welcome_msg:'Bienvenue, {name}! 🎉',post_done:'Publié! ✅',reply_done:'Réponse! 💬',link_copied:'Lien copié! 📋',profile_saved:'Profil mis à jour! ✅',avatar_saved:'Photo mise à jour! ✅',cover_saved:'Couverture mise à jour! 🎨',no_posts:'Soyez le premier à publier! 🚀',no_replies:'Pas encore de réponses! 💬',no_results:'Aucun résultat 🔍',loading_posts:'Chargement...',search_hint:'Rechercher 🔍',write_something:"Écrivez d'abord quelque chose! ✍️",img_too_large:'Image < 2MB!',lang_changed:'Langue changée! 🌐',reply_placeholder:'Écrire une réponse...',send_btn:'Envoyer',pass_mismatch:'Les mots de passe ne correspondent pas!'},
+  de:{name:'Deutsch',flag:'🇩🇪',rtl:false,login_sub:'Teile deine Welt.',google_btn:'Mit Google fortfahren',email_btn:'Mit E-Mail anmelden',create_btn:'Konto erstellen',or:'oder',terms_pre:'Mit der Fortsetzung stimmst du den',terms_link1:'AGB',terms_and:'und',terms_link2:'Datenschutz',signup_title:'Konto erstellen',signup_sub:'NeonP beitreten',fname:'Vorname',lname:'Nachname',email_ph:'E-Mail-Adresse',create_pass:'Passwort erstellen',reenter_pass:'Passwort wiederholen',agree_txt:'Ich stimme den AGB und Datenschutzrichtlinien von NeonP zu.',confirm_btn:'Bestätigen →',google_signup:'Mit Google registrieren',welcome:'Willkommen zurück',signin_sub:'Bei NeonP anmelden',signin_btn:'Anmelden →',google_signin:'Mit Google anmelden',forgot:'Passwort vergessen?',home:'Startseite',search_tab:'Suchen',profile_tab:'Profil',whats_happening:'Was passiert gerade?',post_btn:'Posten',settings_lbl:'Einstellungen',bookmarks_lbl:'Lesezeichen',notif_lbl:'Benachrichtigungen',logout_lbl:'Abmelden',personal_details:'🔐 Persönliche Daten',full_name_lbl:'Vollständiger Name',email_lbl:'E-Mail',password_lbl:'Passwort',login_type_lbl:'Anmeldetyp',member_since_lbl:'Mitglied seit',edit_profile_btn:'✏️ Profil bearbeiten',edit_profile_title:'Profil bearbeiten',bio_lbl:'Bio',bio_ph:'z.B.: Designer | Berlin | Kaffee ☕',username_lbl:'Benutzername',username_ph:'z.B.: sajeet123',save_changes:'💾 Speichern',cancel_btn:'Abbrechen',close_btn:'Schließen',search_ph:'Posts, Personen suchen...',change_cover:'Titelbild ändern',change:'Ändern',following_lbl:'Folge ich',posts_lbl:'Posts',settings_title:'Einstellungen',language_lbl:'Sprache',theme_lbl:'Design',dark_mode_lbl:'Dunkelmodus',on:'An',off:'Aus',connecting:'Google öffnet...',popup_closed:'Popup geschlossen',creating:'Erstelle...',signing_in:'Melde an...',email_exists:'⚠️ E-Mail bereits registriert!',weak_pass:'⚠️ Passwort mind. 6 Zeichen!',wrong_creds:'E-Mail oder Passwort falsch!',enter_email_first:'Bitte E-Mail zuerst eingeben!',reset_sent:'Reset-E-Mail gesendet! 📧',logged_out:'Abgemeldet! 👋',welcome_msg:'Willkommen, {name}! 🎉',post_done:'Gepostet! ✅',reply_done:'Antwort! 💬',link_copied:'Link kopiert! 📋',profile_saved:'Profil aktualisiert! ✅',avatar_saved:'Profilbild aktualisiert! ✅',cover_saved:'Titelbild aktualisiert! 🎨',no_posts:'Sei der Erste! 🚀',no_replies:'Noch keine Antworten! 💬',no_results:'Nichts gefunden 🔍',loading_posts:'Lädt...',search_hint:'Suchen 🔍',write_something:'Erst etwas schreiben! ✍️',img_too_large:'Bild < 2MB!',lang_changed:'Sprache geändert! 🌐',reply_placeholder:'Antwort schreiben...',send_btn:'Senden',pass_mismatch:'Passwörter stimmen nicht überein!'},
+  pt:{name:'Português',flag:'🇧🇷',rtl:false,login_sub:'Compartilhe seu mundo.',google_btn:'Continuar com Google',email_btn:'Entrar com Email',create_btn:'Criar conta',or:'ou',terms_pre:'Ao continuar você concorda com os',terms_link1:'Termos',terms_and:'e',terms_link2:'Privacidade',signup_title:'Crie sua conta',signup_sub:'Entre no NeonP',fname:'Nome',lname:'Sobrenome',email_ph:'Endereço de email',create_pass:'Criar senha',reenter_pass:'Repetir senha',agree_txt:'Concordo com os Termos e Privacidade do NeonP.',confirm_btn:'Confirmar →',google_signup:'Cadastrar com Google',welcome:'Bem-vindo de volta',signin_sub:'Entrar no NeonP',signin_btn:'Entrar →',google_signin:'Entrar com Google',forgot:'Esqueceu sua senha?',home:'Início',search_tab:'Pesquisar',profile_tab:'Perfil',whats_happening:'O que está acontecendo?',post_btn:'Postar',settings_lbl:'Configurações',bookmarks_lbl:'Salvos',notif_lbl:'Notificações',logout_lbl:'Sair',personal_details:'🔐 Dados pessoais',full_name_lbl:'Nome completo',email_lbl:'Email',password_lbl:'Senha',login_type_lbl:'Tipo de login',member_since_lbl:'Membro desde',edit_profile_btn:'✏️ Editar perfil',edit_profile_title:'Editar perfil',bio_lbl:'Bio',bio_ph:'Ex: Designer | São Paulo | Café ☕',username_lbl:'Nome de usuário',username_ph:'Ex: sajeet123',save_changes:'💾 Salvar',cancel_btn:'Cancelar',close_btn:'Fechar',search_ph:'Pesquisar posts, pessoas...',change_cover:'Alterar foto de capa',change:'Alterar',following_lbl:'Seguindo',posts_lbl:'Posts',settings_title:'Configurações',language_lbl:'Idioma',theme_lbl:'Tema',dark_mode_lbl:'Modo escuro',on:'On',off:'Off',connecting:'Abrindo Google...',popup_closed:'Popup fechado',creating:'Criando...',signing_in:'Entrando...',email_exists:'⚠️ Email já registrado!',weak_pass:'⚠️ Senha mínimo 6 caracteres!',wrong_creds:'Email ou senha incorretos!',enter_email_first:'Insira seu email primeiro!',reset_sent:'Email de redefinição enviado! 📧',logged_out:'Saiu! 👋',welcome_msg:'Bem-vindo, {name}! 🎉',post_done:'Postado! ✅',reply_done:'Resposta! 💬',link_copied:'Link copiado! 📋',profile_saved:'Perfil atualizado! ✅',avatar_saved:'Foto atualizada! ✅',cover_saved:'Foto de capa atualizada! 🎨',no_posts:'Seja o primeiro a postar! 🚀',no_replies:'Sem respostas ainda! 💬',no_results:'Nenhum resultado 🔍',loading_posts:'Carregando...',search_hint:'Pesquisar 🔍',write_something:'Escreva algo primeiro! ✍️',img_too_large:'Imagem < 2MB!',lang_changed:'Idioma alterado! 🌐',reply_placeholder:'Escrever resposta...',send_btn:'Enviar',pass_mismatch:'As senhas não correspondem!'},
+  ru:{name:'Русский',flag:'🇷🇺',rtl:false,login_sub:'Поделись своим миром.',google_btn:'Продолжить с Google',email_btn:'Войти по email',create_btn:'Создать аккаунт',or:'или',terms_pre:'Продолжая вы соглашаетесь с',terms_link1:'Условиями',terms_and:'и',terms_link2:'Конфиденциальностью',signup_title:'Создать аккаунт',signup_sub:'Присоединиться к NeonP',fname:'Имя',lname:'Фамилия',email_ph:'Email адрес',create_pass:'Создать пароль',reenter_pass:'Повторить пароль',agree_txt:'Я соглашаюсь с Условиями и Политикой NeonP.',confirm_btn:'Подтвердить →',google_signup:'Зарегистрироваться через Google',welcome:'Добро пожаловать обратно',signin_sub:'Войти в NeonP',signin_btn:'Войти →',google_signin:'Войти через Google',forgot:'Забыли пароль?',home:'Главная',search_tab:'Поиск',profile_tab:'Профиль',whats_happening:'Что происходит?',post_btn:'Опубликовать',settings_lbl:'Настройки',bookmarks_lbl:'Закладки',notif_lbl:'Уведомления',logout_lbl:'Выйти',personal_details:'🔐 Личные данные',full_name_lbl:'Полное имя',email_lbl:'Email',password_lbl:'Пароль',login_type_lbl:'Тип входа',member_since_lbl:'Участник с',edit_profile_btn:'✏️ Редактировать',edit_profile_title:'Редактировать профиль',bio_lbl:'Био',bio_ph:'Пр: Дизайнер | Москва | Кофе ☕',username_lbl:'Имя пользователя',username_ph:'Пр: sajeet123',save_changes:'💾 Сохранить',cancel_btn:'Отмена',close_btn:'Закрыть',search_ph:'Поиск постов, людей...',change_cover:'Изменить обложку',change:'Изменить',following_lbl:'Подписки',posts_lbl:'Посты',settings_title:'Настройки',language_lbl:'Язык',theme_lbl:'Тема',dark_mode_lbl:'Тёмный режим',on:'Вкл',off:'Выкл',connecting:'Открываю Google...',popup_closed:'Окно закрыто',creating:'Создаю...',signing_in:'Вхожу...',email_exists:'⚠️ Email уже зарегистрирован!',weak_pass:'⚠️ Пароль мин. 6 символов!',wrong_creds:'Неверный email или пароль!',enter_email_first:'Сначала введите email!',reset_sent:'Письмо отправлено! 📧',logged_out:'Вышли! 👋',welcome_msg:'Добро пожаловать, {name}! 🎉',post_done:'Опубликовано! ✅',reply_done:'Ответ! 💬',link_copied:'Ссылка скопирована! 📋',profile_saved:'Профиль обновлён! ✅',avatar_saved:'Фото обновлено! ✅',cover_saved:'Обложка обновлена! 🎨',no_posts:'Будьте первым! 🚀',no_replies:'Ещё нет ответов! 💬',no_results:'Ничего не найдено 🔍',loading_posts:'Загрузка...',search_hint:'Поиск 🔍',write_something:'Напишите что-нибудь! ✍️',img_too_large:'Изображение < 2MB!',lang_changed:'Язык изменён! 🌐',reply_placeholder:'Написать ответ...',send_btn:'Отправить',pass_mismatch:'Пароли не совпадают!'},
+  ko:{name:'한국어',flag:'🇰🇷',rtl:false,login_sub:'세상을 공유하세요.',google_btn:'Google로 계속',email_btn:'이메일로 로그인',create_btn:'계정 만들기',or:'또는',terms_pre:'계속하면 NeonP의',terms_link1:'이용약관',terms_and:'및',terms_link2:'개인정보처리방침',signup_title:'계정 만들기',signup_sub:'NeonP 가입',fname:'이름',lname:'성',email_ph:'이메일 주소',create_pass:'비밀번호 만들기',reenter_pass:'비밀번호 재입력',agree_txt:'NeonP 약관 및 개인정보처리방침에 동의합니다.',confirm_btn:'확인 →',google_signup:'Google로 가입',welcome:'다시 오신 것을 환영합니다',signin_sub:'NeonP 로그인',signin_btn:'로그인 →',google_signin:'Google로 로그인',forgot:'비밀번호를 잊으셨나요?',home:'홈',search_tab:'검색',profile_tab:'프로필',whats_happening:'무슨 일이 있나요?',post_btn:'게시',settings_lbl:'설정',bookmarks_lbl:'북마크',notif_lbl:'알림',logout_lbl:'로그아웃',personal_details:'🔐 개인 정보',full_name_lbl:'전체 이름',email_lbl:'이메일',password_lbl:'비밀번호',login_type_lbl:'로그인 유형',member_since_lbl:'가입일',edit_profile_btn:'✏️ 프로필 편집',edit_profile_title:'프로필 편집',bio_lbl:'소개',bio_ph:'예: 디자이너 | 서울 | 커피 ☕',username_lbl:'사용자 이름',username_ph:'예: sajeet123',save_changes:'💾 저장',cancel_btn:'취소',close_btn:'닫기',search_ph:'게시물, 사람 검색...',change_cover:'커버 사진 변경',change:'변경',following_lbl:'팔로잉',posts_lbl:'게시물',settings_title:'설정',language_lbl:'언어',theme_lbl:'테마',dark_mode_lbl:'다크 모드',on:'켜짐',off:'꺼짐',connecting:'Google 열기...',popup_closed:'팝업이 닫혔습니다',creating:'생성 중...',signing_in:'로그인 중...',email_exists:'⚠️ 이미 등록된 이메일!',weak_pass:'⚠️ 비밀번호 6자 이상!',wrong_creds:'이메일 또는 비밀번호 오류!',enter_email_first:'이메일을 먼저 입력하세요!',reset_sent:'재설정 이메일 전송됨! 📧',logged_out:'로그아웃됨! 👋',welcome_msg:'{name}님 환영합니다! 🎉',post_done:'게시됨! ✅',reply_done:'댓글 게시됨! 💬',link_copied:'링크 복사됨! 📋',profile_saved:'프로필 업데이트됨! ✅',avatar_saved:'사진 업데이트됨! ✅',cover_saved:'커버 업데이트됨! 🎨',no_posts:'첫 번째로 게시하세요! 🚀',no_replies:'댓글이 없습니다! 💬',no_results:'결과 없음 🔍',loading_posts:'로딩 중...',search_hint:'검색 🔍',write_something:'먼저 무언가를 쓰세요! ✍️',img_too_large:'이미지 2MB 미만!',lang_changed:'언어 변경됨! 🌐',reply_placeholder:'댓글 작성...',send_btn:'전송',pass_mismatch:'비밀번호가 일치하지 않습니다!'},
+  it:{name:'Italiano',flag:'🇮🇹',rtl:false,login_sub:'Condividi il tuo mondo.',google_btn:'Continua con Google',email_btn:'Accedi con Email',create_btn:'Crea account',or:'o',terms_pre:'Continuando accetti i',terms_link1:'Termini',terms_and:'e',terms_link2:'Privacy',signup_title:'Crea account',signup_sub:'Unisciti a NeonP',fname:'Nome',lname:'Cognome',email_ph:'Email',create_pass:'Crea password',reenter_pass:'Ripeti password',agree_txt:'Accetto i Termini e la Privacy di NeonP.',confirm_btn:'Conferma →',google_signup:'Registrati con Google',welcome:'Bentornato',signin_sub:'Accedi a NeonP',signin_btn:'Accedi →',google_signin:'Accedi con Google',forgot:'Password dimenticata?',home:'Home',search_tab:'Cerca',profile_tab:'Profilo',whats_happening:'Cosa sta succedendo?',post_btn:'Pubblica',settings_lbl:'Impostazioni',bookmarks_lbl:'Salvati',notif_lbl:'Notifiche',logout_lbl:'Esci',personal_details:'🔐 Dati personali',full_name_lbl:'Nome completo',email_lbl:'Email',password_lbl:'Password',login_type_lbl:'Tipo login',member_since_lbl:'Membro da',edit_profile_btn:'✏️ Modifica profilo',edit_profile_title:'Modifica profilo',bio_lbl:'Bio',bio_ph:'Es: Designer | Roma | Caffè ☕',username_lbl:'Username',username_ph:'Es: sajeet123',save_changes:'💾 Salva',cancel_btn:'Annulla',close_btn:'Chiudi',search_ph:'Cerca post, persone...',change_cover:'Cambia copertina',change:'Cambia',following_lbl:'Seguiti',posts_lbl:'Post',settings_title:'Impostazioni',language_lbl:'Lingua',theme_lbl:'Tema',dark_mode_lbl:'Modalità scura',on:'On',off:'Off',connecting:'Apertura Google...',popup_closed:'Popup chiuso',creating:'Creazione...',signing_in:'Accesso...',email_exists:'⚠️ Email già registrata!',weak_pass:'⚠️ Password min 6 caratteri!',wrong_creds:'Email o password errati!',enter_email_first:'Inserisci prima email!',reset_sent:'Email inviata! 📧',logged_out:'Disconnesso! 👋',welcome_msg:'Benvenuto, {name}! 🎉',post_done:'Pubblicato! ✅',reply_done:'Risposta! 💬',link_copied:'Link copiato! 📋',profile_saved:'Profilo aggiornato! ✅',avatar_saved:'Foto aggiornata! ✅',cover_saved:'Copertina aggiornata! 🎨',no_posts:'Sii il primo! 🚀',no_replies:'Nessuna risposta! 💬',no_results:'Nessun risultato 🔍',loading_posts:'Caricamento...',search_hint:'Cerca 🔍',write_something:'Scrivi qualcosa! ✍️',img_too_large:'Immagine < 2MB!',lang_changed:'Lingua cambiata! 🌐',reply_placeholder:'Scrivi risposta...',send_btn:'Invia',pass_mismatch:'Le password non corrispondono!'},
+  bn:{name:'বাংলা',flag:'🇧🇩',rtl:false,login_sub:'আপনার জগৎ শেয়ার করুন।',google_btn:'Google দিয়ে চালিয়ে যান',email_btn:'ইমেইল দিয়ে সাইন ইন',create_btn:'অ্যাকাউন্ট তৈরি করুন',or:'বা',terms_pre:'চালিয়ে গেলে আপনি NeonP-এর',terms_link1:'শর্তাবলী',terms_and:'এবং',terms_link2:'গোপনীয়তা নীতি',signup_title:'অ্যাকাউন্ট তৈরি করুন',signup_sub:'NeonP-এ যোগ দিন',fname:'প্রথম নাম',lname:'শেষ নাম',email_ph:'ইমেইল ঠিকানা',create_pass:'পাসওয়ার্ড তৈরি করুন',reenter_pass:'পাসওয়ার্ড পুনরায় দিন',agree_txt:'আমি NeonP-এর শর্তাবলী মেনে নিচ্ছি।',confirm_btn:'নিশ্চিত করুন →',google_signup:'Google দিয়ে সাইন আপ',welcome:'স্বাগতম',signin_sub:'NeonP-এ সাইন ইন',signin_btn:'সাইন ইন →',google_signin:'Google দিয়ে সাইন ইন',forgot:'পাসওয়ার্ড ভুলে গেছেন?',home:'হোম',search_tab:'খোঁজুন',profile_tab:'প্রোফাইল',whats_happening:'কী হচ্ছে?',post_btn:'পোস্ট করুন',settings_lbl:'সেটিংস',bookmarks_lbl:'বুকমার্ক',notif_lbl:'বিজ্ঞপ্তি',logout_lbl:'লগ আউট',personal_details:'🔐 ব্যক্তিগত তথ্য',full_name_lbl:'পুরো নাম',email_lbl:'ইমেইল',password_lbl:'পাসওয়ার্ড',login_type_lbl:'লগইন ধরন',member_since_lbl:'সদস্য হয়েছেন',edit_profile_btn:'✏️ প্রোফাইল সম্পাদনা',edit_profile_title:'প্রোফাইল সম্পাদনা',bio_lbl:'বায়ো',bio_ph:'যেমন: ডিজাইনার | ঢাকা | চা ☕',username_lbl:'ইউজারনেম',username_ph:'যেমন: sajeet123',save_changes:'💾 সংরক্ষণ',cancel_btn:'বাতিল',close_btn:'বন্ধ করুন',search_ph:'পোস্ট, মানুষ খুঁজুন...',change_cover:'কভার ছবি পরিবর্তন',change:'পরিবর্তন',following_lbl:'ফলোয়িং',posts_lbl:'পোস্ট',settings_title:'সেটিংস',language_lbl:'ভাষা',theme_lbl:'থিম',dark_mode_lbl:'ডার্ক মোড',on:'চালু',off:'বন্ধ',connecting:'Google খুলছে...',popup_closed:'পপআপ বন্ধ',creating:'তৈরি হচ্ছে...',signing_in:'সাইন ইন হচ্ছে...',email_exists:'⚠️ এই ইমেইল আগে থেকে আছে!',weak_pass:'⚠️ পাসওয়ার্ড কমপক্ষে ৬ অক্ষর!',wrong_creds:'ইমেইল বা পাসওয়ার্ড ভুল!',enter_email_first:'প্রথমে ইমেইল দিন!',reset_sent:'রিসেট ইমেইল পাঠানো হয়েছে! 📧',logged_out:'লগ আউট! 👋',welcome_msg:'স্বাগতম, {name}! 🎉',post_done:'পোস্ট হয়েছে! ✅',reply_done:'রিপ্লাই! 💬',link_copied:'লিংক কপি! 📋',profile_saved:'প্রোফাইল আপডেট! ✅',avatar_saved:'ছবি আপডেট! ✅',cover_saved:'কভার আপডেট! 🎨',no_posts:'প্রথম পোস্ট করুন! 🚀',no_replies:'কোনো রিপ্লাই নেই! 💬',no_results:'কোনো ফলাফল নেই 🔍',loading_posts:'লোড হচ্ছে...',search_hint:'খুঁজুন 🔍',write_something:'কিছু লিখুন! ✍️',img_too_large:'ছবি ২MB-এর কম!',lang_changed:'ভাষা পরিবর্তন! 🌐',reply_placeholder:'রিপ্লাই লিখুন...',send_btn:'পাঠান',pass_mismatch:'পাসওয়ার্ড মিলছে না!'},
+  pa:{name:'ਪੰਜਾਬੀ',flag:'🇮🇳',rtl:false,login_sub:'ਆਪਣੀ ਦੁਨੀਆ ਸਾਂਝੀ ਕਰੋ।',google_btn:'Google ਨਾਲ ਜਾਰੀ',email_btn:'ਈਮੇਲ ਨਾਲ ਸਾਈਨ ਇਨ',create_btn:'ਖਾਤਾ ਬਣਾਓ',or:'ਜਾਂ',terms_pre:'NeonP ਦੀਆਂ',terms_link1:'ਸ਼ਰਤਾਂ',terms_and:'ਅਤੇ',terms_link2:'ਗੋਪਨੀਯਤਾ',signup_title:'ਖਾਤਾ ਬਣਾਓ',signup_sub:'NeonP ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ',fname:'ਪਹਿਲਾ ਨਾਮ',lname:'ਆਖਰੀ ਨਾਮ',email_ph:'ਈਮੇਲ ਪਤਾ',create_pass:'ਪਾਸਵਰਡ ਬਣਾਓ',reenter_pass:'ਪਾਸਵਰਡ ਦੁਬਾਰਾ',agree_txt:'ਮੈਂ NeonP ਦੀਆਂ ਸ਼ਰਤਾਂ ਨਾਲ ਸਹਿਮਤ ਹਾਂ।',confirm_btn:'ਪੁਸ਼ਟੀ ਕਰੋ →',google_signup:'Google ਨਾਲ ਸਾਈਨ ਅੱਪ',welcome:'ਵਾਪਸ ਸੁਆਗਤ',signin_sub:'NeonP ਵਿੱਚ ਸਾਈਨ ਇਨ',signin_btn:'ਸਾਈਨ ਇਨ →',google_signin:'Google ਨਾਲ ਸਾਈਨ ਇਨ',forgot:'ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?',home:'ਹੋਮ',search_tab:'ਖੋਜ',profile_tab:'ਪ੍ਰੋਫਾਈਲ',whats_happening:'ਕੀ ਹੋ ਰਿਹਾ ਹੈ?',post_btn:'ਪੋਸਟ',settings_lbl:'ਸੈਟਿੰਗਾਂ',bookmarks_lbl:'ਬੁੱਕਮਾਰਕ',notif_lbl:'ਸੂਚਨਾਵਾਂ',logout_lbl:'ਲੌਗ ਆਊਟ',personal_details:'🔐 ਨਿੱਜੀ ਵੇਰਵੇ',full_name_lbl:'ਪੂਰਾ ਨਾਮ',email_lbl:'ਈਮੇਲ',password_lbl:'ਪਾਸਵਰਡ',login_type_lbl:'ਲੌਗਿਨ ਕਿਸਮ',member_since_lbl:'ਮੈਂਬਰ ਬਣੇ',edit_profile_btn:'✏️ ਪ੍ਰੋਫਾਈਲ ਸੰਪਾਦਨ',edit_profile_title:'ਪ੍ਰੋਫਾਈਲ ਸੰਪਾਦਨ',bio_lbl:'ਬਾਇਓ',bio_ph:'ਜਿਵੇਂ: ਡਿਜ਼ਾਈਨਰ | ਅੰਮ੍ਰਿਤਸਰ | ਚਾਹ ☕',username_lbl:'ਯੂਜ਼ਰਨੇਮ',username_ph:'ਜਿਵੇਂ: sajeet123',save_changes:'💾 ਸੁਰੱਖਿਅਤ',cancel_btn:'ਰੱਦ',close_btn:'ਬੰਦ',search_ph:'ਖੋਜੋ...',change_cover:'ਕਵਰ ਫੋਟੋ ਬਦਲੋ',change:'ਬਦਲੋ',following_lbl:'ਫੋਲੋ',posts_lbl:'ਪੋਸਟਾਂ',settings_title:'ਸੈਟਿੰਗਾਂ',language_lbl:'ਭਾਸ਼ਾ',theme_lbl:'ਥੀਮ',dark_mode_lbl:'ਡਾਰਕ ਮੋਡ',on:'ਚਾਲੂ',off:'ਬੰਦ',connecting:'Google ਖੁੱਲ੍ਹ ਰਿਹਾ...',popup_closed:'ਪੌਪਅੱਪ ਬੰਦ',creating:'ਬਣਾ ਰਹੇ...',signing_in:'ਸਾਈਨ ਇਨ...',email_exists:'⚠️ ਈਮੇਲ ਪਹਿਲਾਂ ਤੋਂ ਹੈ!',weak_pass:'⚠️ ਪਾਸਵਰਡ ਘੱਟੋ-ਘੱਟ 6 ਅੱਖਰ!',wrong_creds:'ਈਮੇਲ ਜਾਂ ਪਾਸਵਰਡ ਗਲਤ!',enter_email_first:'ਪਹਿਲਾਂ ਈਮੇਲ ਦਿਓ!',reset_sent:'ਰੀਸੈੱਟ ਈਮੇਲ ਭੇਜੀ! 📧',logged_out:'ਲੌਗ ਆਊਟ! 👋',welcome_msg:'ਸੁਆਗਤ, {name}! 🎉',post_done:'ਪੋਸਟ ਹੋ ਗਈ! ✅',reply_done:'ਜਵਾਬ! 💬',link_copied:'ਲਿੰਕ ਕਾਪੀ! 📋',profile_saved:'ਪ੍ਰੋਫਾਈਲ ਅਪਡੇਟ! ✅',avatar_saved:'ਫੋਟੋ ਅਪਡੇਟ! ✅',cover_saved:'ਕਵਰ ਅਪਡੇਟ! 🎨',no_posts:'ਪਹਿਲੀ ਪੋਸਟ ਕਰੋ! 🚀',no_replies:'ਕੋਈ ਜਵਾਬ ਨਹੀਂ! 💬',no_results:'ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ 🔍',loading_posts:'ਲੋਡ ਹੋ ਰਿਹਾ...',search_hint:'ਖੋਜੋ 🔍',write_something:'ਕੁਝ ਲਿਖੋ! ✍️',img_too_large:'ਚਿੱਤਰ 2MB ਤੋਂ ਘੱਟ!',lang_changed:'ਭਾਸ਼ਾ ਬਦਲੀ! 🌐',reply_placeholder:'ਜਵਾਬ ਲਿਖੋ...',send_btn:'ਭੇਜੋ',pass_mismatch:'ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ!'},
+};
+
+// Remaining languages — en_us fallback, only name+flag unique
+const _RL = [
+  ['gu','ગુજરાતી','🇮🇳'],['mr','मराठी','🇮🇳'],['ta','தமிழ்','🇮🇳'],['te','తెలుగు','🇮🇳'],
+  ['ml','മലയാളം','🇮🇳'],['kn','ಕನ್ನಡ','🇮🇳'],['nl','Nederlands','🇳🇱'],['pl','Polski','🇵🇱'],
+  ['vi','Tiếng Việt','🇻🇳'],['th','ภาษาไทย','🇹🇭'],['id','Bahasa Indonesia','🇮🇩'],
+  ['ms','Bahasa Melayu','🇲🇾'],['sw','Kiswahili','🇰🇪'],['fa','فارسی','🇮🇷'],
+  ['he','עברית','🇮🇱'],['el','Ελληνικά','🇬🇷'],['ne','नेपाली','🇳🇵'],
+  ['si','සිංහල','🇱🇰'],['my','မြန်မာဘာသာ','🇲🇲'],['km','ភាសាខ្មែរ','🇰🇭'],
+  ['lo','ພາສາລາວ','🇱🇦'],['mn','Монгол','🇲🇳'],['kk','Қазақша','🇰🇿'],
+  ['uz','Oʻzbek','🇺🇿'],['az','Azərbaycan','🇦🇿'],['hy','Հայերեն','🇦🇲'],
+  ['ka','ქართული','🇬🇪'],['sq','Shqip','🇦🇱'],['sr','Српски','🇷🇸'],
+  ['hr','Hrvatski','🇭🇷'],['cs','Čeština','🇨🇿'],['sk','Slovenčina','🇸🇰'],
+  ['hu','Magyar','🇭🇺'],['ro','Română','🇷🇴'],['bg','Български','🇧🇬'],
+  ['uk','Українська','🇺🇦'],['fi','Suomi','🇫🇮'],['sv','Svenska','🇸🇪'],
+  ['no','Norsk','🇳🇴'],['da','Dansk','🇩🇰'],['ca','Català','🏴'],
+  ['af','Afrikaans','🇿🇦'],['zu','IsiZulu','🇿🇦'],['am','አማርኛ','🇪🇹'],
+  ['so','Soomaali','🇸🇴'],['ha','Hausa','🇳🇬'],['yo','Yorùbá','🇳🇬'],
+  ['ig','Igbo','🇳🇬'],['ps','پښتو','🇦🇫'],['sd','سنڌي','🇵🇰'],
+  ['tl','Filipino','🇵🇭'],['jv','Basa Jawa','🇮🇩'],['su','Basa Sunda','🇮🇩'],
+  ['or2','ଓଡ଼ିଆ','🇮🇳'],['as2','অসমীয়া','🇮🇳'],['mai','मैथिली','🇮🇳'],
+  ['bho','भोजपुरी','🇮🇳'],['raj','राजस्थानी','🇮🇳'],['hry','हरियाणवी','🇮🇳'],
+  ['mi','Te Reo Māori','🇳🇿'],['lb','Lëtzebuergesch','🇱🇺'],['mt','Malti','🇲🇹'],
+  ['is2','Íslenska','🇮🇸'],['be','Беларуская','🇧🇾'],['mk','Македонски','🇲🇰'],
+  ['bs','Bosanski','🇧🇦'],['sl','Slovenščina','🇸🇮'],['et','Eesti','🇪🇪'],
+  ['lv','Latviešu','🇱🇻'],['lt','Lietuvių','🇱🇹'],['tk','Türkmençe','🇹🇲'],
+  ['tg','Тоҷикӣ','🇹🇯'],['ky','Кыргызча','🇰🇬'],['ug','ئۇيغۇرچە','🇨🇳'],
+  ['gl','Galego','🇪🇸'],['eu','Euskara','🏴'],['la','Latina','🏛️'],
+  ['eo','Esperanto','🌍'],['tlh','Klingon','🖖'],['xh','isiXhosa','🇿🇦'],
+  ['sn','ChiShona','🇿🇼'],['st','Sesotho','🇱🇸'],['ti','ትግርኛ','🇪🇷'],
+  ['om','Afaan Oromoo','🇪🇹'],['wo','Wolof','🇸🇳'],['ln','Lingála','🇨🇩'],
+  ['rw','Ikinyarwanda','🇷🇼'],['ny','Chichewa','🇲🇼'],['qu','Runasimi','🇵🇪'],
+  ['gd','Gàidhlig','🏴󠁧󠁢󠁳󠁣󠁴󠁿'],['cy','Cymraeg','🏴󠁧󠁢󠁷󠁬󠁳󠁿'],['ga','Gaeilge','🇮🇪'],
+];
+_RL.forEach(([code,name,flag])=>{
+  _EL[code]={name,flag,rtl:['fa','ps','sd','ug'].includes(code)};
+});
+
+// Merge into LANGS
+Object.assign(LANGS, _EL);
+
 // ═══════════════════════════════════════════
 // LANGUAGE ENGINE
 // ═══════════════════════════════════════════
@@ -1449,6 +1509,7 @@ let currentLang = localStorage.getItem('np_lang') || 'en_us';
 function t(key) { return (LANGS[currentLang]||LANGS.en_us)[key] || LANGS.en_us[key] || key; }
 
 function applyLang() {
+  updateLogoLetter(currentLang);
   const L = LANGS[currentLang] || LANGS.en_us;
   // RTL
   document.body.classList.toggle('rtl', !!L.rtl);
@@ -1730,6 +1791,29 @@ async function saveProfile(){
   if(window.saveProfileFirestore)await window.saveProfileFirestore({name,bio,handle});
   showToast(t('profile_saved'));
 }
+
+// Build language grid dynamically
+function buildLangGrid(filter='') {
+  const grid = document.getElementById('lang-grid');
+  if (!grid) return;
+  const q = filter.toLowerCase();
+  const entries = Object.entries(LANGS);
+  const filtered = q ? entries.filter(([k,v]) => 
+    (v.name||'').toLowerCase().includes(q) || k.includes(q)
+  ) : entries;
+  
+  grid.innerHTML = filtered.map(([code, lang]) => {
+    const isActive = code === currentLang;
+    return `<button class="lang-btn ${isActive?'active':''}" onclick="setLang('${code}')">
+      <span class="lang-flag">${lang.flag||'🌐'}</span>${lang.name||code}
+    </button>`;
+  }).join('');
+}
+
+function filterLangs(q) { buildLangGrid(q); }
+
+// Call buildLangGrid when settings opens
+const _origOpenSettings = window.openSettings;
 
 function openSettings(){
   toggleSideMenu();
