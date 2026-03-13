@@ -655,7 +655,7 @@
             <div class="upload-hint">📷<br><span data-t="change"></span></div>
             <input type="file" id="avatar-upload" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)"/>
           </div>
-          <div class="profile-name" id="profile-name">Your Name</div>
+          <div class="profile-name" id="profile-name"><span data-t="full_name_lbl"></span></div>
           <div class="profile-handle" id="profile-handle">@you</div>
           <div class="profile-bio" id="profile-bio"></div>
           <div class="profile-stats">
@@ -1460,7 +1460,7 @@ const _RL = [
   ['gd','Gàidhlig','🏴󠁧󠁢󠁳󠁣󠁴󠁿'],['cy','Cymraeg','🏴󠁧󠁢󠁷󠁬󠁳󠁿'],['ga','Gaeilge','🇮🇪'],
 ];
 _RL.forEach(([code,name,flag])=>{
-  _EL[code]={name,flag,rtl:['fa','ps','sd','ug'].includes(code)};
+  _EL[code]={name,flag,rtl:['fa','ps','sd','ug','he'].includes(code)};
 });
 
 // Merge into LANGS
@@ -1648,8 +1648,8 @@ LANGS.en_us.who_follow_title='👥 Who to follow';
 LANGS.en_uk.who_follow_title='👥 Who to follow';
 LANGS.en_us.who_follow_empty='People you may know will appear here soon!';
 LANGS.en_uk.who_follow_empty='People you may know will appear here soon!';
-LANGS.en_us.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
-LANGS.en_uk.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
+LANGS.en_us.scheduled_title='🕐 Scheduled Posts';
+LANGS.en_uk.scheduled_title='🕐 Scheduled Posts';
 LANGS.en_us.dash_posts='Posts';
 LANGS.en_uk.dash_posts='Posts';
 LANGS.en_us.dash_likes='Total Likes';
@@ -1678,8 +1678,10 @@ LANGS.en_us.dash_no_posts=t('dash_no_posts');
 LANGS.en_uk.dash_no_posts=t('dash_no_posts');
 LANGS.en_us.dash_no_activity=t('dash_no_activity');
 LANGS.en_uk.dash_no_activity=t('dash_no_activity');
-LANGS.en_us.change_banner='<span data-t="change_banner"></span>';
-LANGS.en_uk.change_banner='<span data-t="change_banner"></span>';
+LANGS.en_us.change_banner='📷 Change banner photo';
+LANGS.en_uk.change_banner='📷 Change banner photo';
+LANGS.en_us.password_ph='Enter your password';
+LANGS.en_uk.password_ph='Enter your password';
 LANGS.en_us.footer_brand='NeonP · from Plannet';
 LANGS.en_uk.footer_brand='NeonP · from Plannet';
 LANGS.en_us.footer_copy='© 2026 Plannet Agency';
@@ -1761,7 +1763,7 @@ if(LANGS.hinglish)LANGS.hinglish.trending_title='🔥 Trending';
 if(LANGS.hinglish)LANGS.hinglish.trending_empty='Trend dekhne ke liye post karo!';
 if(LANGS.hinglish)LANGS.hinglish.who_follow_title='👥 Follow Karo';
 if(LANGS.hinglish)LANGS.hinglish.who_follow_empty='Log jald dikhenge!';
-if(LANGS.hinglish)LANGS.hinglish.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
+if(LANGS.hinglish)LANGS.hinglish.scheduled_title='🕐 Scheduled Posts';
 if(LANGS.hinglish)LANGS.hinglish.dash_posts='Posts';
 if(LANGS.hinglish)LANGS.hinglish.dash_likes='Total Likes';
 if(LANGS.hinglish)LANGS.hinglish.dash_views='Total Views';
@@ -2461,6 +2463,16 @@ if(LANGS.pt)LANGS.pt.change_banner='📷 Alterar foto de capa';
 if(LANGS.pt)LANGS.pt.footer_brand='NeonP · por Plannet';
 if(LANGS.pt)LANGS.pt.footer_copy='© 2026 Plannet Agency';
 
+// ── 4 MISSING KEYS — add to en_us so fillLangFallbacks copies to all langs ──
+LANGS.en_us.photo_btn='📷';
+LANGS.en_uk.photo_btn='📷';
+LANGS.en_us.video_btn='🎬';
+LANGS.en_uk.video_btn='🎬';
+LANGS.en_us.any_btn='📎';
+LANGS.en_uk.any_btn='📎';
+LANGS.en_us.schedule_btn='🕐';
+LANGS.en_uk.schedule_btn='🕐';
+
 // ── FILL MISSING KEYS — runs at load time ──
 function fillLangFallbacks(){
   const base = LANGS.en_us;
@@ -2989,7 +3001,7 @@ function renderBookmarksPage() {
   const c = document.getElementById('bookmarks-container');
   const saved = Object.values(window._bookmarks || {});
   if (!saved.length) {
-    c.innerHTML = '<div class="bookmarks-empty">🔖<br><br>No bookmarks yet.<br><span style="font-size:13px;">Tap 🔖 on any post to save it!</span></div>';
+    c.innerHTML = '<div class="bookmarks-empty">🔖<br><br><span data-t="bookmarks_empty"></span><br><span style="font-size:13px;" data-t="bookmarks_empty_sub"></span></div>';
     return;
   }
   renderPosts(saved, 'bookmarks-container');
@@ -3283,17 +3295,17 @@ function renderDashboard() {
     mediaEl.innerHTML = `
       <div class="dash-post-row">
         <div style="font-size:20px;">🖼️</div>
-        <div class="dash-post-text">Images uploaded</div>
+        <div class="dash-post-text" data-t="dash_img"></div>
         <div class="dash-post-stat"><strong>${imgCount}</strong></div>
       </div>
       <div class="dash-post-row">
         <div style="font-size:20px;">🎬</div>
-        <div class="dash-post-text">Videos uploaded</div>
+        <div class="dash-post-text" data-t="dash_vid"></div>
         <div class="dash-post-stat"><strong>${vidCount}</strong></div>
       </div>
       <div class="dash-post-row">
         <div style="font-size:20px;">📎</div>
-        <div class="dash-post-text">Media posts total</div>
+        <div class="dash-post-text" data-t="dash_media_total"></div>
         <div class="dash-post-stat"><strong>${mediaPosts.length}</strong></div>
       </div>`;
   }
