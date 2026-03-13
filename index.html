@@ -567,33 +567,33 @@
         <span class="nav-logo-text">NeonP</span>
       </div>
       <button class="nav-btn active" id="nav-home" onclick="switchTab('home')" title="Home">
-        <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
+        <span class="nav-icon">⌂</span><span class="nav-label" data-t="nav_home"></span>
       </button>
       <button class="nav-btn" id="nav-search" onclick="switchTab('search')" title="Search">
-        <span class="nav-icon">⊘</span><span class="nav-label">Search</span>
+        <span class="nav-icon">⊘</span><span class="nav-label" data-t="nav_search"></span>
       </button>
       <button class="nav-btn" id="nav-profile" onclick="switchTab('profile')" title="Profile">
-        <span class="nav-icon">◉</span><span class="nav-label">Profile</span>
+        <span class="nav-icon">◉</span><span class="nav-label" data-t="nav_profile"></span>
       </button>
       <button class="nav-btn" id="nav-bookmarks" onclick="switchTab('bookmarks')" title="Bookmarks">
-        <span class="nav-icon">🔖</span><span class="nav-label">Bookmarks</span>
+        <span class="nav-icon">🔖</span><span class="nav-label" data-t="nav_bookmarks"></span>
       </button>
       <button class="nav-btn" id="nav-notifications" onclick="showToast('Notifications coming soon!')" title="Notifications">
-        <span class="nav-icon">🔔</span><span class="nav-label">Notifications</span>
+        <span class="nav-icon">🔔</span><span class="nav-label" data-t="nav_notifications"></span>
       </button>
       <button class="nav-btn" id="nav-dashboard" onclick="switchTab('dashboard')" title="Dashboard" style="display:none;">
-        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+        <span class="nav-icon">📊</span><span class="nav-label" data-t="nav_dashboard"></span>
       </button>
       <div class="nav-spacer"></div>
       <!-- Desktop post button -->
       <button class="nav-post-btn" onclick="focusCompose()">
-        <span class="nav-icon">✏️</span><span class="nav-label">New Post</span>
+        <span class="nav-icon">✏️</span><span class="nav-label" data-t="nav_newpost"></span>
       </button>
       <button class="nav-btn" onclick="toggleDark()" title="Theme">
-        <span class="nav-icon">☾</span><span class="nav-label">Theme</span>
+        <span class="nav-icon">☾</span><span class="nav-label" data-t="nav_theme"></span>
       </button>
       <button class="nav-btn nav-profile-mini" id="more-btn" onclick="toggleSideMenu()" title="More">
-        <span class="nav-icon">···</span><span class="nav-label">More</span>
+        <span class="nav-icon">···</span><span class="nav-label" data-t="nav_more"></span>
       </button>
     </nav>
     <div class="side-popup" id="side-popup">
@@ -615,10 +615,10 @@
             <div class="media-preview-wrap" id="media-preview-wrap"></div>
             <div class="upload-progress-bar" id="upload-progress-bar"><div class="upload-progress-fill" id="upload-progress-fill" style="width:0%"></div></div>
             <div class="compose-media-bar">
-              <button class="media-btn" onclick="triggerMediaUpload('image')">📷 Photo</button>
-              <button class="media-btn" onclick="triggerMediaUpload('video')">🎬 Video</button>
-              <button class="media-btn" onclick="triggerMediaUpload('any')">📎 Any</button>
-              <button class="schedule-btn" id="schedule-toggle-btn" onclick="openScheduleModal()">🕐 Schedule</button>
+              <button class="media-btn" onclick="triggerMediaUpload('image')"><span data-t="photo_btn"></span></button>
+              <button class="media-btn" onclick="triggerMediaUpload('video')"><span data-t="video_btn"></span></button>
+              <button class="media-btn" onclick="triggerMediaUpload('any')"><span data-t="any_btn"></span></button>
+              <button class="schedule-btn" id="schedule-toggle-btn" onclick="openScheduleModal()"><span data-t="schedule_btn"></span></button>
               <input type="file" id="media-upload-input" accept="image/*,video/*" multiple style="display:none;" onchange="handleMediaUpload(event)"/>
               <div style="flex:1;"></div>
               <button class="post-btn" onclick="addPost()" data-t="post_btn"></button>
@@ -644,7 +644,7 @@
           <!-- Desktop overlay (bottom right — YouTube style) -->
           <div class="cover-overlay-desktop">
             <button class="cover-upload-btn-desktop" onclick="triggerCoverUpload();event.stopPropagation();">
-              📷 Change banner photo
+              <span data-t="change_banner"></span>
             </button>
           </div>
           <input type="file" id="cover-upload" accept="image/*" style="display:none;" onchange="handleCoverUpload(event)"/>
@@ -676,7 +676,7 @@
       <!-- BOOKMARKS TAB -->
       <div id="tab-bookmarks" class="tab-content">
         <div id="bookmarks-container" style="padding:0;">
-          <div class="bookmarks-empty">🔖 <br><br>No bookmarks yet.<br><span style="font-size:13px;">Tap 🔖 on any post to save it!</span></div>
+          <div class="bookmarks-empty">🔖<br><br><span data-t="bookmarks_empty"></span><br><span style="font-size:13px;" data-t="bookmarks_empty_sub"></span></div>
         </div>
       </div>
       <!-- DASHBOARD TAB -->
@@ -684,12 +684,12 @@
         <div style="padding:20px;">
           <!-- Stats Grid -->
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;" id="dash-stats-grid">
-            <div class="dash-stat-card" id="dash-posts"><div class="dash-stat-num" id="ds-posts">0</div><div class="dash-stat-label">Posts</div></div>
-            <div class="dash-stat-card" id="dash-likes"><div class="dash-stat-num" id="ds-likes">0</div><div class="dash-stat-label">Total Likes</div></div>
-            <div class="dash-stat-card" id="dash-views"><div class="dash-stat-num" id="ds-views">0</div><div class="dash-stat-label">Total Views</div></div>
-            <div class="dash-stat-card" id="dash-replies"><div class="dash-stat-num" id="ds-replies">0</div><div class="dash-stat-label">Total Replies</div></div>
-            <div class="dash-stat-card" id="dash-bookmarks-count"><div class="dash-stat-num" id="ds-bookmarks">0</div><div class="dash-stat-label">Bookmarked</div></div>
-            <div class="dash-stat-card" id="dash-scheduled-count"><div class="dash-stat-num" id="ds-scheduled">0</div><div class="dash-stat-label">Scheduled</div></div>
+            <div class="dash-stat-card" id="dash-posts"><div class="dash-stat-num" id="ds-posts">0</div><div class="dash-stat-label" data-t="dash_posts"></div></div>
+            <div class="dash-stat-card" id="dash-likes"><div class="dash-stat-num" id="ds-likes">0</div><div class="dash-stat-label" data-t="dash_likes"></div></div>
+            <div class="dash-stat-card" id="dash-views"><div class="dash-stat-num" id="ds-views">0</div><div class="dash-stat-label" data-t="dash_views"></div></div>
+            <div class="dash-stat-card" id="dash-replies"><div class="dash-stat-num" id="ds-replies">0</div><div class="dash-stat-label" data-t="dash_replies"></div></div>
+            <div class="dash-stat-card" id="dash-bookmarks-count"><div class="dash-stat-num" id="ds-bookmarks">0</div><div class="dash-stat-label" data-t="dash_bookmarked"></div></div>
+            <div class="dash-stat-card" id="dash-scheduled-count"><div class="dash-stat-num" id="ds-scheduled">0</div><div class="dash-stat-label" data-t="dash_scheduled"></div></div>
           </div>
           <!-- Top Posts -->
           <div class="dash-section">
@@ -718,24 +718,24 @@
       </div>
       <!-- Trending -->
       <div class="rs-card">
-        <div class="rs-card-title">🔥 Trending</div>
+        <div class="rs-card-title" data-t="trending_title"></div>
         <div id="rs-trending"></div>
       </div>
       <!-- Who to follow -->
       <div class="rs-card">
-        <div class="rs-card-title">👥 Who to follow</div>
+        <div class="rs-card-title" data-t="who_follow_title"></div>
         <div id="rs-who-follow">
-          <div style="font-size:13px;color:var(--subtext);padding:8px 0;">People you may know will appear here soon!</div>
+          <div style="font-size:13px;color:var(--subtext);padding:8px 0;" data-t="who_follow_empty"></div>
         </div>
       </div>
       <!-- Scheduled Posts -->
       <div class="rs-card" id="rs-scheduled-card" style="display:none;">
-        <div class="rs-card-title">🕐 Scheduled Posts</div>
+        <div class="rs-card-title"><span data-t="schedule_btn"></span>d Posts</div>
         <div id="rs-scheduled-list"></div>
       </div>
       <!-- Footer -->
       <div class="rs-footer">
-        <span>NeonP · from Plannet</span><br/>
+        <span data-t="footer_brand"></span><br/>
         <span style="color:var(--subtext);font-size:11px;">© 2026 Plannet Agency</span>
       </div>
     </aside>
@@ -758,22 +758,22 @@
 <!-- SCHEDULE MODAL -->
 <div class="modal-overlay" id="schedule-modal" onclick="closeScheduleOnOverlay(event)">
   <div class="modal-box">
-    <div class="modal-title">🕐 Schedule Post</div>
-    <p style="font-size:13px;color:var(--subtext);margin-top:-8px;">Choose when to publish this post</p>
+    <div class="modal-title" data-t="schedule_title"></div>
+    <p style="font-size:13px;color:var(--subtext);margin-top:-8px;" data-t="schedule_sub"></p>
     <div>
-      <div class="modal-label">Date & Time</div>
+      <div class="modal-label" data-t="schedule_datetime_lbl"></div>
       <input type="datetime-local" class="datetime-input" id="schedule-datetime" onchange="previewSchedule()"/>
     </div>
     <div class="schedule-preview" id="schedule-preview"></div>
     <!-- Quick options -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <button class="auth-btn" onclick="setQuickSchedule(1)">⚡ 1 hour later</button>
-      <button class="auth-btn" onclick="setQuickSchedule(3)">🌅 3 hours later</button>
-      <button class="auth-btn" onclick="setQuickSchedule(24)">📅 Tomorrow</button>
-      <button class="auth-btn" onclick="setQuickSchedule(168)">📆 Next week</button>
+      <button class="auth-btn" onclick="setQuickSchedule(1)"><span data-t="schedule_1hr"></span></button>
+      <button class="auth-btn" onclick="setQuickSchedule(3)"><span data-t="schedule_3hr"></span></button>
+      <button class="auth-btn" onclick="setQuickSchedule(24)"><span data-t="schedule_tomorrow"></span></button>
+      <button class="auth-btn" onclick="setQuickSchedule(168)"><span data-t="schedule_week"></span></button>
     </div>
-    <button class="modal-save-btn" onclick="confirmSchedule()" style="background:#7c3aed;">✅ Confirm Schedule</button>
-    <button class="modal-cancel-btn" onclick="closeScheduleModal()">Cancel</button>
+    <button class="modal-save-btn" onclick="confirmSchedule()" style="background:#7c3aed;"><span data-t="schedule_confirm"></span></button>
+    <button class="modal-cancel-btn" onclick="closeScheduleModal()" data-t="cancel_btn"></button>
   </div>
 </div>
 
@@ -1479,15 +1479,16 @@ function applyLang() {
   // RTL
   document.body.classList.toggle('rtl', !!L.rtl);
   document.documentElement.setAttribute('dir', L.rtl ? 'rtl' : 'ltr');
-  // data-t elements
+  // data-t elements — always update every element, every language has all keys now
+  const L2 = LANGS[currentLang] || LANGS.en_us;
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
-    if (L[key] !== undefined) el.textContent = L[key];
+    el.textContent = L2[key] || LANGS.en_us[key] || key;
   });
   // data-ph placeholders
   document.querySelectorAll('[data-ph]').forEach(el => {
     const key = el.getAttribute('data-ph');
-    if (L[key] !== undefined) el.placeholder = L[key];
+    el.placeholder = L2[key] || LANGS.en_us[key] || '';
   });
   // Feed title
   const tab = document.querySelector('.nav-btn.active');
@@ -1541,6 +1542,907 @@ function setLang(lang) {
   applyLang();
   showToast(t('lang_changed'));
 }
+
+// ── EXTENDED TRANSLATION KEYS ──
+LANGS.en_us.nav_home='Home';
+LANGS.en_uk.nav_home='Home';
+LANGS.en_us.nav_search='Search';
+LANGS.en_uk.nav_search='Search';
+LANGS.en_us.nav_profile='Profile';
+LANGS.en_uk.nav_profile='Profile';
+LANGS.en_us.nav_bookmarks='Bookmarks';
+LANGS.en_uk.nav_bookmarks='Bookmarks';
+LANGS.en_us.nav_notifications='Notifications';
+LANGS.en_uk.nav_notifications='Notifications';
+LANGS.en_us.nav_dashboard='Dashboard';
+LANGS.en_uk.nav_dashboard='Dashboard';
+LANGS.en_us.nav_theme='Theme';
+LANGS.en_uk.nav_theme='Theme';
+LANGS.en_us.nav_more='More';
+LANGS.en_uk.nav_more='More';
+LANGS.en_us.nav_newpost='✏️ New Post';
+LANGS.en_uk.nav_newpost='✏️ New Post';
+LANGS.en_us.photo_btn='<span data-t="photo_btn"></span>';
+LANGS.en_uk.photo_btn='<span data-t="photo_btn"></span>';
+LANGS.en_us.video_btn='<span data-t="video_btn"></span>';
+LANGS.en_uk.video_btn='<span data-t="video_btn"></span>';
+LANGS.en_us.any_btn='<span data-t="any_btn"></span>';
+LANGS.en_uk.any_btn='<span data-t="any_btn"></span>';
+LANGS.en_us.schedule_btn='<span data-t="schedule_btn"></span>';
+LANGS.en_uk.schedule_btn='<span data-t="schedule_btn"></span>';
+LANGS.en_us.schedule_title='🕐 Schedule Post';
+LANGS.en_uk.schedule_title='🕐 Schedule Post';
+LANGS.en_us.schedule_sub='Choose when to publish this post';
+LANGS.en_uk.schedule_sub='Choose when to publish this post';
+LANGS.en_us.schedule_datetime_lbl='Date & Time';
+LANGS.en_uk.schedule_datetime_lbl='Date & Time';
+LANGS.en_us.schedule_1hr='⚡ 1 hour later';
+LANGS.en_uk.schedule_1hr='⚡ 1 hour later';
+LANGS.en_us.schedule_3hr='🌅 3 hours later';
+LANGS.en_uk.schedule_3hr='🌅 3 hours later';
+LANGS.en_us.schedule_tomorrow='📅 Tomorrow';
+LANGS.en_uk.schedule_tomorrow='📅 Tomorrow';
+LANGS.en_us.schedule_week='📆 Next week';
+LANGS.en_uk.schedule_week='📆 Next week';
+LANGS.en_us.schedule_confirm='✅ Confirm Schedule';
+LANGS.en_uk.schedule_confirm='✅ Confirm Schedule';
+LANGS.en_us.schedule_cleared='Schedule cleared';
+LANGS.en_uk.schedule_cleared='Schedule cleared';
+LANGS.en_us.schedule_set='Scheduled! Post when ready.';
+LANGS.en_uk.schedule_set='Scheduled! Post when ready.';
+LANGS.en_us.bookmarks_empty='No bookmarks yet.';
+LANGS.en_uk.bookmarks_empty='No bookmarks yet.';
+LANGS.en_us.bookmarks_empty_sub='Tap 🔖 on any post to save it!';
+LANGS.en_uk.bookmarks_empty_sub='Tap 🔖 on any post to save it!';
+LANGS.en_us.bookmark_added='🔖 Bookmarked!';
+LANGS.en_uk.bookmark_added='🔖 Bookmarked!';
+LANGS.en_us.bookmark_removed='Bookmark removed';
+LANGS.en_uk.bookmark_removed='Bookmark removed';
+LANGS.en_us.trending_title='🔥 Trending';
+LANGS.en_uk.trending_title='🔥 Trending';
+LANGS.en_us.trending_empty=t('trending_empty');
+LANGS.en_uk.trending_empty=t('trending_empty');
+LANGS.en_us.who_follow_title='👥 Who to follow';
+LANGS.en_uk.who_follow_title='👥 Who to follow';
+LANGS.en_us.who_follow_empty='People you may know will appear here soon!';
+LANGS.en_uk.who_follow_empty='People you may know will appear here soon!';
+LANGS.en_us.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
+LANGS.en_uk.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
+LANGS.en_us.dash_posts='Posts';
+LANGS.en_uk.dash_posts='Posts';
+LANGS.en_us.dash_likes='Total Likes';
+LANGS.en_uk.dash_likes='Total Likes';
+LANGS.en_us.dash_views='Total Views';
+LANGS.en_uk.dash_views='Total Views';
+LANGS.en_us.dash_replies='Total Replies';
+LANGS.en_uk.dash_replies='Total Replies';
+LANGS.en_us.dash_bookmarked='Bookmarked';
+LANGS.en_uk.dash_bookmarked='Bookmarked';
+LANGS.en_us.dash_scheduled='Scheduled';
+LANGS.en_uk.dash_scheduled='Scheduled';
+LANGS.en_us.dash_top_posts=t('dash_top_posts');
+LANGS.en_uk.dash_top_posts=t('dash_top_posts');
+LANGS.en_us.dash_activity=t('dash_activity');
+LANGS.en_uk.dash_activity=t('dash_activity');
+LANGS.en_us.dash_media=t('dash_media');
+LANGS.en_uk.dash_media=t('dash_media');
+LANGS.en_us.dash_img=t('dash_img');
+LANGS.en_uk.dash_img=t('dash_img');
+LANGS.en_us.dash_vid=t('dash_vid');
+LANGS.en_uk.dash_vid=t('dash_vid');
+LANGS.en_us.dash_media_total=t('dash_media_total');
+LANGS.en_uk.dash_media_total=t('dash_media_total');
+LANGS.en_us.dash_no_posts=t('dash_no_posts');
+LANGS.en_uk.dash_no_posts=t('dash_no_posts');
+LANGS.en_us.dash_no_activity=t('dash_no_activity');
+LANGS.en_uk.dash_no_activity=t('dash_no_activity');
+LANGS.en_us.change_banner='<span data-t="change_banner"></span>';
+LANGS.en_uk.change_banner='<span data-t="change_banner"></span>';
+LANGS.en_us.footer_brand='NeonP · from Plannet';
+LANGS.en_uk.footer_brand='NeonP · from Plannet';
+LANGS.en_us.footer_copy='© 2026 Plannet Agency';
+LANGS.en_uk.footer_copy='© 2026 Plannet Agency';
+if(LANGS.hi)LANGS.hi.nav_home='होम';
+if(LANGS.hi)LANGS.hi.nav_search='खोज';
+if(LANGS.hi)LANGS.hi.nav_profile='प्रोफाइल';
+if(LANGS.hi)LANGS.hi.nav_bookmarks='बुकमार्क';
+if(LANGS.hi)LANGS.hi.nav_notifications='सूचनाएं';
+if(LANGS.hi)LANGS.hi.nav_dashboard='डैशबोर्ड';
+if(LANGS.hi)LANGS.hi.nav_theme='थीम';
+if(LANGS.hi)LANGS.hi.nav_more='और';
+if(LANGS.hi)LANGS.hi.nav_newpost='✏️ नई पोस्ट';
+if(LANGS.hi)LANGS.hi.photo_btn='📷 फोटो';
+if(LANGS.hi)LANGS.hi.video_btn='🎬 वीडियो';
+if(LANGS.hi)LANGS.hi.any_btn='📎 कोई भी';
+if(LANGS.hi)LANGS.hi.schedule_btn='🕐 शेड्यूल';
+if(LANGS.hi)LANGS.hi.schedule_title='🕐 पोस्ट शेड्यूल करें';
+if(LANGS.hi)LANGS.hi.schedule_sub='पोस्ट करने का समय चुनें';
+if(LANGS.hi)LANGS.hi.schedule_datetime_lbl='दिनांक और समय';
+if(LANGS.hi)LANGS.hi.schedule_1hr='⚡ 1 घंटे बाद';
+if(LANGS.hi)LANGS.hi.schedule_3hr='🌅 3 घंटे बाद';
+if(LANGS.hi)LANGS.hi.schedule_tomorrow='📅 कल';
+if(LANGS.hi)LANGS.hi.schedule_week='📆 अगले हफ्ते';
+if(LANGS.hi)LANGS.hi.schedule_confirm='✅ शेड्यूल करें';
+if(LANGS.hi)LANGS.hi.schedule_cleared='शेड्यूल हटाया गया';
+if(LANGS.hi)LANGS.hi.schedule_set='शेड्यूल सेट! 🕐';
+if(LANGS.hi)LANGS.hi.bookmarks_empty='अभी कोई बुकमार्क नहीं।';
+if(LANGS.hi)LANGS.hi.bookmarks_empty_sub='किसी पोस्ट पर 🔖 दबाएं!';
+if(LANGS.hi)LANGS.hi.bookmark_added='🔖 बुकमार्क किया!';
+if(LANGS.hi)LANGS.hi.bookmark_removed='बुकमार्क हटाया';
+if(LANGS.hi)LANGS.hi.trending_title='🔥 ट्रेंडिंग';
+if(LANGS.hi)LANGS.hi.trending_empty='ट्रेंड देखने के लिए पोस्ट करें!';
+if(LANGS.hi)LANGS.hi.who_follow_title='👥 फॉलो करें';
+if(LANGS.hi)LANGS.hi.who_follow_empty='जल्द ही लोग दिखेंगे!';
+if(LANGS.hi)LANGS.hi.scheduled_title='🕐 शेड्यूल पोस्ट';
+if(LANGS.hi)LANGS.hi.dash_posts='पोस्ट';
+if(LANGS.hi)LANGS.hi.dash_likes='कुल लाइक्स';
+if(LANGS.hi)LANGS.hi.dash_views='कुल व्यूज';
+if(LANGS.hi)LANGS.hi.dash_replies='कुल रिप्लाई';
+if(LANGS.hi)LANGS.hi.dash_bookmarked='बुकमार्क';
+if(LANGS.hi)LANGS.hi.dash_scheduled='शेड्यूल';
+if(LANGS.hi)LANGS.hi.dash_top_posts='🏆 आपकी टॉप पोस्ट';
+if(LANGS.hi)LANGS.hi.dash_activity='📅 हाल की गतिविधि';
+if(LANGS.hi)LANGS.hi.dash_media='🖼️ मीडिया पोस्ट';
+if(LANGS.hi)LANGS.hi.dash_img='तस्वीरें';
+if(LANGS.hi)LANGS.hi.dash_vid='वीडियो';
+if(LANGS.hi)LANGS.hi.dash_media_total='कुल मीडिया पोस्ट';
+if(LANGS.hi)LANGS.hi.dash_no_posts='अभी कोई पोस्ट नहीं! 🚀';
+if(LANGS.hi)LANGS.hi.dash_no_activity='अभी कोई गतिविधि नहीं!';
+if(LANGS.hi)LANGS.hi.change_banner='📷 बैनर बदलें';
+if(LANGS.hi)LANGS.hi.footer_brand='NeonP · Plannet से';
+if(LANGS.hi)LANGS.hi.footer_copy='© 2026 Plannet Agency';
+if(LANGS.hinglish)LANGS.hinglish.nav_home='Home';
+if(LANGS.hinglish)LANGS.hinglish.nav_search='Search';
+if(LANGS.hinglish)LANGS.hinglish.nav_profile='Profile';
+if(LANGS.hinglish)LANGS.hinglish.nav_bookmarks='Bookmarks';
+if(LANGS.hinglish)LANGS.hinglish.nav_notifications='Notifications';
+if(LANGS.hinglish)LANGS.hinglish.nav_dashboard='Dashboard';
+if(LANGS.hinglish)LANGS.hinglish.nav_theme='Theme';
+if(LANGS.hinglish)LANGS.hinglish.nav_more='Aur';
+if(LANGS.hinglish)LANGS.hinglish.nav_newpost='✏️ Naya Post';
+if(LANGS.hinglish)LANGS.hinglish.photo_btn='<span data-t="photo_btn"></span>';
+if(LANGS.hinglish)LANGS.hinglish.video_btn='<span data-t="video_btn"></span>';
+if(LANGS.hinglish)LANGS.hinglish.any_btn='📎 Kuch bhi';
+if(LANGS.hinglish)LANGS.hinglish.schedule_btn='<span data-t="schedule_btn"></span>';
+if(LANGS.hinglish)LANGS.hinglish.schedule_title='🕐 Post Schedule Karo';
+if(LANGS.hinglish)LANGS.hinglish.schedule_sub='Kab post karna hai chunno';
+if(LANGS.hinglish)LANGS.hinglish.schedule_datetime_lbl='Tarikh aur Samay';
+if(LANGS.hinglish)LANGS.hinglish.schedule_1hr='⚡ 1 ghante baad';
+if(LANGS.hinglish)LANGS.hinglish.schedule_3hr='🌅 3 ghante baad';
+if(LANGS.hinglish)LANGS.hinglish.schedule_tomorrow='📅 Kal';
+if(LANGS.hinglish)LANGS.hinglish.schedule_week='📆 Agla hafta';
+if(LANGS.hinglish)LANGS.hinglish.schedule_confirm='✅ Schedule Karo';
+if(LANGS.hinglish)LANGS.hinglish.schedule_cleared='Schedule hata diya';
+if(LANGS.hinglish)LANGS.hinglish.schedule_set='Schedule set! 🕐';
+if(LANGS.hinglish)LANGS.hinglish.bookmarks_empty='Abhi koi bookmark nahi.';
+if(LANGS.hinglish)LANGS.hinglish.bookmarks_empty_sub='Kisi post pe 🔖 dabao!';
+if(LANGS.hinglish)LANGS.hinglish.bookmark_added='🔖 Bookmarked!';
+if(LANGS.hinglish)LANGS.hinglish.bookmark_removed='Bookmark hata diya';
+if(LANGS.hinglish)LANGS.hinglish.trending_title='🔥 Trending';
+if(LANGS.hinglish)LANGS.hinglish.trending_empty='Trend dekhne ke liye post karo!';
+if(LANGS.hinglish)LANGS.hinglish.who_follow_title='👥 Follow Karo';
+if(LANGS.hinglish)LANGS.hinglish.who_follow_empty='Log jald dikhenge!';
+if(LANGS.hinglish)LANGS.hinglish.scheduled_title='<span data-t="schedule_btn"></span>d Posts';
+if(LANGS.hinglish)LANGS.hinglish.dash_posts='Posts';
+if(LANGS.hinglish)LANGS.hinglish.dash_likes='Total Likes';
+if(LANGS.hinglish)LANGS.hinglish.dash_views='Total Views';
+if(LANGS.hinglish)LANGS.hinglish.dash_replies='Total Replies';
+if(LANGS.hinglish)LANGS.hinglish.dash_bookmarked='Bookmarked';
+if(LANGS.hinglish)LANGS.hinglish.dash_scheduled='Scheduled';
+if(LANGS.hinglish)LANGS.hinglish.dash_top_posts='🏆 Aapki Top Posts';
+if(LANGS.hinglish)LANGS.hinglish.dash_activity=t('dash_activity');
+if(LANGS.hinglish)LANGS.hinglish.dash_media=t('dash_media');
+if(LANGS.hinglish)LANGS.hinglish.dash_img='Photos';
+if(LANGS.hinglish)LANGS.hinglish.dash_vid='Videos';
+if(LANGS.hinglish)LANGS.hinglish.dash_media_total='Total media posts';
+if(LANGS.hinglish)LANGS.hinglish.dash_no_posts='Koi post nahi abhi! 🚀';
+if(LANGS.hinglish)LANGS.hinglish.dash_no_activity='Koi activity nahi!';
+if(LANGS.hinglish)LANGS.hinglish.change_banner='📷 Banner badlo';
+if(LANGS.hinglish)LANGS.hinglish.footer_brand='NeonP · Plannet se';
+if(LANGS.hinglish)LANGS.hinglish.footer_copy='© 2026 Plannet Agency';
+if(LANGS.ar)LANGS.ar.nav_home='الرئيسية';
+if(LANGS.ar)LANGS.ar.nav_search='بحث';
+if(LANGS.ar)LANGS.ar.nav_profile='الملف الشخصي';
+if(LANGS.ar)LANGS.ar.nav_bookmarks='المحفوظات';
+if(LANGS.ar)LANGS.ar.nav_notifications='الإشعارات';
+if(LANGS.ar)LANGS.ar.nav_dashboard='لوحة التحكم';
+if(LANGS.ar)LANGS.ar.nav_theme='المظهر';
+if(LANGS.ar)LANGS.ar.nav_more='المزيد';
+if(LANGS.ar)LANGS.ar.nav_newpost='✏️ منشور جديد';
+if(LANGS.ar)LANGS.ar.photo_btn='📷 صورة';
+if(LANGS.ar)LANGS.ar.video_btn='🎬 فيديو';
+if(LANGS.ar)LANGS.ar.any_btn='📎 أي ملف';
+if(LANGS.ar)LANGS.ar.schedule_btn='🕐 جدولة';
+if(LANGS.ar)LANGS.ar.schedule_title='🕐 جدولة المنشور';
+if(LANGS.ar)LANGS.ar.schedule_sub='اختر وقت النشر';
+if(LANGS.ar)LANGS.ar.schedule_datetime_lbl='التاريخ والوقت';
+if(LANGS.ar)LANGS.ar.schedule_1hr='⚡ بعد ساعة';
+if(LANGS.ar)LANGS.ar.schedule_3hr='🌅 بعد 3 ساعات';
+if(LANGS.ar)LANGS.ar.schedule_tomorrow='📅 غداً';
+if(LANGS.ar)LANGS.ar.schedule_week='📆 الأسبوع القادم';
+if(LANGS.ar)LANGS.ar.schedule_confirm='✅ تأكيد الجدولة';
+if(LANGS.ar)LANGS.ar.schedule_cleared='تم إلغاء الجدولة';
+if(LANGS.ar)LANGS.ar.schedule_set='تمت الجدولة! 🕐';
+if(LANGS.ar)LANGS.ar.bookmarks_empty='لا توجد محفوظات بعد.';
+if(LANGS.ar)LANGS.ar.bookmarks_empty_sub='اضغط 🔖 على أي منشور!';
+if(LANGS.ar)LANGS.ar.bookmark_added='🔖 تم الحفظ!';
+if(LANGS.ar)LANGS.ar.bookmark_removed='تم إزالة المحفوظ';
+if(LANGS.ar)LANGS.ar.trending_title='🔥 رائج';
+if(LANGS.ar)LANGS.ar.trending_empty='انشر شيئاً لترى الرائج!';
+if(LANGS.ar)LANGS.ar.who_follow_title='👥 من تتابع';
+if(LANGS.ar)LANGS.ar.who_follow_empty='سيظهر الأشخاص قريباً!';
+if(LANGS.ar)LANGS.ar.scheduled_title='🕐 المنشورات المجدولة';
+if(LANGS.ar)LANGS.ar.dash_posts='المنشورات';
+if(LANGS.ar)LANGS.ar.dash_likes='إجمالي الإعجابات';
+if(LANGS.ar)LANGS.ar.dash_views='إجمالي المشاهدات';
+if(LANGS.ar)LANGS.ar.dash_replies='إجمالي الردود';
+if(LANGS.ar)LANGS.ar.dash_bookmarked='المحفوظات';
+if(LANGS.ar)LANGS.ar.dash_scheduled='مجدول';
+if(LANGS.ar)LANGS.ar.dash_top_posts='🏆 أفضل منشوراتك';
+if(LANGS.ar)LANGS.ar.dash_activity='📅 النشاط الأخير';
+if(LANGS.ar)LANGS.ar.dash_media='🖼️ منشورات الوسائط';
+if(LANGS.ar)LANGS.ar.dash_img='الصور';
+if(LANGS.ar)LANGS.ar.dash_vid='الفيديوهات';
+if(LANGS.ar)LANGS.ar.dash_media_total='إجمالي منشورات الوسائط';
+if(LANGS.ar)LANGS.ar.dash_no_posts='لا منشورات بعد! 🚀';
+if(LANGS.ar)LANGS.ar.dash_no_activity='لا نشاط بعد!';
+if(LANGS.ar)LANGS.ar.change_banner='📷 تغيير صورة الغلاف';
+if(LANGS.ar)LANGS.ar.footer_brand='NeonP · من Plannet';
+if(LANGS.ar)LANGS.ar.footer_copy='© 2026 Plannet Agency';
+if(LANGS.ur)LANGS.ur.nav_home='ہوم';
+if(LANGS.ur)LANGS.ur.nav_search='تلاش';
+if(LANGS.ur)LANGS.ur.nav_profile='پروفائل';
+if(LANGS.ur)LANGS.ur.nav_bookmarks='بک مارکس';
+if(LANGS.ur)LANGS.ur.nav_notifications='اطلاعات';
+if(LANGS.ur)LANGS.ur.nav_dashboard='ڈیش بورڈ';
+if(LANGS.ur)LANGS.ur.nav_theme='تھیم';
+if(LANGS.ur)LANGS.ur.nav_more='مزید';
+if(LANGS.ur)LANGS.ur.nav_newpost='✏️ نئی پوسٹ';
+if(LANGS.ur)LANGS.ur.photo_btn='📷 تصویر';
+if(LANGS.ur)LANGS.ur.video_btn='🎬 ویڈیو';
+if(LANGS.ur)LANGS.ur.any_btn='📎 کچھ بھی';
+if(LANGS.ur)LANGS.ur.schedule_btn='🕐 شیڈول';
+if(LANGS.ur)LANGS.ur.schedule_title='🕐 پوسٹ شیڈول کریں';
+if(LANGS.ur)LANGS.ur.schedule_sub='پوسٹ کا وقت منتخب کریں';
+if(LANGS.ur)LANGS.ur.schedule_datetime_lbl='تاریخ اور وقت';
+if(LANGS.ur)LANGS.ur.schedule_1hr='⚡ 1 گھنٹے بعد';
+if(LANGS.ur)LANGS.ur.schedule_3hr='🌅 3 گھنٹے بعد';
+if(LANGS.ur)LANGS.ur.schedule_tomorrow='📅 کل';
+if(LANGS.ur)LANGS.ur.schedule_week='📆 اگلا ہفتہ';
+if(LANGS.ur)LANGS.ur.schedule_confirm='✅ شیڈول کریں';
+if(LANGS.ur)LANGS.ur.schedule_cleared='شیڈول ہٹا دیا';
+if(LANGS.ur)LANGS.ur.schedule_set='شیڈول سیٹ! 🕐';
+if(LANGS.ur)LANGS.ur.bookmarks_empty='ابھی کوئی بک مارک نہیں۔';
+if(LANGS.ur)LANGS.ur.bookmarks_empty_sub='کسی پوسٹ پر 🔖 دبائیں!';
+if(LANGS.ur)LANGS.ur.bookmark_added='🔖 بک مارک ہو گیا!';
+if(LANGS.ur)LANGS.ur.bookmark_removed='بک مارک ہٹا دیا';
+if(LANGS.ur)LANGS.ur.trending_title='🔥 ٹرینڈنگ';
+if(LANGS.ur)LANGS.ur.trending_empty='ٹرینڈ دیکھنے کے لیے پوسٹ کریں!';
+if(LANGS.ur)LANGS.ur.who_follow_title='👥 فالو کریں';
+if(LANGS.ur)LANGS.ur.who_follow_empty='لوگ جلد دکھیں گے!';
+if(LANGS.ur)LANGS.ur.scheduled_title='🕐 شیڈول پوسٹس';
+if(LANGS.ur)LANGS.ur.dash_posts='پوسٹس';
+if(LANGS.ur)LANGS.ur.dash_likes='کل لائکس';
+if(LANGS.ur)LANGS.ur.dash_views='کل ویوز';
+if(LANGS.ur)LANGS.ur.dash_replies='کل جوابات';
+if(LANGS.ur)LANGS.ur.dash_bookmarked='بک مارکڈ';
+if(LANGS.ur)LANGS.ur.dash_scheduled='شیڈول';
+if(LANGS.ur)LANGS.ur.dash_top_posts='🏆 آپ کی ٹاپ پوسٹس';
+if(LANGS.ur)LANGS.ur.dash_activity='📅 حالیہ سرگرمی';
+if(LANGS.ur)LANGS.ur.dash_media='🖼️ میڈیا پوسٹس';
+if(LANGS.ur)LANGS.ur.dash_img='تصاویر';
+if(LANGS.ur)LANGS.ur.dash_vid='ویڈیوز';
+if(LANGS.ur)LANGS.ur.dash_media_total='کل میڈیا پوسٹس';
+if(LANGS.ur)LANGS.ur.dash_no_posts='ابھی کوئی پوسٹ نہیں! 🚀';
+if(LANGS.ur)LANGS.ur.dash_no_activity='ابھی کوئی سرگرمی نہیں!';
+if(LANGS.ur)LANGS.ur.change_banner='📷 بینر بدلیں';
+if(LANGS.ur)LANGS.ur.footer_brand='NeonP · Plannet سے';
+if(LANGS.ur)LANGS.ur.footer_copy='© 2026 Plannet Agency';
+if(LANGS.ja)LANGS.ja.nav_home='ホーム';
+if(LANGS.ja)LANGS.ja.nav_search='検索';
+if(LANGS.ja)LANGS.ja.nav_profile='プロフィール';
+if(LANGS.ja)LANGS.ja.nav_bookmarks='ブックマーク';
+if(LANGS.ja)LANGS.ja.nav_notifications='通知';
+if(LANGS.ja)LANGS.ja.nav_dashboard='ダッシュボード';
+if(LANGS.ja)LANGS.ja.nav_theme='テーマ';
+if(LANGS.ja)LANGS.ja.nav_more='その他';
+if(LANGS.ja)LANGS.ja.nav_newpost='✏️ 新規投稿';
+if(LANGS.ja)LANGS.ja.photo_btn='📷 写真';
+if(LANGS.ja)LANGS.ja.video_btn='🎬 動画';
+if(LANGS.ja)LANGS.ja.any_btn='📎 ファイル';
+if(LANGS.ja)LANGS.ja.schedule_btn='🕐 予約投稿';
+if(LANGS.ja)LANGS.ja.schedule_title='🕐 投稿を予約する';
+if(LANGS.ja)LANGS.ja.schedule_sub='投稿する日時を選択';
+if(LANGS.ja)LANGS.ja.schedule_datetime_lbl='日付と時刻';
+if(LANGS.ja)LANGS.ja.schedule_1hr='⚡ 1時間後';
+if(LANGS.ja)LANGS.ja.schedule_3hr='🌅 3時間後';
+if(LANGS.ja)LANGS.ja.schedule_tomorrow='📅 明日';
+if(LANGS.ja)LANGS.ja.schedule_week='📆 来週';
+if(LANGS.ja)LANGS.ja.schedule_confirm='✅ 予約を確認';
+if(LANGS.ja)LANGS.ja.schedule_cleared='予約をキャンセル';
+if(LANGS.ja)LANGS.ja.schedule_set='予約設定完了！🕐';
+if(LANGS.ja)LANGS.ja.bookmarks_empty='ブックマークがまだありません。';
+if(LANGS.ja)LANGS.ja.bookmarks_empty_sub='投稿の🔖をタップして保存！';
+if(LANGS.ja)LANGS.ja.bookmark_added='🔖 ブックマーク済！';
+if(LANGS.ja)LANGS.ja.bookmark_removed='ブックマーク解除';
+if(LANGS.ja)LANGS.ja.trending_title='🔥 トレンド';
+if(LANGS.ja)LANGS.ja.trending_empty='投稿してトレンドを見よう！';
+if(LANGS.ja)LANGS.ja.who_follow_title='👥 おすすめユーザー';
+if(LANGS.ja)LANGS.ja.who_follow_empty='まもなく表示されます！';
+if(LANGS.ja)LANGS.ja.scheduled_title='🕐 予約投稿';
+if(LANGS.ja)LANGS.ja.dash_posts='投稿数';
+if(LANGS.ja)LANGS.ja.dash_likes='総いいね';
+if(LANGS.ja)LANGS.ja.dash_views='総閲覧';
+if(LANGS.ja)LANGS.ja.dash_replies='総返信';
+if(LANGS.ja)LANGS.ja.dash_bookmarked='ブックマーク';
+if(LANGS.ja)LANGS.ja.dash_scheduled='予約';
+if(LANGS.ja)LANGS.ja.dash_top_posts='🏆 人気の投稿';
+if(LANGS.ja)LANGS.ja.dash_activity='📅 最近の活動';
+if(LANGS.ja)LANGS.ja.dash_media='🖼️ メディア投稿';
+if(LANGS.ja)LANGS.ja.dash_img='画像';
+if(LANGS.ja)LANGS.ja.dash_vid='動画';
+if(LANGS.ja)LANGS.ja.dash_media_total='メディア投稿合計';
+if(LANGS.ja)LANGS.ja.dash_no_posts='まだ投稿がありません！🚀';
+if(LANGS.ja)LANGS.ja.dash_no_activity='まだ活動がありません！';
+if(LANGS.ja)LANGS.ja.change_banner='📷 バナー写真を変更';
+if(LANGS.ja)LANGS.ja.footer_brand='NeonP · Plannetより';
+if(LANGS.ja)LANGS.ja.footer_copy='© 2026 Plannet Agency';
+if(LANGS.zh)LANGS.zh.nav_home='首页';
+if(LANGS.zh)LANGS.zh.nav_search='搜索';
+if(LANGS.zh)LANGS.zh.nav_profile='个人资料';
+if(LANGS.zh)LANGS.zh.nav_bookmarks='收藏';
+if(LANGS.zh)LANGS.zh.nav_notifications='通知';
+if(LANGS.zh)LANGS.zh.nav_dashboard='仪表板';
+if(LANGS.zh)LANGS.zh.nav_theme='主题';
+if(LANGS.zh)LANGS.zh.nav_more='更多';
+if(LANGS.zh)LANGS.zh.nav_newpost='✏️ 新帖子';
+if(LANGS.zh)LANGS.zh.photo_btn='📷 照片';
+if(LANGS.zh)LANGS.zh.video_btn='🎬 视频';
+if(LANGS.zh)LANGS.zh.any_btn='📎 文件';
+if(LANGS.zh)LANGS.zh.schedule_btn='🕐 定时发布';
+if(LANGS.zh)LANGS.zh.schedule_title='🕐 定时发布';
+if(LANGS.zh)LANGS.zh.schedule_sub='选择发布时间';
+if(LANGS.zh)LANGS.zh.schedule_datetime_lbl='日期和时间';
+if(LANGS.zh)LANGS.zh.schedule_1hr='⚡ 1小时后';
+if(LANGS.zh)LANGS.zh.schedule_3hr='🌅 3小时后';
+if(LANGS.zh)LANGS.zh.schedule_tomorrow='📅 明天';
+if(LANGS.zh)LANGS.zh.schedule_week='📆 下周';
+if(LANGS.zh)LANGS.zh.schedule_confirm='✅ 确认定时';
+if(LANGS.zh)LANGS.zh.schedule_cleared='已取消定时';
+if(LANGS.zh)LANGS.zh.schedule_set='定时已设置！🕐';
+if(LANGS.zh)LANGS.zh.bookmarks_empty='暂无收藏。';
+if(LANGS.zh)LANGS.zh.bookmarks_empty_sub='点击帖子上的🔖收藏！';
+if(LANGS.zh)LANGS.zh.bookmark_added='🔖 已收藏！';
+if(LANGS.zh)LANGS.zh.bookmark_removed='已取消收藏';
+if(LANGS.zh)LANGS.zh.trending_title='🔥 热门话题';
+if(LANGS.zh)LANGS.zh.trending_empty='发帖后查看热门！';
+if(LANGS.zh)LANGS.zh.who_follow_title='👥 推荐关注';
+if(LANGS.zh)LANGS.zh.who_follow_empty='即将显示推荐用户！';
+if(LANGS.zh)LANGS.zh.scheduled_title='🕐 定时帖子';
+if(LANGS.zh)LANGS.zh.dash_posts='帖子';
+if(LANGS.zh)LANGS.zh.dash_likes='总点赞';
+if(LANGS.zh)LANGS.zh.dash_views='总浏览';
+if(LANGS.zh)LANGS.zh.dash_replies='总回复';
+if(LANGS.zh)LANGS.zh.dash_bookmarked='收藏';
+if(LANGS.zh)LANGS.zh.dash_scheduled='定时';
+if(LANGS.zh)LANGS.zh.dash_top_posts='🏆 热门帖子';
+if(LANGS.zh)LANGS.zh.dash_activity='📅 最近动态';
+if(LANGS.zh)LANGS.zh.dash_media='🖼️ 媒体帖子';
+if(LANGS.zh)LANGS.zh.dash_img='图片';
+if(LANGS.zh)LANGS.zh.dash_vid='视频';
+if(LANGS.zh)LANGS.zh.dash_media_total='媒体帖子总数';
+if(LANGS.zh)LANGS.zh.dash_no_posts='还没有帖子！🚀';
+if(LANGS.zh)LANGS.zh.dash_no_activity='还没有动态！';
+if(LANGS.zh)LANGS.zh.change_banner='📷 更换横幅照片';
+if(LANGS.zh)LANGS.zh.footer_brand='NeonP · 来自Plannet';
+if(LANGS.zh)LANGS.zh.footer_copy='© 2026 Plannet Agency';
+if(LANGS.tr)LANGS.tr.nav_home='Ana Sayfa';
+if(LANGS.tr)LANGS.tr.nav_search='Ara';
+if(LANGS.tr)LANGS.tr.nav_profile='Profil';
+if(LANGS.tr)LANGS.tr.nav_bookmarks='Yer İmleri';
+if(LANGS.tr)LANGS.tr.nav_notifications='Bildirimler';
+if(LANGS.tr)LANGS.tr.nav_dashboard='Panel';
+if(LANGS.tr)LANGS.tr.nav_theme='Tema';
+if(LANGS.tr)LANGS.tr.nav_more='Daha Fazla';
+if(LANGS.tr)LANGS.tr.nav_newpost='✏️ Yeni Gönderi';
+if(LANGS.tr)LANGS.tr.photo_btn='📷 Fotoğraf';
+if(LANGS.tr)LANGS.tr.video_btn='<span data-t="video_btn"></span>';
+if(LANGS.tr)LANGS.tr.any_btn='📎 Dosya';
+if(LANGS.tr)LANGS.tr.schedule_btn='🕐 Zamanla';
+if(LANGS.tr)LANGS.tr.schedule_title='🕐 Gönderiyi Zamanla';
+if(LANGS.tr)LANGS.tr.schedule_sub='Ne zaman yayınlayacağını seç';
+if(LANGS.tr)LANGS.tr.schedule_datetime_lbl='Tarih ve Saat';
+if(LANGS.tr)LANGS.tr.schedule_1hr='⚡ 1 saat sonra';
+if(LANGS.tr)LANGS.tr.schedule_3hr='🌅 3 saat sonra';
+if(LANGS.tr)LANGS.tr.schedule_tomorrow='📅 Yarın';
+if(LANGS.tr)LANGS.tr.schedule_week='📆 Gelecek hafta';
+if(LANGS.tr)LANGS.tr.schedule_confirm='✅ Zamanlamayı Onayla';
+if(LANGS.tr)LANGS.tr.schedule_cleared='Zamanlama silindi';
+if(LANGS.tr)LANGS.tr.schedule_set='Zamanlandı！🕐';
+if(LANGS.tr)LANGS.tr.bookmarks_empty='Henüz yer imi yok.';
+if(LANGS.tr)LANGS.tr.bookmarks_empty_sub='Kaydetmek için 🔖 dokun!';
+if(LANGS.tr)LANGS.tr.bookmark_added='🔖 Kaydedildi!';
+if(LANGS.tr)LANGS.tr.bookmark_removed='Yer imi kaldırıldı';
+if(LANGS.tr)LANGS.tr.trending_title='🔥 Trend';
+if(LANGS.tr)LANGS.tr.trending_empty='Trend görmek için paylaş!';
+if(LANGS.tr)LANGS.tr.who_follow_title='👥 Takip Et';
+if(LANGS.tr)LANGS.tr.who_follow_empty='Yakında görünecek!';
+if(LANGS.tr)LANGS.tr.scheduled_title='🕐 Zamanlanmış Gönderiler';
+if(LANGS.tr)LANGS.tr.dash_posts='Gönderiler';
+if(LANGS.tr)LANGS.tr.dash_likes='Toplam Beğeni';
+if(LANGS.tr)LANGS.tr.dash_views='Toplam Görüntüleme';
+if(LANGS.tr)LANGS.tr.dash_replies='Toplam Yanıt';
+if(LANGS.tr)LANGS.tr.dash_bookmarked='Kaydedilen';
+if(LANGS.tr)LANGS.tr.dash_scheduled='Zamanlanmış';
+if(LANGS.tr)LANGS.tr.dash_top_posts='🏆 En İyi Gönderiler';
+if(LANGS.tr)LANGS.tr.dash_activity='📅 Son Aktivite';
+if(LANGS.tr)LANGS.tr.dash_media='🖼️ Medya Gönderileri';
+if(LANGS.tr)LANGS.tr.dash_img='Resimler';
+if(LANGS.tr)LANGS.tr.dash_vid='Videolar';
+if(LANGS.tr)LANGS.tr.dash_media_total='Toplam medya';
+if(LANGS.tr)LANGS.tr.dash_no_posts='Henüz gönderi yok！🚀';
+if(LANGS.tr)LANGS.tr.dash_no_activity='Henüz aktivite yok!';
+if(LANGS.tr)LANGS.tr.change_banner='📷 Kapak fotoğrafını değiştir';
+if(LANGS.tr)LANGS.tr.footer_brand='NeonP · Plannet tarafından';
+if(LANGS.tr)LANGS.tr.footer_copy='© 2026 Plannet Agency';
+if(LANGS.es)LANGS.es.nav_home='Inicio';
+if(LANGS.es)LANGS.es.nav_search='Buscar';
+if(LANGS.es)LANGS.es.nav_profile='Perfil';
+if(LANGS.es)LANGS.es.nav_bookmarks='Guardados';
+if(LANGS.es)LANGS.es.nav_notifications='Notificaciones';
+if(LANGS.es)LANGS.es.nav_dashboard='Panel';
+if(LANGS.es)LANGS.es.nav_theme='Tema';
+if(LANGS.es)LANGS.es.nav_more='Más';
+if(LANGS.es)LANGS.es.nav_newpost='✏️ Nueva publicación';
+if(LANGS.es)LANGS.es.photo_btn='📷 Foto';
+if(LANGS.es)LANGS.es.video_btn='<span data-t="video_btn"></span>';
+if(LANGS.es)LANGS.es.any_btn='📎 Archivo';
+if(LANGS.es)LANGS.es.schedule_btn='🕐 Programar';
+if(LANGS.es)LANGS.es.schedule_title='🕐 Programar publicación';
+if(LANGS.es)LANGS.es.schedule_sub='Elige cuándo publicar';
+if(LANGS.es)LANGS.es.schedule_datetime_lbl='Fecha y hora';
+if(LANGS.es)LANGS.es.schedule_1hr='⚡ En 1 hora';
+if(LANGS.es)LANGS.es.schedule_3hr='🌅 En 3 horas';
+if(LANGS.es)LANGS.es.schedule_tomorrow='📅 Mañana';
+if(LANGS.es)LANGS.es.schedule_week='📆 Próxima semana';
+if(LANGS.es)LANGS.es.schedule_confirm='✅ Confirmar';
+if(LANGS.es)LANGS.es.schedule_cleared='Programación cancelada';
+if(LANGS.es)LANGS.es.schedule_set='Programado！🕐';
+if(LANGS.es)LANGS.es.bookmarks_empty='Sin guardados aún.';
+if(LANGS.es)LANGS.es.bookmarks_empty_sub='Toca 🔖 en cualquier post!';
+if(LANGS.es)LANGS.es.bookmark_added='🔖 Guardado!';
+if(LANGS.es)LANGS.es.bookmark_removed='Guardado eliminado';
+if(LANGS.es)LANGS.es.trending_title='🔥 Tendencias';
+if(LANGS.es)LANGS.es.trending_empty='¡Publica para ver tendencias!';
+if(LANGS.es)LANGS.es.who_follow_title='👥 A quién seguir';
+if(LANGS.es)LANGS.es.who_follow_empty='Pronto aparecerán personas!';
+if(LANGS.es)LANGS.es.scheduled_title='🕐 Publicaciones programadas';
+if(LANGS.es)LANGS.es.dash_posts='Publicaciones';
+if(LANGS.es)LANGS.es.dash_likes='Total Me gusta';
+if(LANGS.es)LANGS.es.dash_views='Total Vistas';
+if(LANGS.es)LANGS.es.dash_replies='Total Respuestas';
+if(LANGS.es)LANGS.es.dash_bookmarked='Guardados';
+if(LANGS.es)LANGS.es.dash_scheduled='Programados';
+if(LANGS.es)LANGS.es.dash_top_posts='🏆 Tus mejores posts';
+if(LANGS.es)LANGS.es.dash_activity='📅 Actividad reciente';
+if(LANGS.es)LANGS.es.dash_media='🖼️ Posts con media';
+if(LANGS.es)LANGS.es.dash_img='Imágenes';
+if(LANGS.es)LANGS.es.dash_vid='Videos';
+if(LANGS.es)LANGS.es.dash_media_total='Total media';
+if(LANGS.es)LANGS.es.dash_no_posts='¡Sin posts aún！🚀';
+if(LANGS.es)LANGS.es.dash_no_activity='Sin actividad aún!';
+if(LANGS.es)LANGS.es.change_banner='📷 Cambiar foto de portada';
+if(LANGS.es)LANGS.es.footer_brand='NeonP · de Plannet';
+if(LANGS.es)LANGS.es.footer_copy='© 2026 Plannet Agency';
+if(LANGS.fr)LANGS.fr.nav_home='Accueil';
+if(LANGS.fr)LANGS.fr.nav_search='Rechercher';
+if(LANGS.fr)LANGS.fr.nav_profile='Profil';
+if(LANGS.fr)LANGS.fr.nav_bookmarks='Enregistrés';
+if(LANGS.fr)LANGS.fr.nav_notifications='Notifications';
+if(LANGS.fr)LANGS.fr.nav_dashboard='Tableau de bord';
+if(LANGS.fr)LANGS.fr.nav_theme='Thème';
+if(LANGS.fr)LANGS.fr.nav_more='Plus';
+if(LANGS.fr)LANGS.fr.nav_newpost='✏️ Nouvelle publication';
+if(LANGS.fr)LANGS.fr.photo_btn='<span data-t="photo_btn"></span>';
+if(LANGS.fr)LANGS.fr.video_btn='🎬 Vidéo';
+if(LANGS.fr)LANGS.fr.any_btn='📎 Fichier';
+if(LANGS.fr)LANGS.fr.schedule_btn='🕐 Planifier';
+if(LANGS.fr)LANGS.fr.schedule_title='🕐 Planifier la publication';
+if(LANGS.fr)LANGS.fr.schedule_sub='Choisissez quand publier';
+if(LANGS.fr)LANGS.fr.schedule_datetime_lbl='Date et heure';
+if(LANGS.fr)LANGS.fr.schedule_1hr='⚡ Dans 1 heure';
+if(LANGS.fr)LANGS.fr.schedule_3hr='🌅 Dans 3 heures';
+if(LANGS.fr)LANGS.fr.schedule_tomorrow='📅 Demain';
+if(LANGS.fr)LANGS.fr.schedule_week='📆 Semaine prochaine';
+if(LANGS.fr)LANGS.fr.schedule_confirm='✅ Confirmer';
+if(LANGS.fr)LANGS.fr.schedule_cleared='Planification annulée';
+if(LANGS.fr)LANGS.fr.schedule_set='Planifié！🕐';
+if(LANGS.fr)LANGS.fr.bookmarks_empty='Pas encore de favoris.';
+if(LANGS.fr)LANGS.fr.bookmarks_empty_sub='Appuyez 🔖 sur un post!';
+if(LANGS.fr)LANGS.fr.bookmark_added='🔖 Enregistré!';
+if(LANGS.fr)LANGS.fr.bookmark_removed='Supprimé des favoris';
+if(LANGS.fr)LANGS.fr.trending_title='🔥 Tendances';
+if(LANGS.fr)LANGS.fr.trending_empty='Publiez pour voir les tendances!';
+if(LANGS.fr)LANGS.fr.who_follow_title='👥 Suggestions';
+if(LANGS.fr)LANGS.fr.who_follow_empty='Des personnes apparaîtront bientôt!';
+if(LANGS.fr)LANGS.fr.scheduled_title='🕐 Publications planifiées';
+if(LANGS.fr)LANGS.fr.dash_posts='Publications';
+if(LANGS.fr)LANGS.fr.dash_likes='Total Jaimes';
+if(LANGS.fr)LANGS.fr.dash_views='Total Vues';
+if(LANGS.fr)LANGS.fr.dash_replies='Total Réponses';
+if(LANGS.fr)LANGS.fr.dash_bookmarked='Enregistrés';
+if(LANGS.fr)LANGS.fr.dash_scheduled='Planifiés';
+if(LANGS.fr)LANGS.fr.dash_top_posts='🏆 Meilleures publications';
+if(LANGS.fr)LANGS.fr.dash_activity='📅 Activité récente';
+if(LANGS.fr)LANGS.fr.dash_media='🖼️ Publications média';
+if(LANGS.fr)LANGS.fr.dash_img='Images';
+if(LANGS.fr)LANGS.fr.dash_vid='Vidéos';
+if(LANGS.fr)LANGS.fr.dash_media_total='Total média';
+if(LANGS.fr)LANGS.fr.dash_no_posts='Pas encore de posts！🚀';
+if(LANGS.fr)LANGS.fr.dash_no_activity='Pas encore d\'activité!';
+if(LANGS.fr)LANGS.fr.change_banner='📷 Changer la photo de couverture';
+if(LANGS.fr)LANGS.fr.footer_brand='NeonP · par Plannet';
+if(LANGS.fr)LANGS.fr.footer_copy='© 2026 Plannet Agency';
+if(LANGS.de)LANGS.de.nav_home='Startseite';
+if(LANGS.de)LANGS.de.nav_search='Suchen';
+if(LANGS.de)LANGS.de.nav_profile='Profil';
+if(LANGS.de)LANGS.de.nav_bookmarks='Lesezeichen';
+if(LANGS.de)LANGS.de.nav_notifications='Benachrichtigungen';
+if(LANGS.de)LANGS.de.nav_dashboard='Dashboard';
+if(LANGS.de)LANGS.de.nav_theme='Design';
+if(LANGS.de)LANGS.de.nav_more='Mehr';
+if(LANGS.de)LANGS.de.nav_newpost='✏️ Neuer Beitrag';
+if(LANGS.de)LANGS.de.photo_btn='📷 Foto';
+if(LANGS.de)LANGS.de.video_btn='<span data-t="video_btn"></span>';
+if(LANGS.de)LANGS.de.any_btn='📎 Datei';
+if(LANGS.de)LANGS.de.schedule_btn='🕐 Planen';
+if(LANGS.de)LANGS.de.schedule_title='🕐 Beitrag planen';
+if(LANGS.de)LANGS.de.schedule_sub='Wähle wann du posten möchtest';
+if(LANGS.de)LANGS.de.schedule_datetime_lbl='Datum und Uhrzeit';
+if(LANGS.de)LANGS.de.schedule_1hr='⚡ In 1 Stunde';
+if(LANGS.de)LANGS.de.schedule_3hr='🌅 In 3 Stunden';
+if(LANGS.de)LANGS.de.schedule_tomorrow='📅 Morgen';
+if(LANGS.de)LANGS.de.schedule_week='📆 Nächste Woche';
+if(LANGS.de)LANGS.de.schedule_confirm='✅ Bestätigen';
+if(LANGS.de)LANGS.de.schedule_cleared='Planung gelöscht';
+if(LANGS.de)LANGS.de.schedule_set='Geplant！🕐';
+if(LANGS.de)LANGS.de.bookmarks_empty='Noch keine Lesezeichen.';
+if(LANGS.de)LANGS.de.bookmarks_empty_sub='Tippe 🔖 auf einen Beitrag!';
+if(LANGS.de)LANGS.de.bookmark_added='🔖 Gespeichert!';
+if(LANGS.de)LANGS.de.bookmark_removed='Lesezeichen entfernt';
+if(LANGS.de)LANGS.de.trending_title='🔥 Trends';
+if(LANGS.de)LANGS.de.trending_empty='Poste etwas um Trends zu sehen!';
+if(LANGS.de)LANGS.de.who_follow_title='👥 Empfehlungen';
+if(LANGS.de)LANGS.de.who_follow_empty='Bald werden Personen angezeigt!';
+if(LANGS.de)LANGS.de.scheduled_title='🕐 Geplante Beiträge';
+if(LANGS.de)LANGS.de.dash_posts='Beiträge';
+if(LANGS.de)LANGS.de.dash_likes='Gesamt Likes';
+if(LANGS.de)LANGS.de.dash_views='Gesamt Aufrufe';
+if(LANGS.de)LANGS.de.dash_replies='Gesamt Antworten';
+if(LANGS.de)LANGS.de.dash_bookmarked='Gespeichert';
+if(LANGS.de)LANGS.de.dash_scheduled='Geplant';
+if(LANGS.de)LANGS.de.dash_top_posts='🏆 Top Beiträge';
+if(LANGS.de)LANGS.de.dash_activity='📅 Letzte Aktivität';
+if(LANGS.de)LANGS.de.dash_media='🖼️ Medienbeiträge';
+if(LANGS.de)LANGS.de.dash_img='Bilder';
+if(LANGS.de)LANGS.de.dash_vid='Videos';
+if(LANGS.de)LANGS.de.dash_media_total='Medienbeiträge gesamt';
+if(LANGS.de)LANGS.de.dash_no_posts='Noch keine Beiträge！🚀';
+if(LANGS.de)LANGS.de.dash_no_activity='Noch keine Aktivität!';
+if(LANGS.de)LANGS.de.change_banner='📷 Titelbild ändern';
+if(LANGS.de)LANGS.de.footer_brand='NeonP · von Plannet';
+if(LANGS.de)LANGS.de.footer_copy='© 2026 Plannet Agency';
+if(LANGS.ru)LANGS.ru.nav_home='Главная';
+if(LANGS.ru)LANGS.ru.nav_search='Поиск';
+if(LANGS.ru)LANGS.ru.nav_profile='Профиль';
+if(LANGS.ru)LANGS.ru.nav_bookmarks='Закладки';
+if(LANGS.ru)LANGS.ru.nav_notifications='Уведомления';
+if(LANGS.ru)LANGS.ru.nav_dashboard='Панель';
+if(LANGS.ru)LANGS.ru.nav_theme='Тема';
+if(LANGS.ru)LANGS.ru.nav_more='Ещё';
+if(LANGS.ru)LANGS.ru.nav_newpost='✏️ Новый пост';
+if(LANGS.ru)LANGS.ru.photo_btn='📷 Фото';
+if(LANGS.ru)LANGS.ru.video_btn='🎬 Видео';
+if(LANGS.ru)LANGS.ru.any_btn='📎 Файл';
+if(LANGS.ru)LANGS.ru.schedule_btn='🕐 Запланировать';
+if(LANGS.ru)LANGS.ru.schedule_title='🕐 Запланировать пост';
+if(LANGS.ru)LANGS.ru.schedule_sub='Выберите время публикации';
+if(LANGS.ru)LANGS.ru.schedule_datetime_lbl='Дата и время';
+if(LANGS.ru)LANGS.ru.schedule_1hr='⚡ Через 1 час';
+if(LANGS.ru)LANGS.ru.schedule_3hr='🌅 Через 3 часа';
+if(LANGS.ru)LANGS.ru.schedule_tomorrow='📅 Завтра';
+if(LANGS.ru)LANGS.ru.schedule_week='📆 На следующей неделе';
+if(LANGS.ru)LANGS.ru.schedule_confirm='✅ Подтвердить';
+if(LANGS.ru)LANGS.ru.schedule_cleared='Расписание отменено';
+if(LANGS.ru)LANGS.ru.schedule_set='Запланировано！🕐';
+if(LANGS.ru)LANGS.ru.bookmarks_empty='Закладок пока нет.';
+if(LANGS.ru)LANGS.ru.bookmarks_empty_sub='Нажмите 🔖 на любой пост!';
+if(LANGS.ru)LANGS.ru.bookmark_added='🔖 В закладках!';
+if(LANGS.ru)LANGS.ru.bookmark_removed='Закладка удалена';
+if(LANGS.ru)LANGS.ru.trending_title='🔥 В тренде';
+if(LANGS.ru)LANGS.ru.trending_empty='Опубликуйте что-нибудь!';
+if(LANGS.ru)LANGS.ru.who_follow_title='👥 Рекомендации';
+if(LANGS.ru)LANGS.ru.who_follow_empty='Скоро появятся люди!';
+if(LANGS.ru)LANGS.ru.scheduled_title='🕐 Запланированные посты';
+if(LANGS.ru)LANGS.ru.dash_posts='Посты';
+if(LANGS.ru)LANGS.ru.dash_likes='Всего лайков';
+if(LANGS.ru)LANGS.ru.dash_views='Всего просмотров';
+if(LANGS.ru)LANGS.ru.dash_replies='Всего ответов';
+if(LANGS.ru)LANGS.ru.dash_bookmarked='В закладках';
+if(LANGS.ru)LANGS.ru.dash_scheduled='Запланировано';
+if(LANGS.ru)LANGS.ru.dash_top_posts='🏆 Топ посты';
+if(LANGS.ru)LANGS.ru.dash_activity='📅 Последняя активность';
+if(LANGS.ru)LANGS.ru.dash_media='🖼️ Медиа посты';
+if(LANGS.ru)LANGS.ru.dash_img='Изображения';
+if(LANGS.ru)LANGS.ru.dash_vid='Видео';
+if(LANGS.ru)LANGS.ru.dash_media_total='Всего медиа';
+if(LANGS.ru)LANGS.ru.dash_no_posts='Постов пока нет！🚀';
+if(LANGS.ru)LANGS.ru.dash_no_activity='Активности пока нет!';
+if(LANGS.ru)LANGS.ru.change_banner='📷 Изменить баннер';
+if(LANGS.ru)LANGS.ru.footer_brand='NeonP · от Plannet';
+if(LANGS.ru)LANGS.ru.footer_copy='© 2026 Plannet Agency';
+if(LANGS.ko)LANGS.ko.nav_home='홈';
+if(LANGS.ko)LANGS.ko.nav_search='검색';
+if(LANGS.ko)LANGS.ko.nav_profile='프로필';
+if(LANGS.ko)LANGS.ko.nav_bookmarks='북마크';
+if(LANGS.ko)LANGS.ko.nav_notifications='알림';
+if(LANGS.ko)LANGS.ko.nav_dashboard='대시보드';
+if(LANGS.ko)LANGS.ko.nav_theme='테마';
+if(LANGS.ko)LANGS.ko.nav_more='더보기';
+if(LANGS.ko)LANGS.ko.nav_newpost='✏️ 새 게시물';
+if(LANGS.ko)LANGS.ko.photo_btn='📷 사진';
+if(LANGS.ko)LANGS.ko.video_btn='🎬 동영상';
+if(LANGS.ko)LANGS.ko.any_btn='📎 파일';
+if(LANGS.ko)LANGS.ko.schedule_btn='🕐 예약';
+if(LANGS.ko)LANGS.ko.schedule_title='🕐 게시물 예약';
+if(LANGS.ko)LANGS.ko.schedule_sub='게시할 시간 선택';
+if(LANGS.ko)LANGS.ko.schedule_datetime_lbl='날짜 및 시간';
+if(LANGS.ko)LANGS.ko.schedule_1hr='⚡ 1시간 후';
+if(LANGS.ko)LANGS.ko.schedule_3hr='🌅 3시간 후';
+if(LANGS.ko)LANGS.ko.schedule_tomorrow='📅 내일';
+if(LANGS.ko)LANGS.ko.schedule_week='📆 다음 주';
+if(LANGS.ko)LANGS.ko.schedule_confirm='✅ 예약 확인';
+if(LANGS.ko)LANGS.ko.schedule_cleared='예약 취소됨';
+if(LANGS.ko)LANGS.ko.schedule_set='예약됨！🕐';
+if(LANGS.ko)LANGS.ko.bookmarks_empty='북마크가 없습니다.';
+if(LANGS.ko)LANGS.ko.bookmarks_empty_sub='게시물의 🔖를 눌러 저장!';
+if(LANGS.ko)LANGS.ko.bookmark_added='🔖 북마크됨!';
+if(LANGS.ko)LANGS.ko.bookmark_removed='북마크 제거됨';
+if(LANGS.ko)LANGS.ko.trending_title='🔥 트렌딩';
+if(LANGS.ko)LANGS.ko.trending_empty='트렌드를 보려면 게시하세요!';
+if(LANGS.ko)LANGS.ko.who_follow_title='👥 팔로우 추천';
+if(LANGS.ko)LANGS.ko.who_follow_empty='곧 표시됩니다!';
+if(LANGS.ko)LANGS.ko.scheduled_title='🕐 예약된 게시물';
+if(LANGS.ko)LANGS.ko.dash_posts='게시물';
+if(LANGS.ko)LANGS.ko.dash_likes='총 좋아요';
+if(LANGS.ko)LANGS.ko.dash_views='총 조회';
+if(LANGS.ko)LANGS.ko.dash_replies='총 댓글';
+if(LANGS.ko)LANGS.ko.dash_bookmarked='북마크';
+if(LANGS.ko)LANGS.ko.dash_scheduled='예약됨';
+if(LANGS.ko)LANGS.ko.dash_top_posts='🏆 인기 게시물';
+if(LANGS.ko)LANGS.ko.dash_activity='📅 최근 활동';
+if(LANGS.ko)LANGS.ko.dash_media='🖼️ 미디어 게시물';
+if(LANGS.ko)LANGS.ko.dash_img='이미지';
+if(LANGS.ko)LANGS.ko.dash_vid='동영상';
+if(LANGS.ko)LANGS.ko.dash_media_total='미디어 합계';
+if(LANGS.ko)LANGS.ko.dash_no_posts='아직 게시물 없음！🚀';
+if(LANGS.ko)LANGS.ko.dash_no_activity='아직 활동 없음!';
+if(LANGS.ko)LANGS.ko.change_banner='📷 배너 사진 변경';
+if(LANGS.ko)LANGS.ko.footer_brand='NeonP · Plannet 제공';
+if(LANGS.ko)LANGS.ko.footer_copy='© 2026 Plannet Agency';
+if(LANGS.it)LANGS.it.nav_home='Home';
+if(LANGS.it)LANGS.it.nav_search='Cerca';
+if(LANGS.it)LANGS.it.nav_profile='Profilo';
+if(LANGS.it)LANGS.it.nav_bookmarks='Salvati';
+if(LANGS.it)LANGS.it.nav_notifications='Notifiche';
+if(LANGS.it)LANGS.it.nav_dashboard='Dashboard';
+if(LANGS.it)LANGS.it.nav_theme='Tema';
+if(LANGS.it)LANGS.it.nav_more='Altro';
+if(LANGS.it)LANGS.it.nav_newpost='✏️ Nuovo post';
+if(LANGS.it)LANGS.it.photo_btn='📷 Foto';
+if(LANGS.it)LANGS.it.video_btn='<span data-t="video_btn"></span>';
+if(LANGS.it)LANGS.it.any_btn='📎 File';
+if(LANGS.it)LANGS.it.schedule_btn='🕐 Programma';
+if(LANGS.it)LANGS.it.schedule_title='🕐 Programma post';
+if(LANGS.it)LANGS.it.schedule_sub='Scegli quando pubblicare';
+if(LANGS.it)LANGS.it.schedule_datetime_lbl='Data e ora';
+if(LANGS.it)LANGS.it.schedule_1hr='⚡ Tra 1 ora';
+if(LANGS.it)LANGS.it.schedule_3hr='🌅 Tra 3 ore';
+if(LANGS.it)LANGS.it.schedule_tomorrow='📅 Domani';
+if(LANGS.it)LANGS.it.schedule_week='📆 Prossima settimana';
+if(LANGS.it)LANGS.it.schedule_confirm='✅ Conferma';
+if(LANGS.it)LANGS.it.schedule_cleared='Programmazione annullata';
+if(LANGS.it)LANGS.it.schedule_set='Programmato！🕐';
+if(LANGS.it)LANGS.it.bookmarks_empty='Nessun salvato ancora.';
+if(LANGS.it)LANGS.it.bookmarks_empty_sub='Tocca 🔖 su un post!';
+if(LANGS.it)LANGS.it.bookmark_added='🔖 Salvato!';
+if(LANGS.it)LANGS.it.bookmark_removed='Salvato rimosso';
+if(LANGS.it)LANGS.it.trending_title='🔥 Tendenze';
+if(LANGS.it)LANGS.it.trending_empty='Pubblica per vedere le tendenze!';
+if(LANGS.it)LANGS.it.who_follow_title='👥 Da seguire';
+if(LANGS.it)LANGS.it.who_follow_empty='Presto appariranno persone!';
+if(LANGS.it)LANGS.it.scheduled_title='🕐 Post programmati';
+if(LANGS.it)LANGS.it.dash_posts='Post';
+if(LANGS.it)LANGS.it.dash_likes='Tot. Mi piace';
+if(LANGS.it)LANGS.it.dash_views='Tot. Visualizzazioni';
+if(LANGS.it)LANGS.it.dash_replies='Tot. Risposte';
+if(LANGS.it)LANGS.it.dash_bookmarked='Salvati';
+if(LANGS.it)LANGS.it.dash_scheduled='Programmati';
+if(LANGS.it)LANGS.it.dash_top_posts='🏆 Post migliori';
+if(LANGS.it)LANGS.it.dash_activity='📅 Attività recente';
+if(LANGS.it)LANGS.it.dash_media='🖼️ Post media';
+if(LANGS.it)LANGS.it.dash_img='Immagini';
+if(LANGS.it)LANGS.it.dash_vid='Video';
+if(LANGS.it)LANGS.it.dash_media_total='Tot. media';
+if(LANGS.it)LANGS.it.dash_no_posts='Nessun post！🚀';
+if(LANGS.it)LANGS.it.dash_no_activity='Nessuna attività!';
+if(LANGS.it)LANGS.it.change_banner='📷 Cambia foto copertina';
+if(LANGS.it)LANGS.it.footer_brand='NeonP · da Plannet';
+if(LANGS.it)LANGS.it.footer_copy='© 2026 Plannet Agency';
+if(LANGS.bn)LANGS.bn.nav_home='হোম';
+if(LANGS.bn)LANGS.bn.nav_search='খোঁজুন';
+if(LANGS.bn)LANGS.bn.nav_profile='প্রোফাইল';
+if(LANGS.bn)LANGS.bn.nav_bookmarks='বুকমার্ক';
+if(LANGS.bn)LANGS.bn.nav_notifications='বিজ্ঞপ্তি';
+if(LANGS.bn)LANGS.bn.nav_dashboard='ড্যাশবোর্ড';
+if(LANGS.bn)LANGS.bn.nav_theme='থিম';
+if(LANGS.bn)LANGS.bn.nav_more='আরও';
+if(LANGS.bn)LANGS.bn.nav_newpost='✏️ নতুন পোস্ট';
+if(LANGS.bn)LANGS.bn.photo_btn='📷 ছবি';
+if(LANGS.bn)LANGS.bn.video_btn='🎬 ভিডিও';
+if(LANGS.bn)LANGS.bn.any_btn='📎 যেকোনো';
+if(LANGS.bn)LANGS.bn.schedule_btn='🕐 সময়সূচী';
+if(LANGS.bn)LANGS.bn.schedule_title='🕐 পোস্ট শিডিউল করুন';
+if(LANGS.bn)LANGS.bn.schedule_sub='কখন পোস্ট করবেন বেছে নিন';
+if(LANGS.bn)LANGS.bn.schedule_datetime_lbl='তারিখ ও সময়';
+if(LANGS.bn)LANGS.bn.schedule_1hr='⚡ ১ ঘণ্টা পরে';
+if(LANGS.bn)LANGS.bn.schedule_3hr='🌅 ৩ ঘণ্টা পরে';
+if(LANGS.bn)LANGS.bn.schedule_tomorrow='📅 আগামীকাল';
+if(LANGS.bn)LANGS.bn.schedule_week='📆 আগামী সপ্তাহ';
+if(LANGS.bn)LANGS.bn.schedule_confirm='✅ নিশ্চিত করুন';
+if(LANGS.bn)LANGS.bn.schedule_cleared='শিডিউল বাতিল';
+if(LANGS.bn)LANGS.bn.schedule_set='শিডিউল সেট！🕐';
+if(LANGS.bn)LANGS.bn.bookmarks_empty='এখনো কোনো বুকমার্ক নেই।';
+if(LANGS.bn)LANGS.bn.bookmarks_empty_sub='যেকোনো পোস্টে 🔖 চাপুন!';
+if(LANGS.bn)LANGS.bn.bookmark_added='🔖 বুকমার্ক হয়েছে!';
+if(LANGS.bn)LANGS.bn.bookmark_removed='বুকমার্ক সরানো হয়েছে';
+if(LANGS.bn)LANGS.bn.trending_title='🔥 ট্রেন্ডিং';
+if(LANGS.bn)LANGS.bn.trending_empty='ট্রেন্ড দেখতে পোস্ট করুন!';
+if(LANGS.bn)LANGS.bn.who_follow_title='👥 ফলো করুন';
+if(LANGS.bn)LANGS.bn.who_follow_empty='শীঘ্রই দেখাবে!';
+if(LANGS.bn)LANGS.bn.scheduled_title='🕐 শিডিউল পোস্ট';
+if(LANGS.bn)LANGS.bn.dash_posts='পোস্ট';
+if(LANGS.bn)LANGS.bn.dash_likes='মোট লাইক';
+if(LANGS.bn)LANGS.bn.dash_views='মোট ভিউ';
+if(LANGS.bn)LANGS.bn.dash_replies='মোট রিপ্লাই';
+if(LANGS.bn)LANGS.bn.dash_bookmarked='বুকমার্ক';
+if(LANGS.bn)LANGS.bn.dash_scheduled='শিডিউল';
+if(LANGS.bn)LANGS.bn.dash_top_posts='🏆 সেরা পোস্ট';
+if(LANGS.bn)LANGS.bn.dash_activity='📅 সাম্প্রতিক কার্যক্রম';
+if(LANGS.bn)LANGS.bn.dash_media='🖼️ মিডিয়া পোস্ট';
+if(LANGS.bn)LANGS.bn.dash_img='ছবি';
+if(LANGS.bn)LANGS.bn.dash_vid='ভিডিও';
+if(LANGS.bn)LANGS.bn.dash_media_total='মোট মিডিয়া';
+if(LANGS.bn)LANGS.bn.dash_no_posts='এখনো পোস্ট নেই！🚀';
+if(LANGS.bn)LANGS.bn.dash_no_activity='এখনো কার্যক্রম নেই!';
+if(LANGS.bn)LANGS.bn.change_banner='📷 ব্যানার পরিবর্তন করুন';
+if(LANGS.bn)LANGS.bn.footer_brand='NeonP · Plannet থেকে';
+if(LANGS.bn)LANGS.bn.footer_copy='© 2026 Plannet Agency';
+if(LANGS.pa)LANGS.pa.nav_home='ਹੋਮ';
+if(LANGS.pa)LANGS.pa.nav_search='ਖੋਜ';
+if(LANGS.pa)LANGS.pa.nav_profile='ਪ੍ਰੋਫਾਈਲ';
+if(LANGS.pa)LANGS.pa.nav_bookmarks='ਬੁੱਕਮਾਰਕ';
+if(LANGS.pa)LANGS.pa.nav_notifications='ਸੂਚਨਾਵਾਂ';
+if(LANGS.pa)LANGS.pa.nav_dashboard='ਡੈਸ਼ਬੋਰਡ';
+if(LANGS.pa)LANGS.pa.nav_theme='ਥੀਮ';
+if(LANGS.pa)LANGS.pa.nav_more='ਹੋਰ';
+if(LANGS.pa)LANGS.pa.nav_newpost='✏️ ਨਵੀਂ ਪੋਸਟ';
+if(LANGS.pa)LANGS.pa.photo_btn='📷 ਫੋਟੋ';
+if(LANGS.pa)LANGS.pa.video_btn='🎬 ਵੀਡੀਓ';
+if(LANGS.pa)LANGS.pa.any_btn='📎 ਕੋਈ ਵੀ';
+if(LANGS.pa)LANGS.pa.schedule_btn='🕐 ਸ਼ਡਿਊਲ';
+if(LANGS.pa)LANGS.pa.schedule_title='🕐 ਪੋਸਟ ਸ਼ਡਿਊਲ ਕਰੋ';
+if(LANGS.pa)LANGS.pa.schedule_sub='ਪੋਸਟ ਦਾ ਸਮਾਂ ਚੁਣੋ';
+if(LANGS.pa)LANGS.pa.schedule_datetime_lbl='ਮਿਤੀ ਅਤੇ ਸਮਾਂ';
+if(LANGS.pa)LANGS.pa.schedule_1hr='⚡ 1 ਘੰਟੇ ਬਾਅਦ';
+if(LANGS.pa)LANGS.pa.schedule_3hr='🌅 3 ਘੰਟੇ ਬਾਅਦ';
+if(LANGS.pa)LANGS.pa.schedule_tomorrow='📅 ਕੱਲ੍ਹ';
+if(LANGS.pa)LANGS.pa.schedule_week='📆 ਅਗਲਾ ਹਫ਼ਤਾ';
+if(LANGS.pa)LANGS.pa.schedule_confirm='✅ ਪੁਸ਼ਟੀ ਕਰੋ';
+if(LANGS.pa)LANGS.pa.schedule_cleared='ਸ਼ਡਿਊਲ ਹਟਾਇਆ';
+if(LANGS.pa)LANGS.pa.schedule_set='ਸ਼ਡਿਊਲ ਸੈੱਟ！🕐';
+if(LANGS.pa)LANGS.pa.bookmarks_empty='ਅਜੇ ਕੋਈ ਬੁੱਕਮਾਰਕ ਨਹੀਂ।';
+if(LANGS.pa)LANGS.pa.bookmarks_empty_sub='ਕਿਸੇ ਪੋਸਟ ਤੇ 🔖 ਦਬਾਓ!';
+if(LANGS.pa)LANGS.pa.bookmark_added='🔖 ਬੁੱਕਮਾਰਕ ਕੀਤਾ!';
+if(LANGS.pa)LANGS.pa.bookmark_removed='ਬੁੱਕਮਾਰਕ ਹਟਾਇਆ';
+if(LANGS.pa)LANGS.pa.trending_title='🔥 ਟ੍ਰੈਂਡਿੰਗ';
+if(LANGS.pa)LANGS.pa.trending_empty='ਟ੍ਰੈਂਡ ਦੇਖਣ ਲਈ ਪੋਸਟ ਕਰੋ!';
+if(LANGS.pa)LANGS.pa.who_follow_title='👥 ਫੋਲੋ ਕਰੋ';
+if(LANGS.pa)LANGS.pa.who_follow_empty='ਜਲਦ ਹੀ ਲੋਕ ਦਿਖਣਗੇ!';
+if(LANGS.pa)LANGS.pa.scheduled_title='🕐 ਸ਼ਡਿਊਲ ਪੋਸਟਾਂ';
+if(LANGS.pa)LANGS.pa.dash_posts='ਪੋਸਟਾਂ';
+if(LANGS.pa)LANGS.pa.dash_likes='ਕੁੱਲ ਲਾਈਕ';
+if(LANGS.pa)LANGS.pa.dash_views='ਕੁੱਲ ਵਿਊ';
+if(LANGS.pa)LANGS.pa.dash_replies='ਕੁੱਲ ਜਵਾਬ';
+if(LANGS.pa)LANGS.pa.dash_bookmarked='ਬੁੱਕਮਾਰਕ';
+if(LANGS.pa)LANGS.pa.dash_scheduled='ਸ਼ਡਿਊਲ';
+if(LANGS.pa)LANGS.pa.dash_top_posts='🏆 ਚੋਟੀ ਦੀਆਂ ਪੋਸਟਾਂ';
+if(LANGS.pa)LANGS.pa.dash_activity='📅 ਤਾਜ਼ਾ ਗਤੀਵਿਧੀ';
+if(LANGS.pa)LANGS.pa.dash_media='🖼️ ਮੀਡੀਆ ਪੋਸਟਾਂ';
+if(LANGS.pa)LANGS.pa.dash_img='ਤਸਵੀਰਾਂ';
+if(LANGS.pa)LANGS.pa.dash_vid='ਵੀਡੀਓ';
+if(LANGS.pa)LANGS.pa.dash_media_total='ਕੁੱਲ ਮੀਡੀਆ';
+if(LANGS.pa)LANGS.pa.dash_no_posts='ਅਜੇ ਕੋਈ ਪੋਸਟ ਨਹੀਂ！🚀';
+if(LANGS.pa)LANGS.pa.dash_no_activity='ਅਜੇ ਕੋਈ ਗਤੀਵਿਧੀ ਨਹੀਂ!';
+if(LANGS.pa)LANGS.pa.change_banner='📷 ਬੈਨਰ ਬਦਲੋ';
+if(LANGS.pa)LANGS.pa.footer_brand='NeonP · Plannet ਤੋਂ';
+if(LANGS.pa)LANGS.pa.footer_copy='© 2026 Plannet Agency';
+if(LANGS.pt)LANGS.pt.nav_home='Início';
+if(LANGS.pt)LANGS.pt.nav_search='Pesquisar';
+if(LANGS.pt)LANGS.pt.nav_profile='Perfil';
+if(LANGS.pt)LANGS.pt.nav_bookmarks='Salvos';
+if(LANGS.pt)LANGS.pt.nav_notifications='Notificações';
+if(LANGS.pt)LANGS.pt.nav_dashboard='Painel';
+if(LANGS.pt)LANGS.pt.nav_theme='Tema';
+if(LANGS.pt)LANGS.pt.nav_more='Mais';
+if(LANGS.pt)LANGS.pt.nav_newpost='✏️ Nova publicação';
+if(LANGS.pt)LANGS.pt.photo_btn='📷 Foto';
+if(LANGS.pt)LANGS.pt.video_btn='🎬 Vídeo';
+if(LANGS.pt)LANGS.pt.any_btn='📎 Arquivo';
+if(LANGS.pt)LANGS.pt.schedule_btn='🕐 Agendar';
+if(LANGS.pt)LANGS.pt.schedule_title='🕐 Agendar publicação';
+if(LANGS.pt)LANGS.pt.schedule_sub='Escolha quando publicar';
+if(LANGS.pt)LANGS.pt.schedule_datetime_lbl='Data e hora';
+if(LANGS.pt)LANGS.pt.schedule_1hr='⚡ Em 1 hora';
+if(LANGS.pt)LANGS.pt.schedule_3hr='🌅 Em 3 horas';
+if(LANGS.pt)LANGS.pt.schedule_tomorrow='📅 Amanhã';
+if(LANGS.pt)LANGS.pt.schedule_week='📆 Próxima semana';
+if(LANGS.pt)LANGS.pt.schedule_confirm='✅ Confirmar';
+if(LANGS.pt)LANGS.pt.schedule_cleared='Agendamento cancelado';
+if(LANGS.pt)LANGS.pt.schedule_set='Agendado！🕐';
+if(LANGS.pt)LANGS.pt.bookmarks_empty='Sem salvos ainda.';
+if(LANGS.pt)LANGS.pt.bookmarks_empty_sub='Toque 🔖 em qualquer post!';
+if(LANGS.pt)LANGS.pt.bookmark_added='🔖 Salvo!';
+if(LANGS.pt)LANGS.pt.bookmark_removed='Salvo removido';
+if(LANGS.pt)LANGS.pt.trending_title='🔥 Tendências';
+if(LANGS.pt)LANGS.pt.trending_empty='Publique para ver tendências!';
+if(LANGS.pt)LANGS.pt.who_follow_title='👥 Sugestões';
+if(LANGS.pt)LANGS.pt.who_follow_empty='Pessoas aparecerão em breve!';
+if(LANGS.pt)LANGS.pt.scheduled_title='🕐 Publicações agendadas';
+if(LANGS.pt)LANGS.pt.dash_posts='Publicações';
+if(LANGS.pt)LANGS.pt.dash_likes='Total Curtidas';
+if(LANGS.pt)LANGS.pt.dash_views='Total Visualizações';
+if(LANGS.pt)LANGS.pt.dash_replies='Total Respostas';
+if(LANGS.pt)LANGS.pt.dash_bookmarked='Salvos';
+if(LANGS.pt)LANGS.pt.dash_scheduled='Agendados';
+if(LANGS.pt)LANGS.pt.dash_top_posts='🏆 Melhores posts';
+if(LANGS.pt)LANGS.pt.dash_activity='📅 Atividade recente';
+if(LANGS.pt)LANGS.pt.dash_media='🖼️ Posts com mídia';
+if(LANGS.pt)LANGS.pt.dash_img='Imagens';
+if(LANGS.pt)LANGS.pt.dash_vid='Vídeos';
+if(LANGS.pt)LANGS.pt.dash_media_total='Total mídia';
+if(LANGS.pt)LANGS.pt.dash_no_posts='Sem posts ainda！🚀';
+if(LANGS.pt)LANGS.pt.dash_no_activity='Sem atividade ainda!';
+if(LANGS.pt)LANGS.pt.change_banner='📷 Alterar foto de capa';
+if(LANGS.pt)LANGS.pt.footer_brand='NeonP · por Plannet';
+if(LANGS.pt)LANGS.pt.footer_copy='© 2026 Plannet Agency';
+
+// ── FILL MISSING KEYS — har language mein en_us se missing keys bharo ──
+// Yahi fix karta hai Arabic/RTL text stuck rehne ki problem
+(function fillLangFallbacks(){
+  const base = LANGS.en_us;
+  const baseKeys = Object.keys(base);
+  Object.keys(LANGS).forEach(code => {
+    if(code === 'en_us') return;
+    const L = LANGS[code];
+    baseKeys.forEach(key => {
+      if(key === 'name' || key === 'flag' || key === 'rtl') return;
+      if(L[key] === undefined || L[key] === null || L[key] === '') {
+        L[key] = base[key]; // fallback to English
+      }
+    });
+  });
+})();
 
 // ═══════════════════════════════════════════
 // CORE APP
@@ -1621,7 +2523,7 @@ function renderPosts(posts, container) {
         <div class="post-meta"><span class="post-name">${escHtml(p.authorName||'User')}</span><span class="post-handle">${escHtml(p.authorHandle||'')}</span><span class="post-time">· ${ti}</span></div>
         ${p.content ? `<p class="post-content">${escHtml(p.content)}</p>` : ''}
         ${renderMediaGrid(p.media||[])}
-        ${p.scheduledFor ? `<div class="scheduled-post-bar">🕐 Scheduled for ${formatScheduleTime(p.scheduledFor)}</div>` : ''}
+        ${p.scheduledFor ? `<div class="scheduled-post-bar"><span data-t="schedule_btn"></span>d for ${formatScheduleTime(p.scheduledFor)}</div>` : ''}
         <div class="post-actions">
           <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${p.id}',${liked})">${liked?'♥':'♡'} ${p.likes||0}</button>
           <button class="action-btn" onclick="toggleReply('${p.id}')">💬 ${rc}</button>
@@ -1701,7 +2603,7 @@ async function addPost(){
     window._pendingMedia=[];
     document.getElementById('media-preview-wrap').innerHTML='';
     clearSchedule();
-    showToast(`🕐 Scheduled for ${formatScheduleTime(sp.scheduledFor)}!`);
+    showToast(`<span data-t="schedule_btn"></span>d for ${formatScheduleTime(sp.scheduledFor)}!`);
     return;
   }
 
@@ -2031,12 +2933,12 @@ window._bookmarks = JSON.parse(localStorage.getItem('np_bookmarks') || '{}');
 function toggleBookmark(postId) {
   if (window._bookmarks[postId]) {
     delete window._bookmarks[postId];
-    showToast('Bookmark removed');
+    showToast(t('bookmark_removed'));
   } else {
     // Save full post data
     const post = (window.allPosts||[]).find(p=>p.id===postId);
     if (post) window._bookmarks[postId] = post;
-    showToast('🔖 Bookmarked!');
+    showToast(t('bookmark_added'));
   }
   localStorage.setItem('np_bookmarks', JSON.stringify(window._bookmarks));
   // Re-render to update button color
@@ -2116,7 +3018,7 @@ function confirmSchedule() {
   badge.style.display = 'flex';
   document.getElementById('schedule-toggle-btn').classList.add('scheduled');
   closeScheduleModal();
-  showToast('🕐 Scheduled! Post when ready.');
+  showToast('<span data-t="schedule_btn"></span>d! Post when ready.');
   updateScheduledSidebar();
 }
 
@@ -2124,7 +3026,7 @@ function clearSchedule() {
   window._scheduledTime = null;
   document.getElementById('schedule-set-badge').style.display = 'none';
   document.getElementById('schedule-toggle-btn').classList.remove('scheduled');
-  showToast('Schedule cleared');
+  showToast(t('schedule_cleared'));
 }
 
 function formatScheduleTime(ts) {
@@ -2141,7 +3043,7 @@ function checkScheduledPosts() {
     if (sp.scheduledFor <= now) {
       // Time to post!
       if (window.savePost) window.savePost(sp.content, sp.media || []);
-      showToast('🕐 Scheduled post published!');
+      showToast('<span data-t="schedule_btn"></span>d post published!');
       changed = true;
       return false;
     }
