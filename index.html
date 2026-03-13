@@ -246,127 +246,122 @@
     .right-sidebar{display:none;} /* hidden on mobile */
 
     /* ── DESKTOP ── */
-    @media (min-width:1024px){
-
-      /* Feed wrap: 3 column layout */
+    /* Desktop triggered by JS class 'desktop-mode' on body */
+    /* Also triggers at 900px+ for real desktop browsers */
+    @media (min-width:900px), body.desktop-mode {
       .feed-wrap{
-        max-width:1280px;
-        margin:0 auto;
-        display:flex;
         width:100%;
-      }
-
-      /* LEFT SIDEBAR — wider with text */
-      .sidenav{
-        width:240px;
-        align-items:flex-start;
-        padding:12px 12px;
-        border-right:1px solid var(--border);
-        position:sticky;
-        top:0;
-        height:100vh;
-        overflow-y:auto;
-      }
-      body.rtl .sidenav{
-        border-right:none;
-        border-left:1px solid var(--border);
-      }
-      .nav-logo-text{display:block;}
-      .nav-label{display:block;}
-      .nav-icon{font-size:20px;width:24px;text-align:center;}
-
-      .nav-btn{
-        width:100%;
-        justify-content:flex-start;
-        gap:14px;
-        padding:10px 14px;
-        border-radius:30px;
-        font-size:16px;
-        height:auto;
-      }
-      .nav-btn.active{
-        background:var(--btn);
-        color:var(--btnT);
-      }
-      .nav-spacer{flex:1;}
-
-      /* Desktop New Post button */
-      .nav-post-btn{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:10px;
-        width:100%;
-        padding:13px 20px;
-        border-radius:30px;
-        background:var(--btn);
-        color:var(--btnT);
-        border:none;
-        font-size:15px;
-        font-weight:700;
-        cursor:pointer;
-        font-family:Georgia,serif;
-        margin-bottom:8px;
-        transition:opacity .2s;
-      }
-      .nav-post-btn:hover{opacity:.85;}
-
-      /* MAIN FEED — center column */
-      .main-feed{
-        margin-left:0;
-        flex:1;
-        max-width:600px;
-        border-right:1px solid var(--border);
-        min-height:100vh;
-      }
-      body.rtl .main-feed{
-        margin-right:0;
-        border-left:1px solid var(--border);
-        border-right:none;
-      }
-
-      /* RIGHT SIDEBAR */
-      .right-sidebar{
-        display:flex;
-        flex-direction:column;
-        gap:16px;
-        width:340px;
-        min-width:300px;
-        padding:16px 20px;
-        position:sticky;
-        top:0;
-        height:100vh;
-        overflow-y:auto;
-      }
-
-      /* Side popup position on desktop */
-      .side-popup{
-        left:250px;
-        bottom:60px;
-        width:220px;
-      }
-      body.rtl .side-popup{left:auto;right:250px;}
-
-      /* Feed header sticky */
-      .feed-header{
-        backdrop-filter:blur(12px);
-        background:color-mix(in srgb, var(--bg) 85%, transparent);
+        max-width:100%;
+        margin:0;
       }
     }
 
-    /* Extra wide screens */
-    @media (min-width:1440px){
-      .feed-wrap{max-width:1400px;}
-      .sidenav{width:275px;}
-      .right-sidebar{width:380px;}
+    body.desktop-mode .feed-wrap,
+    @media (min-width:900px) { .feed-wrap {
+      display:flex;
+      width:100%;
+      max-width:100%;
+      min-height:100vh;
+    }}
+
+    .desktop-mode .feed-wrap{
+      display:flex !important;
+      width:100% !important;
+      max-width:100% !important;
     }
 
-    /* Tablet — show sidebar but no right panel */
-    @media (min-width:768px) and (max-width:1023px){
-      .sidenav{width:70px;padding:12px 8px;}
-      .nav-btn{width:50px;height:50px;justify-content:center;}
-      .main-feed{margin-left:70px;}
-      body.rtl .main-feed{margin-left:0;margin-right:70px;}
+    /* LEFT NAV — desktop */
+    .desktop-mode .sidenav{
+      width:220px !important;
+      align-items:flex-start !important;
+      padding:12px !important;
+      position:sticky !important;
+      top:0 !important;
+      height:100vh !important;
+      overflow-y:auto !important;
+      flex-shrink:0 !important;
+    }
+    .desktop-mode .nav-logo-text{display:block !important;}
+    .desktop-mode .nav-label{display:block !important;}
+    .desktop-mode .nav-icon{font-size:20px;width:26px;text-align:center;}
+    .desktop-mode .nav-btn{
+      width:100% !important;
+      justify-content:flex-start !important;
+      gap:14px !important;
+      padding:11px 16px !important;
+      border-radius:30px !important;
+      font-size:15px !important;
+      height:auto !important;
+    }
+    .desktop-mode .nav-spacer{flex:1 !important;}
+    .desktop-mode .nav-post-btn{
+      display:flex !important;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      padding:13px 20px;
+      border-radius:30px;
+      background:var(--btn);
+      color:var(--btnT);
+      border:none;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      font-family:Georgia,serif;
+      margin-bottom:8px;
+      transition:opacity .2s;
+    }
+    .desktop-mode .nav-post-btn:hover{opacity:.85;}
+
+    /* MAIN FEED — desktop center */
+    .desktop-mode .main-feed{
+      margin-left:0 !important;
+      margin-right:0 !important;
+      flex:1 !important;
+      max-width:none !important;
+      border-right:1px solid var(--border) !important;
+      min-height:100vh !important;
+    }
+
+    /* RIGHT SIDEBAR — desktop */
+    .desktop-mode .right-sidebar{
+      display:flex !important;
+      flex-direction:column;
+      gap:16px;
+      width:320px;
+      min-width:280px;
+      flex-shrink:0;
+      padding:16px 16px;
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow-y:auto;
+    }
+
+    /* Popup reposition */
+    .desktop-mode .side-popup{
+      left:230px !important;
+      bottom:60px !important;
+      width:220px !important;
+    }
+
+    /* Sticky feed header glass blur */
+    .desktop-mode .feed-header{
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+    }
+
+    /* Feed header shows username on desktop */
+    .desktop-mode .feed-user-chip{display:flex !important;}
+
+    /* Dashboard tab */
+    .desktop-mode #nav-dashboard{display:flex !important;}
+
+    /* Large screen */
+    @media (min-width:1400px){
+      .desktop-mode .sidenav{width:260px !important;}
+      .desktop-mode .right-sidebar{width:370px !important;}
     }
 
     /* RIGHT SIDEBAR COMPONENTS */
@@ -424,6 +419,43 @@
     .rs-search-post-result:hover{opacity:.7;}
     .rs-search-post-result:last-child{border-bottom:none;}
 
+  
+    /* ── DASHBOARD ── */
+    .dash-stat-card{
+      background:var(--card);
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      padding:18px 16px;
+      text-align:center;
+      transition:transform .2s, box-shadow .2s;
+      cursor:default;
+    }
+    .dash-stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.08);}
+    .dash-stat-num{font-size:32px;font-weight:700;letter-spacing:-1px;margin-bottom:4px;}
+    .dash-stat-label{font-size:12px;color:var(--subtext);text-transform:uppercase;letter-spacing:0.5px;}
+    .dash-section{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:16px;}
+    .dash-section-title{font-weight:700;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .dash-post-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+    .dash-post-row:last-child{border-bottom:none;}
+    .dash-post-text{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .dash-post-stat{font-size:13px;color:var(--subtext);white-space:nowrap;display:flex;align-items:center;gap:12px;}
+    .dash-activity-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+    .dash-activity-row:last-child{border-bottom:none;}
+    .dash-activity-icon{font-size:18px;width:28px;text-align:center;}
+    .dash-activity-time{font-size:12px;color:var(--subtext);margin-left:auto;}
+    .dash-empty{text-align:center;padding:20px;color:var(--subtext);font-size:13px;}
+    /* Desktop toggle btn */
+    .desktop-toggle-btn{
+      position:fixed;bottom:20px;right:20px;
+      background:var(--btn);color:var(--btnT);
+      border:none;border-radius:24px;
+      padding:10px 18px;font-size:13px;font-weight:600;
+      cursor:pointer;font-family:Georgia,serif;
+      box-shadow:0 4px 20px rgba(0,0,0,.2);
+      z-index:500;display:flex;align-items:center;gap:7px;
+      transition:all .2s;
+    }
+    .desktop-toggle-btn:hover{opacity:.85;transform:translateY(-1px);}
   </style>
 </head>
 <body>
@@ -557,6 +589,9 @@
       <button class="nav-btn" id="nav-notifications" onclick="showToast('Notifications coming soon!')" title="Notifications">
         <span class="nav-icon">🔔</span><span class="nav-label">Notifications</span>
       </button>
+      <button class="nav-btn" id="nav-dashboard" onclick="switchTab('dashboard')" title="Dashboard" style="display:none;">
+        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+      </button>
       <div class="nav-spacer"></div>
       <!-- Desktop post button -->
       <button class="nav-post-btn" onclick="focusCompose()">
@@ -641,6 +676,35 @@
       <div id="tab-bookmarks" class="tab-content">
         <div id="bookmarks-container" style="padding:0;">
           <div class="bookmarks-empty">🔖 <br><br>No bookmarks yet.<br><span style="font-size:13px;">Tap 🔖 on any post to save it!</span></div>
+        </div>
+      </div>
+      <!-- DASHBOARD TAB -->
+      <div id="tab-dashboard" class="tab-content">
+        <div style="padding:20px;">
+          <!-- Stats Grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;" id="dash-stats-grid">
+            <div class="dash-stat-card" id="dash-posts"><div class="dash-stat-num" id="ds-posts">0</div><div class="dash-stat-label">Posts</div></div>
+            <div class="dash-stat-card" id="dash-likes"><div class="dash-stat-num" id="ds-likes">0</div><div class="dash-stat-label">Total Likes</div></div>
+            <div class="dash-stat-card" id="dash-views"><div class="dash-stat-num" id="ds-views">0</div><div class="dash-stat-label">Total Views</div></div>
+            <div class="dash-stat-card" id="dash-replies"><div class="dash-stat-num" id="ds-replies">0</div><div class="dash-stat-label">Total Replies</div></div>
+            <div class="dash-stat-card" id="dash-bookmarks-count"><div class="dash-stat-num" id="ds-bookmarks">0</div><div class="dash-stat-label">Bookmarked</div></div>
+            <div class="dash-stat-card" id="dash-scheduled-count"><div class="dash-stat-num" id="ds-scheduled">0</div><div class="dash-stat-label">Scheduled</div></div>
+          </div>
+          <!-- Top Posts -->
+          <div class="dash-section">
+            <div class="dash-section-title">🏆 Your Top Posts (by likes)</div>
+            <div id="dash-top-posts"></div>
+          </div>
+          <!-- Activity -->
+          <div class="dash-section" style="margin-top:16px;">
+            <div class="dash-section-title">📅 Recent Activity</div>
+            <div id="dash-activity"></div>
+          </div>
+          <!-- Media Stats -->
+          <div class="dash-section" style="margin-top:16px;">
+            <div class="dash-section-title">🖼️ Media Posts</div>
+            <div id="dash-media-stats"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -756,6 +820,10 @@
 </div>
 
 <div class="toast" id="toast"></div>
+<!-- Desktop Mode Toggle Button -->
+<button class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopMode()">
+  🖥️ <span id="desktop-btn-label">Desktop Mode</span>
+</button>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -1500,7 +1568,7 @@ function renderPosts(posts, container) {
       </div>
     </div>`;
   }).join('');
-  if(!container) { trackViews(posts); setTimeout(buildTrending, 200); }
+  if(!container) { trackViews(posts); setTimeout(buildTrending, 200); if(isDesktopMode) setTimeout(renderDashboard, 300); }
 }
 
 // Add missing translation keys
@@ -1665,6 +1733,7 @@ function switchTab(tab){
   document.getElementById('feed-title').textContent=titles[tab]||tab;
   if(tab==='search'){const q=document.getElementById('search-input').value;if(!q)document.getElementById('search-results').innerHTML=`<div class="search-empty">${t('search_hint')}</div>`;}
   if(tab==='bookmarks') renderBookmarksPage();
+  if(tab==='dashboard') renderDashboard();
 }
 
 function openBookmarksTab(){
@@ -2060,11 +2129,130 @@ function cancelScheduledPost(i) {
   showToast('Scheduled post cancelled');
 }
 
-// Init desktop features
-function initDesktop() {
-  if (window.innerWidth >= 1024) {
+// ── DESKTOP MODE TOGGLE ──
+let isDesktopMode = localStorage.getItem('np_desktop') === '1';
+
+function applyDesktopMode(on) {
+  isDesktopMode = on;
+  localStorage.setItem('np_desktop', on ? '1' : '0');
+  document.body.classList.toggle('desktop-mode', on);
+
+  const btn = document.getElementById('desktop-toggle-btn');
+  const lbl = document.getElementById('desktop-btn-label');
+  if (btn && lbl) {
+    lbl.textContent = on ? 'Mobile Mode' : 'Desktop Mode';
+    btn.style.background = on ? '#7c3aed' : 'var(--btn)';
+  }
+
+  // Show/hide dashboard nav
+  const dashNav = document.getElementById('nav-dashboard');
+  if (dashNav) dashNav.style.display = on ? 'flex' : 'none';
+
+  if (on) {
     buildTrending();
     updateScheduledSidebar();
+    renderDashboard();
+  }
+}
+
+function toggleDesktopMode() {
+  applyDesktopMode(!isDesktopMode);
+  showToast(isDesktopMode ? '🖥️ Desktop Mode ON!' : '📱 Mobile Mode');
+}
+
+function initDesktop() {
+  // Auto-detect real desktop
+  const realDesktop = window.innerWidth >= 900 && !('ontouchstart' in window);
+  const saved = localStorage.getItem('np_desktop');
+  // Use saved preference, or auto-detect
+  const shouldEnable = saved !== null ? saved === '1' : realDesktop;
+  applyDesktopMode(shouldEnable);
+}
+
+// ── DASHBOARD ──
+function renderDashboard() {
+  const myPosts = (window.allPosts||[]).filter(p => p.authorUid === window.currentUser?.uid);
+  const allPosts = window.allPosts || [];
+
+  // Stats
+  const totalLikes = myPosts.reduce((s,p)=>s+(p.likes||0),0);
+  const totalViews = myPosts.reduce((s,p)=>s+(p.views||0),0);
+  const totalReplies = myPosts.reduce((s,p)=>s+(p.replyCount||0),0);
+  const bookmarkCount = Object.keys(window._bookmarks||{}).length;
+  const scheduledCount = (window._scheduledPosts||[]).length;
+
+  const setEl = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
+  setEl('ds-posts', myPosts.length);
+  setEl('ds-likes', totalLikes);
+  setEl('ds-views', totalViews);
+  setEl('ds-replies', totalReplies);
+  setEl('ds-bookmarks', bookmarkCount);
+  setEl('ds-scheduled', scheduledCount);
+
+  // Top posts by likes
+  const topPosts = [...myPosts].sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,5);
+  const topEl = document.getElementById('dash-top-posts');
+  if (topEl) {
+    if (!topPosts.length) {
+      topEl.innerHTML = '<div class="dash-empty">No posts yet! Start posting 🚀</div>';
+    } else {
+      topEl.innerHTML = topPosts.map((p,i) => `
+        <div class="dash-post-row">
+          <div style="font-size:18px;font-weight:700;color:var(--subtext);width:24px;">${i+1}</div>
+          <div class="dash-post-text">${escHtml((p.content||'(media)').slice(0,60))}</div>
+          <div class="dash-post-stat">
+            <span>♥ ${p.likes||0}</span>
+            <span>👁 ${p.views||0}</span>
+            <span>💬 ${p.replyCount||0}</span>
+          </div>
+        </div>`).join('');
+    }
+  }
+
+  // Recent activity — all posts timeline
+  const recent = [...allPosts].slice(0,8);
+  const actEl = document.getElementById('dash-activity');
+  if (actEl) {
+    if (!recent.length) {
+      actEl.innerHTML = '<div class="dash-empty">No activity yet!</div>';
+    } else {
+      actEl.innerHTML = recent.map(p => {
+        const isMe = p.authorUid === window.currentUser?.uid;
+        const time = p.createdAt ? getTimeAgo(p.createdAt.toDate ? p.createdAt.toDate() : new Date()) : 'now';
+        return `<div class="dash-activity-row">
+          <div class="dash-activity-icon">${isMe ? '✏️' : '👤'}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:13px;">${escHtml(p.authorName||'')}</div>
+            <div style="font-size:12px;color:var(--subtext);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml((p.content||'(media post)').slice(0,50))}</div>
+          </div>
+          <div class="dash-activity-time">${time}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  // Media stats
+  const mediaPosts = allPosts.filter(p => p.media && p.media.length > 0);
+  const imgCount = mediaPosts.reduce((s,p)=>s+p.media.filter(m=>m.type==='image').length,0);
+  const vidCount = mediaPosts.reduce((s,p)=>s+p.media.filter(m=>m.type==='video').length,0);
+  const mediaEl = document.getElementById('dash-media-stats');
+  if (mediaEl) {
+    mediaEl.innerHTML = `
+      <div class="dash-post-row">
+        <div style="font-size:20px;">🖼️</div>
+        <div class="dash-post-text">Images uploaded</div>
+        <div class="dash-post-stat"><strong>${imgCount}</strong></div>
+      </div>
+      <div class="dash-post-row">
+        <div style="font-size:20px;">🎬</div>
+        <div class="dash-post-text">Videos uploaded</div>
+        <div class="dash-post-stat"><strong>${vidCount}</strong></div>
+      </div>
+      <div class="dash-post-row">
+        <div style="font-size:20px;">📎</div>
+        <div class="dash-post-text">Media posts total</div>
+        <div class="dash-post-stat"><strong>${mediaPosts.length}</strong></div>
+      </div>`;
   }
 }
 
