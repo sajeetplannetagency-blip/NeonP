@@ -137,7 +137,22 @@
     .modal-save-btn{padding:14px;border-radius:12px;background:var(--btn);color:var(--btnT);border:none;font-size:16px;cursor:pointer;font-family:Georgia,serif;font-weight:700;width:100%;margin-top:4px;}
     .modal-cancel-btn{padding:12px;border-radius:12px;background:transparent;color:var(--subtext);border:1.5px solid var(--border);font-size:15px;cursor:pointer;font-family:Georgia,serif;width:100%;}
     .forgot-btn{background:none;border:none;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;margin-top:4px;}
-        /* ── MEDIA UPLOAD & DISPLAY ── */
+    
+    /* SCHEDULE + BOOKMARK */
+    .schedule-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;transition:all .2s;}
+    .schedule-btn:hover{background:var(--card);color:var(--text);}
+    .schedule-btn.scheduled{color:#7c3aed;border-color:#7c3aed;}
+    .action-btn.bookmarked{color:#f59e0b;}
+    .scheduled-badge{display:inline-flex;align-items:center;gap:5px;background:#7c3aed18;color:#7c3aed;border-radius:20px;padding:3px 10px;font-size:12px;margin-top:6px;}
+    .datetime-input{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--input);color:var(--text);font-size:15px;font-family:Georgia,serif;outline:none;margin-top:4px;}
+    .datetime-input:focus{border-color:var(--text);}
+    .schedule-preview{background:var(--card);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--subtext);margin-top:4px;display:none;}
+    .schedule-preview.show{display:block;}
+    /* BOOKMARKS PAGE */
+    .bookmarks-empty{text-align:center;padding:40px 20px;color:var(--subtext);font-size:14px;}
+    /* SCHEDULED POSTS indicator */
+    .scheduled-post-bar{background:linear-gradient(90deg,#7c3aed18,transparent);border-left:3px solid #7c3aed;padding:6px 10px;margin-bottom:4px;border-radius:0 8px 8px 0;font-size:12px;color:#7c3aed;display:flex;align-items:center;gap:5px;}
+    /* ── MEDIA UPLOAD & DISPLAY ── */
     .compose-media-bar{display:flex;gap:8px;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px;align-items:center;}
     .media-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;transition:all .2s;}
     .media-btn:hover{background:var(--card);color:var(--text);}
@@ -217,6 +232,198 @@
     .lang-btn:hover{background:var(--card);}
     .lang-btn.active{background:var(--btn);color:var(--btnT);border-color:var(--btn);}
     .lang-flag{font-size:16px;margin-right:6px;}
+  
+    /* ═══════════════════════════════════════════
+       DESKTOP RESPONSIVE — X/Twitter/Instagram style
+       Mobile: <1024px  |  Desktop: ≥1024px
+    ═══════════════════════════════════════════ */
+
+    /* NAV LABELS — hidden on mobile */
+    .nav-label{display:none;font-size:15px;font-weight:500;font-family:Georgia,serif;}
+    .nav-logo-text{display:none;font-size:20px;font-weight:700;letter-spacing:-0.5px;}
+    .nav-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 4px;}
+    .nav-post-btn{display:none;} /* hidden on mobile */
+    .right-sidebar{display:none;} /* hidden on mobile */
+
+    /* ── DESKTOP ── */
+    @media (min-width:1024px){
+
+      /* Feed wrap: 3 column layout */
+      .feed-wrap{
+        max-width:1280px;
+        margin:0 auto;
+        display:flex;
+        width:100%;
+      }
+
+      /* LEFT SIDEBAR — wider with text */
+      .sidenav{
+        width:240px;
+        align-items:flex-start;
+        padding:12px 12px;
+        border-right:1px solid var(--border);
+        position:sticky;
+        top:0;
+        height:100vh;
+        overflow-y:auto;
+      }
+      body.rtl .sidenav{
+        border-right:none;
+        border-left:1px solid var(--border);
+      }
+      .nav-logo-text{display:block;}
+      .nav-label{display:block;}
+      .nav-icon{font-size:20px;width:24px;text-align:center;}
+
+      .nav-btn{
+        width:100%;
+        justify-content:flex-start;
+        gap:14px;
+        padding:10px 14px;
+        border-radius:30px;
+        font-size:16px;
+        height:auto;
+      }
+      .nav-btn.active{
+        background:var(--btn);
+        color:var(--btnT);
+      }
+      .nav-spacer{flex:1;}
+
+      /* Desktop New Post button */
+      .nav-post-btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        width:100%;
+        padding:13px 20px;
+        border-radius:30px;
+        background:var(--btn);
+        color:var(--btnT);
+        border:none;
+        font-size:15px;
+        font-weight:700;
+        cursor:pointer;
+        font-family:Georgia,serif;
+        margin-bottom:8px;
+        transition:opacity .2s;
+      }
+      .nav-post-btn:hover{opacity:.85;}
+
+      /* MAIN FEED — center column */
+      .main-feed{
+        margin-left:0;
+        flex:1;
+        max-width:600px;
+        border-right:1px solid var(--border);
+        min-height:100vh;
+      }
+      body.rtl .main-feed{
+        margin-right:0;
+        border-left:1px solid var(--border);
+        border-right:none;
+      }
+
+      /* RIGHT SIDEBAR */
+      .right-sidebar{
+        display:flex;
+        flex-direction:column;
+        gap:16px;
+        width:340px;
+        min-width:300px;
+        padding:16px 20px;
+        position:sticky;
+        top:0;
+        height:100vh;
+        overflow-y:auto;
+      }
+
+      /* Side popup position on desktop */
+      .side-popup{
+        left:250px;
+        bottom:60px;
+        width:220px;
+      }
+      body.rtl .side-popup{left:auto;right:250px;}
+
+      /* Feed header sticky */
+      .feed-header{
+        backdrop-filter:blur(12px);
+        background:color-mix(in srgb, var(--bg) 85%, transparent);
+      }
+    }
+
+    /* Extra wide screens */
+    @media (min-width:1440px){
+      .feed-wrap{max-width:1400px;}
+      .sidenav{width:275px;}
+      .right-sidebar{width:380px;}
+    }
+
+    /* Tablet — show sidebar but no right panel */
+    @media (min-width:768px) and (max-width:1023px){
+      .sidenav{width:70px;padding:12px 8px;}
+      .nav-btn{width:50px;height:50px;justify-content:center;}
+      .main-feed{margin-left:70px;}
+      body.rtl .main-feed{margin-left:0;margin-right:70px;}
+    }
+
+    /* RIGHT SIDEBAR COMPONENTS */
+    .rs-search-wrap{position:relative;}
+    .rs-search{
+      width:100%;
+      padding:11px 16px 11px 40px;
+      border-radius:24px;
+      border:1.5px solid var(--border);
+      background:var(--input);
+      color:var(--text);
+      font-size:14px;
+      font-family:Georgia,serif;
+      outline:none;
+      transition:border-color .2s;
+    }
+    .rs-search:focus{border-color:var(--text);background:var(--bg);}
+    .rs-search-wrap::before{
+      content:"🔍";
+      position:absolute;
+      left:12px;top:50%;transform:translateY(-50%);
+      font-size:14px;pointer-events:none;
+    }
+    .rs-card{
+      background:var(--card);
+      border-radius:16px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+    .rs-card-title{font-weight:700;font-size:16px;margin-bottom:12px;}
+    .rs-trend-item{
+      padding:8px 0;
+      border-bottom:1px solid var(--border);
+      cursor:pointer;
+      transition:background .15s;
+    }
+    .rs-trend-item:last-child{border-bottom:none;}
+    .rs-trend-item:hover .rs-trend-tag{text-decoration:underline;}
+    .rs-trend-cat{font-size:11px;color:var(--subtext);}
+    .rs-trend-tag{font-weight:700;font-size:14px;margin:2px 0;}
+    .rs-trend-count{font-size:12px;color:var(--subtext);}
+    .rs-user-row{display:flex;align-items:center;gap:10px;padding:8px 0;}
+    .rs-follow-btn{
+      padding:6px 14px;border-radius:20px;
+      background:var(--btn);color:var(--btnT);
+      border:none;font-size:13px;cursor:pointer;
+      font-family:Georgia,serif;font-weight:600;
+      white-space:nowrap;transition:opacity .2s;
+    }
+    .rs-follow-btn:hover{opacity:.8;}
+    .rs-footer{font-size:12px;color:var(--subtext);line-height:1.8;padding:4px 0 20px;}
+    .rs-scheduled-item{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+    .rs-scheduled-item:last-child{border-bottom:none;}
+    .rs-search-post-result{padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+    .rs-search-post-result:hover{opacity:.7;}
+    .rs-search-post-result:last-child{border-bottom:none;}
+
   </style>
 </head>
 <body>
@@ -326,23 +533,45 @@
 <div id="screen-feed" class="screen">
   <div class="feed-wrap">
     <nav class="sidenav">
-      <div style="margin-bottom:20px;">
-        <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+      <!-- Logo: small on mobile, bigger on desktop -->
+      <div class="nav-logo">
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
           <rect width="100" height="100" rx="24" fill="var(--btn)"/>
           <text x="50" y="68" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="52" fill="var(--btnT)" letter-spacing="-2">N</text>
           <circle cx="72" cy="34" r="8" fill="var(--btnT)" opacity="0.85"/>
         </svg>
+        <span class="nav-logo-text">NeonP</span>
       </div>
-      <button class="nav-btn active" id="nav-home" onclick="switchTab('home')" title="Home">⌂</button>
-      <button class="nav-btn" id="nav-search" onclick="switchTab('search')" title="Search">⊘</button>
-      <button class="nav-btn" id="nav-profile" onclick="switchTab('profile')" title="Profile">◉</button>
+      <button class="nav-btn active" id="nav-home" onclick="switchTab('home')" title="Home">
+        <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
+      </button>
+      <button class="nav-btn" id="nav-search" onclick="switchTab('search')" title="Search">
+        <span class="nav-icon">⊘</span><span class="nav-label">Search</span>
+      </button>
+      <button class="nav-btn" id="nav-profile" onclick="switchTab('profile')" title="Profile">
+        <span class="nav-icon">◉</span><span class="nav-label">Profile</span>
+      </button>
+      <button class="nav-btn" id="nav-bookmarks" onclick="switchTab('bookmarks')" title="Bookmarks">
+        <span class="nav-icon">🔖</span><span class="nav-label">Bookmarks</span>
+      </button>
+      <button class="nav-btn" id="nav-notifications" onclick="showToast('Notifications coming soon!')" title="Notifications">
+        <span class="nav-icon">🔔</span><span class="nav-label">Notifications</span>
+      </button>
       <div class="nav-spacer"></div>
-      <button class="nav-btn" onclick="toggleDark()" title="Theme">☾</button>
-      <button class="nav-btn" id="more-btn" onclick="toggleSideMenu()" title="More">···</button>
+      <!-- Desktop post button -->
+      <button class="nav-post-btn" onclick="focusCompose()">
+        <span class="nav-icon">✏️</span><span class="nav-label">New Post</span>
+      </button>
+      <button class="nav-btn" onclick="toggleDark()" title="Theme">
+        <span class="nav-icon">☾</span><span class="nav-label">Theme</span>
+      </button>
+      <button class="nav-btn nav-profile-mini" id="more-btn" onclick="toggleSideMenu()" title="More">
+        <span class="nav-icon">···</span><span class="nav-label">More</span>
+      </button>
     </nav>
     <div class="side-popup" id="side-popup">
       <button class="popup-item" onclick="openSettings()">⚙️ <span data-t="settings_lbl"></span></button>
-      <button class="popup-item">🔖 <span data-t="bookmarks_lbl"></span></button>
+      <button class="popup-item" onclick="openBookmarksTab()">🔖 <span data-t="bookmarks_lbl"></span></button>
       <button class="popup-item">🔔 <span data-t="notif_lbl"></span></button>
       <button class="popup-item danger" onclick="logOut()">🚪 <span data-t="logout_lbl"></span></button>
     </div>
@@ -362,10 +591,12 @@
               <button class="media-btn" onclick="triggerMediaUpload('image')">📷 Photo</button>
               <button class="media-btn" onclick="triggerMediaUpload('video')">🎬 Video</button>
               <button class="media-btn" onclick="triggerMediaUpload('any')">📎 Any</button>
+              <button class="schedule-btn" id="schedule-toggle-btn" onclick="openScheduleModal()">🕐 Schedule</button>
               <input type="file" id="media-upload-input" accept="image/*,video/*" multiple style="display:none;" onchange="handleMediaUpload(event)"/>
               <div style="flex:1;"></div>
               <button class="post-btn" onclick="addPost()" data-t="post_btn"></button>
             </div>
+            <div id="schedule-set-badge" style="display:none;" class="scheduled-badge">🕐 <span id="schedule-badge-text"></span> <button onclick="clearSchedule()" style="background:none;border:none;color:#7c3aed;cursor:pointer;font-size:13px;margin-left:4px;">✕</button></div>
           </div>
         </div>
         <div id="posts-container"><div class="loading-posts" data-t="loading_posts"></div></div>
@@ -406,7 +637,50 @@
           </div>
         </div>
       </div>
+      <!-- BOOKMARKS TAB -->
+      <div id="tab-bookmarks" class="tab-content">
+        <div id="bookmarks-container" style="padding:0;">
+          <div class="bookmarks-empty">🔖 <br><br>No bookmarks yet.<br><span style="font-size:13px;">Tap 🔖 on any post to save it!</span></div>
+        </div>
+      </div>
     </div>
+    <!-- RIGHT SIDEBAR (desktop only) -->
+    <aside class="right-sidebar" id="right-sidebar">
+      <!-- Search -->
+      <div class="rs-search-wrap">
+        <input class="rs-search" id="rs-search-input" placeholder="🔍 Search NeonP..." oninput="rsSearch(this.value)"/>
+        <div id="rs-search-results"></div>
+      </div>
+      <!-- Trending -->
+      <div class="rs-card">
+        <div class="rs-card-title">🔥 Trending</div>
+        <div id="rs-trending"></div>
+      </div>
+      <!-- Who to follow -->
+      <div class="rs-card">
+        <div class="rs-card-title">👥 Who to follow</div>
+        <div id="rs-who-follow">
+          <div class="rs-user-row">
+            <div class="avatar" style="width:36px;height:36px;font-size:12px;border-radius:9px;flex-shrink:0;">NP</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:13px;">NeonP Official</div>
+              <div style="font-size:12px;color:var(--subtext);">@neonp</div>
+            </div>
+            <button class="rs-follow-btn">Follow</button>
+          </div>
+        </div>
+      </div>
+      <!-- Scheduled Posts -->
+      <div class="rs-card" id="rs-scheduled-card" style="display:none;">
+        <div class="rs-card-title">🕐 Scheduled Posts</div>
+        <div id="rs-scheduled-list"></div>
+      </div>
+      <!-- Footer -->
+      <div class="rs-footer">
+        <span>NeonP · from Plannet</span><br/>
+        <span style="color:var(--subtext);font-size:11px;">© 2026 Plannet Agency</span>
+      </div>
+    </aside>
   </div>
 </div>
 
@@ -420,6 +694,28 @@
     <div><div class="modal-label" data-t="username_lbl"></div><input class="modal-input" id="edit-handle" data-ph="username_ph"/></div>
     <button class="modal-save-btn" onclick="saveProfile()" data-t="save_changes"></button>
     <button class="modal-cancel-btn" onclick="closeEditModal()" data-t="cancel_btn"></button>
+  </div>
+</div>
+
+<!-- SCHEDULE MODAL -->
+<div class="modal-overlay" id="schedule-modal" onclick="closeScheduleOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-title">🕐 Schedule Post</div>
+    <p style="font-size:13px;color:var(--subtext);margin-top:-8px;">Choose when to publish this post</p>
+    <div>
+      <div class="modal-label">Date & Time</div>
+      <input type="datetime-local" class="datetime-input" id="schedule-datetime" onchange="previewSchedule()"/>
+    </div>
+    <div class="schedule-preview" id="schedule-preview"></div>
+    <!-- Quick options -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="auth-btn" onclick="setQuickSchedule(1)">⚡ 1 hour later</button>
+      <button class="auth-btn" onclick="setQuickSchedule(3)">🌅 3 hours later</button>
+      <button class="auth-btn" onclick="setQuickSchedule(24)">📅 Tomorrow</button>
+      <button class="auth-btn" onclick="setQuickSchedule(168)">📆 Next week</button>
+    </div>
+    <button class="modal-save-btn" onclick="confirmSchedule()" style="background:#7c3aed;">✅ Confirm Schedule</button>
+    <button class="modal-cancel-btn" onclick="closeScheduleModal()">Cancel</button>
   </div>
 </div>
 
@@ -1167,6 +1463,7 @@ function updateProfileUI() {
   document.getElementById('detail-logintype').textContent=u.loginType==='google'?'🟢 Google Account':'📧 Email/Password';
   document.getElementById('detail-joined').textContent=u.joined||'—';
   setTimeout(loadSavedImages, 100);
+  setTimeout(initDesktop, 300);
 }
 
 function renderPosts(posts, container) {
@@ -1175,6 +1472,7 @@ function renderPosts(posts, container) {
   if(!posts.length){c.innerHTML=`<div class="loading-posts">${container?t('no_results'):t('no_posts')}</div>`;return;}
   c.innerHTML=posts.map(p=>{
     const liked=!!likedPosts[p.id];
+    const bookmarked=!!(window._bookmarks&&window._bookmarks[p.id]);
     const av=p.authorPicture?`<img src="${p.authorPicture}"/>`:(p.authorInitials||'U');
     const ti=p.createdAt?getTimeAgo(p.createdAt.toDate?p.createdAt.toDate():new Date()):'now';
     const rc=p.replyCount||0;
@@ -1184,11 +1482,13 @@ function renderPosts(posts, container) {
         <div class="post-meta"><span class="post-name">${escHtml(p.authorName||'User')}</span><span class="post-handle">${escHtml(p.authorHandle||'')}</span><span class="post-time">· ${ti}</span></div>
         ${p.content ? `<p class="post-content">${escHtml(p.content)}</p>` : ''}
         ${renderMediaGrid(p.media||[])}
+        ${p.scheduledFor ? `<div class="scheduled-post-bar">🕐 Scheduled for ${formatScheduleTime(p.scheduledFor)}</div>` : ''}
         <div class="post-actions">
           <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${p.id}',${liked})">${liked?'♥':'♡'} ${p.likes||0}</button>
           <button class="action-btn" onclick="toggleReply('${p.id}')">💬 ${rc}</button>
           <span class="action-btn" style="cursor:default;">👁 ${p.views||0}</span>
           <button class="action-btn" onclick="sharePost()">↑ Share</button>
+          <button class="action-btn ${bookmarked?'bookmarked':''}" onclick="toggleBookmark('${p.id}')" style="margin-left:auto;">${bookmarked?'🔖':'🔖'}</button>
         </div>
         <div class="reply-box" id="reply-box-${p.id}">
           <div class="reply-input-row">
@@ -1200,7 +1500,7 @@ function renderPosts(posts, container) {
       </div>
     </div>`;
   }).join('');
-  if(!container) trackViews(posts);
+  if(!container) { trackViews(posts); setTimeout(buildTrending, 200); }
 }
 
 // Add missing translation keys
@@ -1245,6 +1545,27 @@ async function toggleLike(id,liked){likedPosts[id]=!liked;localStorage.setItem('
 async function addPost(){
   const ta=document.getElementById('compose-text'), txt=ta.value.trim();
   if(!txt && window._pendingMedia.length===0){showToast(t('write_something'));return;}
+
+  // If scheduled
+  if (window._scheduledTime) {
+    const sp = {
+      content: txt,
+      media: [...window._pendingMedia],
+      scheduledFor: window._scheduledTime,
+      authorName: window.currentUser?.name,
+      authorHandle: window.currentUser?.handle,
+      id: 'sched_' + Date.now()
+    };
+    window._scheduledPosts.push(sp);
+    localStorage.setItem('np_scheduled', JSON.stringify(window._scheduledPosts));
+    ta.value='';
+    window._pendingMedia=[];
+    document.getElementById('media-preview-wrap').innerHTML='';
+    clearSchedule();
+    showToast(`🕐 Scheduled for ${formatScheduleTime(sp.scheduledFor)}!`);
+    return;
+  }
+
   ta.value='';
   const mediaToSend = [...window._pendingMedia];
   window._pendingMedia = [];
@@ -1338,10 +1659,17 @@ function switchTab(tab){
   document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-btn[id^="nav-"]').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  document.getElementById('nav-'+tab).classList.add('active');
-  const titles={home:t('home'),search:t('search_tab'),profile:t('profile_tab')};
+  const navBtn = document.getElementById('nav-'+tab);
+  if(navBtn) navBtn.classList.add('active');
+  const titles={home:t('home'),search:t('search_tab'),profile:t('profile_tab'),bookmarks:'🔖 Bookmarks'};
   document.getElementById('feed-title').textContent=titles[tab]||tab;
   if(tab==='search'){const q=document.getElementById('search-input').value;if(!q)document.getElementById('search-results').innerHTML=`<div class="search-empty">${t('search_hint')}</div>`;}
+  if(tab==='bookmarks') renderBookmarksPage();
+}
+
+function openBookmarksTab(){
+  toggleSideMenu();
+  switchTab('bookmarks');
 }
 
 function triggerCoverUpload(){document.getElementById('cover-upload').click();}
@@ -1525,6 +1853,241 @@ function openVideoFS(btn) {
   else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
   else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
 }
+
+
+// ══════════════════════════════════════════
+// BOOKMARKS
+// ══════════════════════════════════════════
+window._bookmarks = JSON.parse(localStorage.getItem('np_bookmarks') || '{}');
+
+function toggleBookmark(postId) {
+  if (window._bookmarks[postId]) {
+    delete window._bookmarks[postId];
+    showToast('Bookmark removed');
+  } else {
+    // Save full post data
+    const post = (window.allPosts||[]).find(p=>p.id===postId);
+    if (post) window._bookmarks[postId] = post;
+    showToast('🔖 Bookmarked!');
+  }
+  localStorage.setItem('np_bookmarks', JSON.stringify(window._bookmarks));
+  // Re-render to update button color
+  if (window.allPosts) renderPosts(window.allPosts);
+}
+
+function renderBookmarksPage() {
+  const c = document.getElementById('bookmarks-container');
+  const saved = Object.values(window._bookmarks || {});
+  if (!saved.length) {
+    c.innerHTML = '<div class="bookmarks-empty">🔖<br><br>No bookmarks yet.<br><span style="font-size:13px;">Tap 🔖 on any post to save it!</span></div>';
+    return;
+  }
+  renderPosts(saved, 'bookmarks-container');
+}
+
+// ══════════════════════════════════════════
+// SCHEDULE POST
+// ══════════════════════════════════════════
+window._scheduledTime = null;
+window._scheduledPosts = JSON.parse(localStorage.getItem('np_scheduled') || '[]');
+
+function openScheduleModal() {
+  // Set min datetime to now
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 5);
+  const minStr = now.toISOString().slice(0,16);
+  document.getElementById('schedule-datetime').min = minStr;
+  // If already scheduled, show that time
+  if (window._scheduledTime) {
+    document.getElementById('schedule-datetime').value = new Date(window._scheduledTime).toISOString().slice(0,16);
+    previewSchedule();
+  }
+  document.getElementById('schedule-modal').classList.add('open');
+}
+
+function closeScheduleModal() {
+  document.getElementById('schedule-modal').classList.remove('open');
+}
+
+function closeScheduleOnOverlay(e) {
+  if (e.target === document.getElementById('schedule-modal')) closeScheduleModal();
+}
+
+function setQuickSchedule(hours) {
+  const t2 = new Date(Date.now() + hours * 3600 * 1000);
+  document.getElementById('schedule-datetime').value = t2.toISOString().slice(0,16);
+  previewSchedule();
+}
+
+function previewSchedule() {
+  const val = document.getElementById('schedule-datetime').value;
+  const preview = document.getElementById('schedule-preview');
+  if (!val) { preview.classList.remove('show'); return; }
+  const d = new Date(val);
+  const now = new Date();
+  const diffMs = d - now;
+  const diffHrs = Math.round(diffMs / 3600000);
+  const diffMins = Math.round(diffMs / 60000);
+  let relText = '';
+  if (diffMins < 60) relText = `in ${diffMins} minutes`;
+  else if (diffHrs < 24) relText = `in ${diffHrs} hours`;
+  else relText = `in ${Math.round(diffHrs/24)} days`;
+  preview.innerHTML = `📅 Will be posted on <strong>${d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})}</strong> at <strong>${d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</strong> <span style="color:var(--subtext)">(${relText})</span>`;
+  preview.classList.add('show');
+}
+
+function confirmSchedule() {
+  const val = document.getElementById('schedule-datetime').value;
+  if (!val) { showToast('Please pick a date & time!'); return; }
+  const d = new Date(val);
+  if (d <= new Date()) { showToast('Please pick a future time!'); return; }
+  window._scheduledTime = d.getTime();
+  // Update badge
+  const badge = document.getElementById('schedule-set-badge');
+  document.getElementById('schedule-badge-text').textContent = formatScheduleTime(window._scheduledTime);
+  badge.style.display = 'flex';
+  document.getElementById('schedule-toggle-btn').classList.add('scheduled');
+  closeScheduleModal();
+  showToast('🕐 Scheduled! Post when ready.');
+  updateScheduledSidebar();
+}
+
+function clearSchedule() {
+  window._scheduledTime = null;
+  document.getElementById('schedule-set-badge').style.display = 'none';
+  document.getElementById('schedule-toggle-btn').classList.remove('scheduled');
+  showToast('Schedule cleared');
+}
+
+function formatScheduleTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + ' at ' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+}
+
+// Check scheduled posts every minute
+function checkScheduledPosts() {
+  const now = Date.now();
+  let changed = false;
+  window._scheduledPosts = window._scheduledPosts.filter(sp => {
+    if (sp.scheduledFor <= now) {
+      // Time to post!
+      if (window.savePost) window.savePost(sp.content, sp.media || []);
+      showToast('🕐 Scheduled post published!');
+      changed = true;
+      return false;
+    }
+    return true;
+  });
+  if (changed) localStorage.setItem('np_scheduled', JSON.stringify(window._scheduledPosts));
+}
+setInterval(checkScheduledPosts, 60000);
+
+
+// ═══════════════════════════════════════════
+// DESKTOP FEATURES
+// ═══════════════════════════════════════════
+
+function focusCompose() {
+  switchTab('home');
+  setTimeout(() => {
+    const ta = document.getElementById('compose-text');
+    if (ta) { ta.focus(); ta.scrollIntoView({behavior:'smooth', block:'center'}); }
+  }, 100);
+}
+
+// Right sidebar search
+function rsSearch(q) {
+  const res = document.getElementById('rs-search-results');
+  if (!q.trim()) { res.innerHTML = ''; return; }
+  const results = window.doSearch ? window.doSearch(q) : [];
+  if (!results.length) {
+    res.innerHTML = '<div style="padding:8px 0;font-size:13px;color:var(--subtext);">No results</div>';
+    return;
+  }
+  res.innerHTML = results.slice(0,5).map(p => `
+    <div class="rs-search-post-result" onclick="switchTab('home')">
+      <div style="font-weight:600;font-size:13px;">${escHtml(p.authorName||'')}</div>
+      <div style="font-size:13px;color:var(--subtext);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml((p.content||'').slice(0,60))}${p.content?.length>60?'...':''}</div>
+    </div>`).join('');
+}
+
+// Build trending from actual posts
+function buildTrending() {
+  const posts = window.allPosts || [];
+  const wordCount = {};
+  const stopWords = new Set(['the','a','an','is','in','on','at','to','for','of','and','or','but','it','this','that','was','are','be','as','by','from','with','i','my','me','we','you','he','she','they','have','has','had','not','no','so','do','did','can','will','if','up','out','about','what','how','when','there','just','more','also','get','been','its','into','than','then','only','over','after','back','other','our','your','her','his','their','all','would','could','should','one','two','new','now','very','still','here','some','any','who','which','were','through']);
+  posts.forEach(p => {
+    (p.content||'').toLowerCase().replace(/[^a-z\s]/g,' ').split(/\s+/).forEach(w => {
+      if (w.length > 3 && !stopWords.has(w)) wordCount[w] = (wordCount[w]||0) + 1;
+    });
+  });
+  const sorted = Object.entries(wordCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const c = document.getElementById('rs-trending');
+  if (!c) return;
+  if (!sorted.length) {
+    c.innerHTML = '<div style="font-size:13px;color:var(--subtext);padding:8px 0;">Post something to see trends!</div>';
+    return;
+  }
+  c.innerHTML = sorted.map(([word, count], i) => `
+    <div class="rs-trend-item" onclick="document.getElementById('rs-search-input')&&(document.getElementById('rs-search-input').value='${word}',rsSearch('${word}'))">
+      <div class="rs-trend-cat">Trending · #${i+1}</div>
+      <div class="rs-trend-tag">#${word}</div>
+      <div class="rs-trend-count">${count} post${count>1?'s':''}</div>
+    </div>`).join('');
+}
+
+// Update scheduled posts sidebar
+function updateScheduledSidebar() {
+  const card = document.getElementById('rs-scheduled-card');
+  const list = document.getElementById('rs-scheduled-list');
+  if (!card || !list) return;
+  const scheduled = window._scheduledPosts || [];
+  if (!scheduled.length) { card.style.display='none'; return; }
+  card.style.display='block';
+  list.innerHTML = scheduled.map((sp,i) => `
+    <div class="rs-scheduled-item">
+      <div style="font-size:12px;color:#7c3aed;">🕐 ${formatScheduleTime(sp.scheduledFor)}</div>
+      <div style="margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml((sp.content||'(media post)').slice(0,50))}</div>
+      <button onclick="cancelScheduledPost(${i})" style="background:none;border:none;color:var(--subtext);font-size:11px;cursor:pointer;margin-top:2px;">✕ Cancel</button>
+    </div>`).join('');
+}
+
+function cancelScheduledPost(i) {
+  window._scheduledPosts.splice(i,1);
+  localStorage.setItem('np_scheduled', JSON.stringify(window._scheduledPosts));
+  updateScheduledSidebar();
+  showToast('Scheduled post cancelled');
+}
+
+// Init desktop features
+function initDesktop() {
+  if (window.innerWidth >= 1024) {
+    buildTrending();
+    updateScheduledSidebar();
+  }
+}
+
+// Update trending when posts load
+const _origRenderPosts = window.renderPostsOrig || null;
+
+// Keyboard shortcuts (desktop)
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'n' || e.key === 'N') focusCompose();
+  if (e.key === 'h' || e.key === 'H') switchTab('home');
+  if (e.key === 's' || e.key === 'S') switchTab('search');
+  if (e.key === 'p' || e.key === 'P') switchTab('profile');
+  if (e.key === 'b' || e.key === 'B') switchTab('bookmarks');
+});
+
+// Resize handler
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 1024) {
+    buildTrending();
+    updateScheduledSidebar();
+  }
+});
 
 
 function toggleSideMenu(){document.getElementById('side-popup').classList.toggle('open');}
