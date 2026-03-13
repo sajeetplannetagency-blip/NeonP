@@ -137,6 +137,73 @@
     .modal-save-btn{padding:14px;border-radius:12px;background:var(--btn);color:var(--btnT);border:none;font-size:16px;cursor:pointer;font-family:Georgia,serif;font-weight:700;width:100%;margin-top:4px;}
     .modal-cancel-btn{padding:12px;border-radius:12px;background:transparent;color:var(--subtext);border:1.5px solid var(--border);font-size:15px;cursor:pointer;font-family:Georgia,serif;width:100%;}
     .forgot-btn{background:none;border:none;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;margin-top:4px;}
+        /* ── MEDIA UPLOAD & DISPLAY ── */
+    .compose-media-bar{display:flex;gap:8px;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px;align-items:center;}
+    .media-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--subtext);font-size:13px;cursor:pointer;font-family:Georgia,serif;transition:all .2s;}
+    .media-btn:hover{background:var(--card);color:var(--text);}
+
+    /* Compose previews */
+    .media-preview-wrap{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+    .media-preview-item{position:relative;border-radius:12px;overflow:hidden;background:#000;display:inline-block;}
+    .media-preview-item img{display:block;max-width:100%;max-height:260px;object-fit:contain;border-radius:12px;}
+    .media-preview-item video{display:block;max-width:100%;max-height:260px;border-radius:12px;}
+    .media-remove-btn{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.72);color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;}
+
+    /* Upload progress */
+    .upload-progress-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:6px;display:none;}
+    .upload-progress-fill{height:100%;background:var(--btn);transition:width .25s;}
+
+    /* Post media — preserves original ratio */
+    .post-media-wrap{margin-top:10px;border-radius:14px;overflow:hidden;background:#000;}
+
+    /* Single media */
+    .post-media-single{width:100%;position:relative;}
+    .post-media-single img{
+      width:100%;
+      display:block;
+      object-fit:contain;
+      background:#000;
+      max-height:560px;   /* tall portrait fits, wide landscape fits */
+      cursor:pointer;
+    }
+    .post-media-single video{width:100%;display:block;max-height:560px;background:#000;}
+
+    /* 2 media side by side */
+    .post-media-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+    .post-media-grid-2 img,.post-media-grid-2 video{width:100%;height:260px;object-fit:cover;display:block;cursor:pointer;}
+
+    /* 3 media: top full, bottom two */
+    .post-media-grid-3{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;}
+    .post-media-grid-3 .span-full{grid-column:1/3;}
+    .post-media-grid-3 img,.post-media-grid-3 video{width:100%;height:210px;object-fit:cover;display:block;cursor:pointer;}
+
+    /* 4 media 2x2 */
+    .post-media-grid-4{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+    .post-media-grid-4 img,.post-media-grid-4 video{width:100%;height:210px;object-fit:cover;display:block;cursor:pointer;}
+
+    /* Video wrapper with fullscreen btn */
+    .video-item-wrap{position:relative;background:#000;}
+    .video-item-wrap video{width:100%;display:block;}
+    .video-item-wrap.grid-video video{height:210px;object-fit:cover;}
+    .fullscreen-btn{
+      position:absolute;bottom:10px;right:10px;
+      background:rgba(0,0,0,.62);border:none;color:#fff;
+      border-radius:8px;padding:5px 10px;font-size:12px;
+      cursor:pointer;display:flex;align-items:center;gap:5px;
+      backdrop-filter:blur(6px);font-family:Georgia,serif;
+      transition:background .2s;z-index:4;
+    }
+    .fullscreen-btn:hover{background:rgba(0,0,0,.85);}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:1000;display:none;align-items:center;justify-content:center;}
+    .lightbox.open{display:flex;}
+    .lightbox-img-wrap{max-width:100vw;max-height:100vh;display:flex;align-items:center;justify-content:center;}
+    .lightbox-img-wrap img{max-width:100vw;max-height:100vh;object-fit:contain;display:block;}
+    .lightbox-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.18);border:none;color:#fff;font-size:20px;width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.18);border:none;color:#fff;font-size:22px;width:44px;height:44px;border-radius:50%;cursor:pointer;backdrop-filter:blur(8px);}
+    .lb-prev{left:12px;} .lb-next{right:12px;}
+
     /* SETTINGS */
     .settings-section{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
     .settings-head{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:14px;background:var(--card);}
@@ -288,8 +355,15 @@
         <div class="compose-box">
           <div class="avatar" id="compose-avatar">YO</div>
           <div style="flex:1;">
-            <textarea class="compose-input" id="compose-text" data-ph="whats_happening" rows="2"></textarea>
-            <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+            <textarea class="compose-input" id="compose-text" data-ph="whats_happening" rows="3" style="min-height:52px;"></textarea>
+            <div class="media-preview-wrap" id="media-preview-wrap"></div>
+            <div class="upload-progress-bar" id="upload-progress-bar"><div class="upload-progress-fill" id="upload-progress-fill" style="width:0%"></div></div>
+            <div class="compose-media-bar">
+              <button class="media-btn" onclick="triggerMediaUpload('image')">📷 Photo</button>
+              <button class="media-btn" onclick="triggerMediaUpload('video')">🎬 Video</button>
+              <button class="media-btn" onclick="triggerMediaUpload('any')">📎 Any</button>
+              <input type="file" id="media-upload-input" accept="image/*,video/*" multiple style="display:none;" onchange="handleMediaUpload(event)"/>
+              <div style="flex:1;"></div>
               <button class="post-btn" onclick="addPost()" data-t="post_btn"></button>
             </div>
           </div>
@@ -387,6 +461,15 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <div class="lightbox-img-wrap"><img id="lightbox-img" src="" alt=""/></div>
+  <button class="lb-nav lb-next" id="lb-next" onclick="lbNav(1)">›</button>
+</div>
+
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -403,6 +486,44 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
   const gProvider = new GoogleAuthProvider();
+
+  // ── Upload media to Cloudinary (free, no credit card) ──
+  window.uploadMediaFile = async (dataUrl, fileName, onProgress) => {
+    const CLOUD = 'dfubgcuaf';
+    const PRESET = 'neonp_uploads';
+
+    // Convert dataUrl to blob
+    const res = await fetch(dataUrl);
+    const blob = await res.blob();
+
+    const formData = new FormData();
+    formData.append('file', blob, fileName);
+    formData.append('upload_preset', PRESET);
+    formData.append('folder', 'neonp_posts');
+
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const isVideo = blob.type.startsWith('video/');
+      const url = `https://api.cloudinary.com/v1_1/${CLOUD}/${isVideo ? 'video' : 'image'}/upload`;
+
+      xhr.open('POST', url);
+      xhr.upload.onprogress = e => {
+        if (e.lengthComputable && onProgress) {
+          onProgress(Math.round(e.loaded / e.total * 100));
+        }
+      };
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          resolve(data.secure_url);
+        } else {
+          reject(new Error('Upload failed: ' + xhr.responseText));
+        }
+      };
+      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.send(formData);
+    });
+  };
 
   window.signInWithGoogle = async () => {
     try {
@@ -500,9 +621,49 @@
     else if(document.getElementById('screen-loading').classList.contains('active')) showScreen('login');
   });
 
-  window.savePost = async txt => {
-    const u=window.currentUser;
-    await addDoc(collection(db,'posts'),{content:txt,authorName:u.name,authorHandle:u.handle||('@'+u.name.toLowerCase().replace(/\s+/g,'')),authorInitials:u.initials,authorPicture:u.picture,authorEmail:u.email,authorUid:u.uid,likes:0,views:0,replyCount:0,createdAt:serverTimestamp()});
+  window.savePost = async (txt, mediaArr) => {
+    const u = window.currentUser;
+    const bar = document.getElementById('upload-progress-bar');
+    const fill = document.getElementById('upload-progress-fill');
+
+    const mediaForFirestore = [];
+
+    if ((mediaArr||[]).length > 0) {
+      bar.style.display = 'block';
+      for (let i = 0; i < mediaArr.length; i++) {
+        const m = mediaArr[i];
+        // Detect real extension from file mime
+
+        try {
+          const url = await window.uploadMediaFile(m.data, path, pct => {
+            const overall = ((i / mediaArr.length) + (pct / 100 / mediaArr.length)) * 100;
+            fill.style.width = overall + '%';
+            showToast(`Uploading ${i+1}/${mediaArr.length} — ${pct}%`);
+          });
+          // Store URL + type only — NO data, full original quality on Firebase CDN
+          mediaForFirestore.push({ type: m.type, url });
+        } catch(err) {
+          bar.style.display = 'none';
+          showToast('Upload failed: ' + err.message);
+          return;
+        }
+      }
+      fill.style.width = '100%';
+      setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 600);
+    }
+
+    await addDoc(collection(db,'posts'), {
+      content: txt||'',
+      authorName: u.name,
+      authorHandle: u.handle||('@'+u.name.toLowerCase().replace(/\s+/g,'')),
+      authorInitials: u.initials,
+      authorPicture: u.picture,
+      authorEmail: u.email,
+      authorUid: u.uid,
+      likes: 0, views: 0, replyCount: 0,
+      media: mediaForFirestore,
+      createdAt: serverTimestamp()
+    });
   };
   window.likePost = async(id,liked)=>await updateDoc(doc(db,'posts',id),{likes:increment(liked?-1:1)});
   window.incrementView = async id=>await updateDoc(doc(db,'posts',id),{views:increment(1)});
@@ -1021,7 +1182,8 @@ function renderPosts(posts, container) {
       <div class="avatar">${av}</div>
       <div style="flex:1;">
         <div class="post-meta"><span class="post-name">${escHtml(p.authorName||'User')}</span><span class="post-handle">${escHtml(p.authorHandle||'')}</span><span class="post-time">· ${ti}</span></div>
-        <p class="post-content">${escHtml(p.content)}</p>
+        ${p.content ? `<p class="post-content">${escHtml(p.content)}</p>` : ''}
+        ${renderMediaGrid(p.media||[])}
         <div class="post-actions">
           <button class="action-btn ${liked?'liked':''}" onclick="toggleLike('${p.id}',${liked})">${liked?'♥':'♡'} ${p.likes||0}</button>
           <button class="action-btn" onclick="toggleReply('${p.id}')">💬 ${rc}</button>
@@ -1081,10 +1243,13 @@ function getTimeAgo(d){const s=Math.floor((Date.now()-d)/1000);if(s<60)return s+
 async function toggleLike(id,liked){likedPosts[id]=!liked;localStorage.setItem('np_liked',JSON.stringify(likedPosts));if(window.likePost)await window.likePost(id,liked);}
 
 async function addPost(){
-  const ta=document.getElementById('compose-text'),txt=ta.value.trim();
-  if(!txt){showToast(t('write_something'));return;}
+  const ta=document.getElementById('compose-text'), txt=ta.value.trim();
+  if(!txt && window._pendingMedia.length===0){showToast(t('write_something'));return;}
   ta.value='';
-  if(window.savePost)await window.savePost(txt);
+  const mediaToSend = [...window._pendingMedia];
+  window._pendingMedia = [];
+  document.getElementById('media-preview-wrap').innerHTML='';
+  if(window.savePost) await window.savePost(txt, mediaToSend);
   showToast(t('post_done'));
 }
 
@@ -1221,6 +1386,146 @@ function loadSavedImages(){
   const savedCover=localStorage.getItem('np_cover_'+uid);
   if(savedCover){const ci=document.getElementById('cover-img');if(ci){ci.src=savedCover;ci.style.display='block';}}
 }
+
+
+// ── MEDIA UPLOAD & DISPLAY ──
+window._pendingMedia = [];  // [{type:'image'|'video', data:dataURL, file:File}]
+window._lbImages = [];      // for lightbox nav
+window._lbIndex = 0;
+
+function triggerMediaUpload(type) {
+  const input = document.getElementById('media-upload-input');
+  if (type === 'image') input.accept = 'image/*';
+  else if (type === 'video') input.accept = 'video/*';
+  else input.accept = 'image/*,video/*';
+  input.multiple = true;
+  input.click();
+}
+
+function handleMediaUpload(e) {
+  const files = Array.from(e.target.files);
+  const remaining = 4 - window._pendingMedia.length;
+  if (remaining <= 0) { showToast('Max 4 items per post!'); return; }
+  files.slice(0, remaining).forEach(file => {
+    const isVideo = file.type.startsWith('video/');
+    const reader = new FileReader();
+    reader.onload = ev => {
+      window._pendingMedia.push({
+        type: isVideo ? 'video' : 'image',
+        data: ev.target.result,   // full original quality dataURL
+        file: file
+      });
+      renderComposePreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function renderComposePreviews() {
+  const wrap = document.getElementById('media-preview-wrap');
+  wrap.innerHTML = window._pendingMedia.map((m, i) => `
+    <div class="media-preview-item">
+      ${m.type === 'video'
+        ? `<video src="${m.data}" style="max-height:220px;max-width:100%;border-radius:12px;" muted playsinline></video>`
+        : `<img src="${m.data}" style="max-height:220px;max-width:100%;border-radius:12px;display:block;"/>`
+      }
+      <button class="media-remove-btn" onclick="removeMedia(${i})">✕</button>
+    </div>`
+  ).join('');
+}
+
+function removeMedia(i) {
+  window._pendingMedia.splice(i, 1);
+  renderComposePreviews();
+}
+
+// ── Render post media grid (X/Twitter style, original ratios) ──
+function renderMediaGrid(media) {
+  if (!media || !media.length) return '';
+  const count = Math.min(media.length, 4);
+  const items = media.slice(0, 4);
+
+  // Build each media element
+  function mediaEl(m, idx, extraClass='', gridMode=false) {
+    if (m.type === 'video') {
+      return `<div class="video-item-wrap${gridMode?' grid-video':''} ${extraClass}">
+        <video src="${m.url}" ${gridMode?'style="height:210px;object-fit:cover;"':''} controls playsinline preload="metadata"></video>
+        <button class="fullscreen-btn" onclick="openVideoFS(this)">⛶ Fullscreen</button>
+      </div>`;
+    } else {
+      return `<img
+        src="${m.url}"
+        class="${extraClass}"
+        style="${gridMode?'height:210px;object-fit:cover;':'max-height:560px;width:100%;object-fit:contain;background:#000;'}"
+        onclick="openLightbox(${JSON.stringify(items.map(x=>x.url).filter(u=>u))}, ${idx})"
+        loading="lazy"
+      />`;
+    }
+  }
+
+  let inner = '';
+  if (count === 1) {
+    inner = `<div class="post-media-single">${mediaEl(items[0], 0, '', false)}</div>`;
+  } else if (count === 2) {
+    inner = `<div class="post-media-grid-2">${items.map((m,i)=>mediaEl(m,i,'',true)).join('')}</div>`;
+  } else if (count === 3) {
+    inner = `<div class="post-media-grid-3">
+      ${mediaEl(items[0],0,'span-full',true)}
+      ${mediaEl(items[1],1,'',true)}
+      ${mediaEl(items[2],2,'',true)}
+    </div>`;
+  } else {
+    inner = `<div class="post-media-grid-4">${items.map((m,i)=>mediaEl(m,i,'',true)).join('')}</div>`;
+  }
+
+  return `<div class="post-media-wrap">${inner}</div>`;
+}
+
+// ── Lightbox with nav ──
+function openLightbox(urls, index) {
+  window._lbImages = urls;
+  window._lbIndex = index || 0;
+  _showLbImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function _showLbImage() {
+  const img = document.getElementById('lightbox-img');
+  const urls = window._lbImages;
+  img.src = urls[window._lbIndex] || '';
+  document.getElementById('lb-prev').style.display = urls.length > 1 ? 'flex' : 'none';
+  document.getElementById('lb-next').style.display = urls.length > 1 ? 'flex' : 'none';
+}
+function lbNav(dir) {
+  const len = window._lbImages.length;
+  window._lbIndex = (window._lbIndex + dir + len) % len;
+  _showLbImage();
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+// tap outside image to close
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target===this) closeLightbox();
+});
+
+// ── Video fullscreen ──
+function openVideoFS(btn) {
+  const video = btn.closest('.video-item-wrap').querySelector('video');
+  if (video.requestFullscreen) video.requestFullscreen();
+  else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+  else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+}
+
 
 function toggleSideMenu(){document.getElementById('side-popup').classList.toggle('open');}
 function showToast(msg){const t2=document.getElementById('toast');t2.textContent=msg;t2.classList.add('show');setTimeout(()=>t2.classList.remove('show'),2500);}
