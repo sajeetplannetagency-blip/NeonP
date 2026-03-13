@@ -91,10 +91,32 @@
     .reply-name{font-weight:700;font-size:13px;}
     .reply-time{color:var(--subtext);font-size:12px;margin-left:4px;}
     .reply-text{font-size:13px;line-height:1.4;margin-top:2px;color:var(--text);}
-    .cover{height:120px;background:linear-gradient(135deg,var(--btn) 0%,var(--subtext) 100%);position:relative;cursor:pointer;overflow:hidden;}
+    .cover{height:120px;background:linear-gradient(135deg,var(--btn) 0%,var(--subtext) 100%);position:relative;cursor:pointer;overflow:hidden;transition:height .3s ease;}
     .cover-img{width:100%;height:100%;object-fit:cover;display:none;}
     .cover:hover .cover-overlay{opacity:1;}
     .cover-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-family:Georgia,serif;gap:6px;opacity:0;transition:opacity .2s;pointer-events:none;}
+    .cover-overlay-desktop{position:absolute;bottom:16px;right:20px;display:none;align-items:center;gap:8px;}
+    .cover-upload-btn-desktop{background:rgba(0,0,0,.65);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Georgia,serif;font-weight:600;display:flex;align-items:center;gap:6px;transition:background .2s;}
+    .cover-upload-btn-desktop:hover{background:rgba(0,0,0,.85);}
+
+    /* Desktop banner — YouTube style */
+    .desktop-mode .cover{
+      height:260px !important;
+      border-radius:0 !important;
+    }
+    .desktop-mode .cover-overlay{
+      pointer-events:auto;
+    }
+    .desktop-mode .cover-overlay-desktop{
+      display:flex !important;
+    }
+
+    .desktop-mode .profile-name{font-size:24px !important;margin-top:12px !important;}
+    .desktop-mode .profile-handle{font-size:15px !important;}
+    .desktop-mode .profile-content{padding:0 24px 40px !important;}
+    /* Banner hint text changes */
+    .desktop-mode .cover-overlay .cover-simple-hint{display:none;}
+    .cover-simple-hint{display:inline;}
     .profile-content{padding:0 18px 40px;}
     .profile-avatar{width:72px;height:72px;border-radius:18px;background:var(--btn);color:var(--btnT);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;border:3px solid var(--bg);margin-top:-36px;overflow:hidden;cursor:pointer;position:relative;transition:opacity .2s;}
     .profile-avatar:hover{opacity:.85;}
@@ -444,18 +466,7 @@
     .dash-activity-icon{font-size:18px;width:28px;text-align:center;}
     .dash-activity-time{font-size:12px;color:var(--subtext);margin-left:auto;}
     .dash-empty{text-align:center;padding:20px;color:var(--subtext);font-size:13px;}
-    /* Desktop toggle btn */
-    .desktop-toggle-btn{
-      position:fixed;bottom:20px;right:20px;
-      background:var(--btn);color:var(--btnT);
-      border:none;border-radius:24px;
-      padding:10px 18px;font-size:13px;font-weight:600;
-      cursor:pointer;font-family:Georgia,serif;
-      box-shadow:0 4px 20px rgba(0,0,0,.2);
-      z-index:500;display:flex;align-items:center;gap:7px;
-      transition:all .2s;
-    }
-    .desktop-toggle-btn:hover{opacity:.85;transform:translateY(-1px);}
+
   </style>
 </head>
 <body>
@@ -643,9 +654,18 @@
         </div>
       </div>
       <div id="tab-profile" class="tab-content">
-        <div class="cover" onclick="triggerCoverUpload()">
+        <div class="cover" id="profile-cover" onclick="handleCoverClick()">
           <img class="cover-img" id="cover-img" src="" alt=""/>
-          <div class="cover-overlay">📷 <span data-t="change_cover"></span></div>
+          <!-- Mobile overlay (center) -->
+          <div class="cover-overlay">
+            <span class="cover-simple-hint">📷 <span data-t="change_cover"></span></span>
+          </div>
+          <!-- Desktop overlay (bottom right — YouTube style) -->
+          <div class="cover-overlay-desktop">
+            <button class="cover-upload-btn-desktop" onclick="triggerCoverUpload();event.stopPropagation();">
+              📷 Change banner photo
+            </button>
+          </div>
           <input type="file" id="cover-upload" accept="image/*" style="display:none;" onchange="handleCoverUpload(event)"/>
         </div>
         <div class="profile-content">
@@ -820,10 +840,7 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<!-- Desktop Mode Toggle Button -->
-<button class="desktop-toggle-btn" id="desktop-toggle-btn" onclick="toggleDesktopMode()">
-  🖥️ <span id="desktop-btn-label">Desktop Mode</span>
-</button>
+
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -1742,6 +1759,11 @@ function openBookmarksTab(){
 }
 
 function triggerCoverUpload(){document.getElementById('cover-upload').click();}
+function handleCoverClick(){
+  // On desktop, only the button triggers upload (not whole banner click)
+  // On mobile, whole banner is clickable
+  if(!isDesktopMode) triggerCoverUpload();
+}
 function handleCoverUpload(e){
   const file=e.target.files[0]; if(!file) return;
   const reader=new FileReader();
@@ -2129,20 +2151,18 @@ function cancelScheduledPost(i) {
   showToast('Scheduled post cancelled');
 }
 
-// ── DESKTOP MODE TOGGLE ──
-let isDesktopMode = localStorage.getItem('np_desktop') === '1';
+// ── DESKTOP MODE — PURE AUTO DETECT ──
+// Logic:
+// Real desktop/laptop = innerWidth >= 900 AND no touch → desktop mode
+// Mobile Chrome normal = narrow viewport → mobile mode  
+// Mobile Chrome "Desktop site" ON = viewport becomes 900px+ → desktop mode
+// No manual toggle — fully automatic!
+
+let isDesktopMode = false;
 
 function applyDesktopMode(on) {
   isDesktopMode = on;
-  localStorage.setItem('np_desktop', on ? '1' : '0');
   document.body.classList.toggle('desktop-mode', on);
-
-  const btn = document.getElementById('desktop-toggle-btn');
-  const lbl = document.getElementById('desktop-btn-label');
-  if (btn && lbl) {
-    lbl.textContent = on ? 'Mobile Mode' : 'Desktop Mode';
-    btn.style.background = on ? '#7c3aed' : 'var(--btn)';
-  }
 
   // Show/hide dashboard nav
   const dashNav = document.getElementById('nav-dashboard');
@@ -2151,23 +2171,27 @@ function applyDesktopMode(on) {
   if (on) {
     buildTrending();
     updateScheduledSidebar();
-    renderDashboard();
   }
 }
 
-function toggleDesktopMode() {
-  applyDesktopMode(!isDesktopMode);
-  showToast(isDesktopMode ? '🖥️ Desktop Mode ON!' : '📱 Mobile Mode');
+function initDesktop() {
+  // Detect desktop:
+  // 1. Wide viewport (real desktop OR mobile "Request Desktop Site")
+  // 2. innerWidth >= 900px = desktop layout
+  // Mobile normal Chrome = ~360-430px → mobile
+  // Mobile Chrome "Desktop Site" ON = ~980-1280px → desktop
+  // Real laptop/PC = always wide → desktop
+  const isWide = window.innerWidth >= 900;
+  applyDesktopMode(isWide);
 }
 
-function initDesktop() {
-  // Auto-detect real desktop
-  const realDesktop = window.innerWidth >= 900 && !('ontouchstart' in window);
-  const saved = localStorage.getItem('np_desktop');
-  // Use saved preference, or auto-detect
-  const shouldEnable = saved !== null ? saved === '1' : realDesktop;
-  applyDesktopMode(shouldEnable);
-}
+// Re-check on resize (covers desktop site toggle)
+window.addEventListener('resize', () => {
+  const shouldBeDesktop = window.innerWidth >= 900;
+  if (shouldBeDesktop !== isDesktopMode) {
+    applyDesktopMode(shouldBeDesktop);
+  }
+});
 
 // ── DASHBOARD ──
 function renderDashboard() {
