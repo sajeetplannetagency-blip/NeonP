@@ -730,7 +730,7 @@
       </div>
       <!-- Scheduled Posts -->
       <div class="rs-card" id="rs-scheduled-card" style="display:none;">
-        <div class="rs-card-title"><span data-t="schedule_btn"></span>d Posts</div>
+        <div class="rs-card-title" data-t="scheduled_title"></div>
         <div id="rs-scheduled-list"></div>
       </div>
       <!-- Footer -->
@@ -1479,16 +1479,15 @@ function applyLang() {
   // RTL
   document.body.classList.toggle('rtl', !!L.rtl);
   document.documentElement.setAttribute('dir', L.rtl ? 'rtl' : 'ltr');
-  // data-t elements — always update every element, every language has all keys now
-  const L2 = LANGS[currentLang] || LANGS.en_us;
+  // data-t elements — always update, all languages have all keys via fillLangFallbacks
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
-    el.textContent = L2[key] || LANGS.en_us[key] || key;
+    el.textContent = L[key] || LANGS.en_us[key] || key;
   });
   // data-ph placeholders
   document.querySelectorAll('[data-ph]').forEach(el => {
     const key = el.getAttribute('data-ph');
-    el.placeholder = L2[key] || LANGS.en_us[key] || '';
+    el.placeholder = L[key] || LANGS.en_us[key] || '';
   });
   // Feed title
   const tab = document.querySelector('.nav-btn.active');
@@ -1508,28 +1507,71 @@ function applyLang() {
   });
 }
 
-// ── LOGO LETTER MAP ──
+// ── LOGO LETTER MAP — ALL LANGUAGES ──
 const LOGO_LETTERS = {
-  en_us:'N',en_uk:'N',es:'N',fr:'N',de:'N',pt:'N',it:'N',nl:'N',pl:'N',sv:'N',no:'N',da:'N',
-  fi:'N',ro:'N',hu:'N',cs:'N',sk:'N',hr:'N',bs:'N',sl:'N',sq:'N',ca:'N',gl:'N',eu:'N',
-  af:'N',sw:'N',id:'N',ms:'N',tl:'N',jv:'N',su:'N',vi:'N',la:'N',eo:'N',mt:'N',lb:'N',
-  is2:'N',ga:'N',cy:'N',gd:'N',tr:'N',az:'N',uz:'N',tk:'N',ha:'N',yo:'N',ig:'N',zu:'N',
-  xh:'N',sn:'N',st:'N',wo:'N',ln:'N',rw:'N',ny:'N',qu:'N',mi:'N',tlh:'N',om:'N',
-  // Cyrillic
+  // Latin script — N
+  en_us:'N',en_uk:'N',es:'N',fr:'N',de:'N',pt:'N',it:'N',nl:'N',pl:'N',
+  sv:'N',no:'N',da:'N',fi:'N',ro:'N',hu:'N',cs:'N',sk:'N',hr:'N',bs:'N',
+  sl:'N',sq:'N',ca:'N',gl:'N',eu:'N',la:'N',eo:'N',mt:'N',lb:'N',is2:'N',
+  ga:'N',cy:'N',gd:'N',tr:'N',az:'N',uz:'N',tk:'N',id:'N',ms:'N',tl:'N',
+  jv:'N',su:'N',vi:'N',af:'N',sw:'N',ha:'N',yo:'N',ig:'N',zu:'N',xh:'N',
+  sn:'N',st:'N',wo:'N',ln:'N',rw:'N',ny:'N',qu:'N',mi:'N',tlh:'N',om:'N',
+  so:'N',
+  // Cyrillic — Н
   ru:'Н',uk:'Н',bg:'Н',sr:'Н',mk:'Н',be:'Н',kk:'Н',ky:'Н',tg:'Н',mn:'Н',
-  // Devanagari
+  // Devanagari — न
   hi:'न',hinglish:'न',mr:'न',ne:'न',mai:'न',bho:'न',raj:'न',hry:'न',
-  // Indian scripts
-  gu:'ન',pa:'ਨ',bn:'ন',as2:'ন',or2:'ନ',ta:'ந',te:'న',kn:'ನ',ml:'ന',si:'න',
-  // Arabic script (RTL)
+  // Gujarati — ન
+  gu:'ન',
+  // Punjabi — ਨ
+  pa:'ਨ',
+  // Bengali / Assamese — ন
+  bn:'ন',as2:'ন',
+  // Odia — ନ
+  or2:'ନ',
+  // Tamil — ந
+  ta:'ந',
+  // Telugu — న
+  te:'న',
+  // Kannada — ನ
+  kn:'ನ',
+  // Malayalam — ന
+  ml:'ന',
+  // Sinhala — න
+  si:'න',
+  // Arabic script — ن
   ar:'ن',ur:'ن',fa:'ن',ps:'ن',sd:'ن',ug:'ن',
-  // Other
-  he:'נ',ja:'ナ',zh:'N',ko:'느',th:'น',km:'ន',lo:'ນ',my:'န',
-  ka:'ნ',hy:'Ն',el:'Ν',am:'ን',ti:'ን',
+  // Hebrew — נ
+  he:'נ',
+  // Japanese — ナ
+  ja:'ナ',
+  // Chinese — N
+  zh:'N',
+  // Korean — 느
+  ko:'느',
+  // Thai — น
+  th:'น',
+  // Khmer — ន
+  km:'ន',
+  // Lao — ນ
+  lo:'ນ',
+  // Burmese — န
+  my:'န',
+  // Georgian — ნ
+  ka:'ნ',
+  // Armenian — Ն
+  hy:'Ն',
+  // Greek — Ν
+  el:'Ν',
+  // Ethiopian — ን
+  am:'ን',ti:'ን',
+  // Baltic/Nordic — N
+  et:'N',lv:'N',lt:'N',
 };
 
 function updateLogoLetter(lang) {
-  const letter = LOGO_LETTERS[lang] || 'N';
+  // Try direct match first, then strip trailing digits (or2->or, as2->as)
+  const letter = LOGO_LETTERS[lang] || LOGO_LETTERS[lang.replace(/\d+$/,'')] || 'N';
   document.querySelectorAll('[id^="logo-letter-"]').forEach(el => {
     el.textContent = letter;
   });
@@ -1560,16 +1602,16 @@ LANGS.en_us.nav_theme='Theme';
 LANGS.en_uk.nav_theme='Theme';
 LANGS.en_us.nav_more='More';
 LANGS.en_uk.nav_more='More';
-LANGS.en_us.nav_newpost='✏️ New Post';
-LANGS.en_uk.nav_newpost='✏️ New Post';
-LANGS.en_us.photo_btn='<span data-t="photo_btn"></span>';
-LANGS.en_uk.photo_btn='<span data-t="photo_btn"></span>';
-LANGS.en_us.video_btn='<span data-t="video_btn"></span>';
-LANGS.en_uk.video_btn='<span data-t="video_btn"></span>';
-LANGS.en_us.any_btn='<span data-t="any_btn"></span>';
-LANGS.en_uk.any_btn='<span data-t="any_btn"></span>';
-LANGS.en_us.schedule_btn='<span data-t="schedule_btn"></span>';
-LANGS.en_uk.schedule_btn='<span data-t="schedule_btn"></span>';
+LANGS.en_us.nav_newpost='New Post';
+LANGS.en_uk.nav_newpost='New Post';
+
+
+
+
+
+
+
+
 LANGS.en_us.schedule_title='🕐 Schedule Post';
 LANGS.en_uk.schedule_title='🕐 Schedule Post';
 LANGS.en_us.schedule_sub='Choose when to publish this post';
@@ -1650,11 +1692,11 @@ if(LANGS.hi)LANGS.hi.nav_notifications='सूचनाएं';
 if(LANGS.hi)LANGS.hi.nav_dashboard='डैशबोर्ड';
 if(LANGS.hi)LANGS.hi.nav_theme='थीम';
 if(LANGS.hi)LANGS.hi.nav_more='और';
-if(LANGS.hi)LANGS.hi.nav_newpost='✏️ नई पोस्ट';
-if(LANGS.hi)LANGS.hi.photo_btn='📷 फोटो';
-if(LANGS.hi)LANGS.hi.video_btn='🎬 वीडियो';
-if(LANGS.hi)LANGS.hi.any_btn='📎 कोई भी';
-if(LANGS.hi)LANGS.hi.schedule_btn='🕐 शेड्यूल';
+if(LANGS.hi)LANGS.hi.nav_newpost='नई पोस्ट';
+if(LANGS.hi)LANGS.hi.photo_btn='📷';
+if(LANGS.hi)LANGS.hi.video_btn='🎬';
+if(LANGS.hi)LANGS.hi.any_btn='📎';
+if(LANGS.hi)LANGS.hi.schedule_btn='🕐';
 if(LANGS.hi)LANGS.hi.schedule_title='🕐 पोस्ट शेड्यूल करें';
 if(LANGS.hi)LANGS.hi.schedule_sub='पोस्ट करने का समय चुनें';
 if(LANGS.hi)LANGS.hi.schedule_datetime_lbl='दिनांक और समय';
@@ -1699,12 +1741,9 @@ if(LANGS.hinglish)LANGS.hinglish.nav_notifications='Notifications';
 if(LANGS.hinglish)LANGS.hinglish.nav_dashboard='Dashboard';
 if(LANGS.hinglish)LANGS.hinglish.nav_theme='Theme';
 if(LANGS.hinglish)LANGS.hinglish.nav_more='Aur';
-if(LANGS.hinglish)LANGS.hinglish.nav_newpost='✏️ Naya Post';
-if(LANGS.hinglish)LANGS.hinglish.photo_btn='<span data-t="photo_btn"></span>';
-if(LANGS.hinglish)LANGS.hinglish.video_btn='<span data-t="video_btn"></span>';
-if(LANGS.hinglish)LANGS.hinglish.any_btn='📎 Kuch bhi';
-if(LANGS.hinglish)LANGS.hinglish.schedule_btn='<span data-t="schedule_btn"></span>';
-if(LANGS.hinglish)LANGS.hinglish.schedule_title='🕐 Post Schedule Karo';
+if(LANGS.hinglish)LANGS.hinglish.nav_newpost='Naya Post';
+if(LANGS.hinglish)if(LANGS.hinglish)if(LANGS.hinglish)LANGS.hinglish.any_btn='📎';
+if(LANGS.hinglish)if(LANGS.hinglish)LANGS.hinglish.schedule_title='🕐 Post Schedule Karo';
 if(LANGS.hinglish)LANGS.hinglish.schedule_sub='Kab post karna hai chunno';
 if(LANGS.hinglish)LANGS.hinglish.schedule_datetime_lbl='Tarikh aur Samay';
 if(LANGS.hinglish)LANGS.hinglish.schedule_1hr='⚡ 1 ghante baad';
@@ -1748,11 +1787,11 @@ if(LANGS.ar)LANGS.ar.nav_notifications='الإشعارات';
 if(LANGS.ar)LANGS.ar.nav_dashboard='لوحة التحكم';
 if(LANGS.ar)LANGS.ar.nav_theme='المظهر';
 if(LANGS.ar)LANGS.ar.nav_more='المزيد';
-if(LANGS.ar)LANGS.ar.nav_newpost='✏️ منشور جديد';
-if(LANGS.ar)LANGS.ar.photo_btn='📷 صورة';
-if(LANGS.ar)LANGS.ar.video_btn='🎬 فيديو';
-if(LANGS.ar)LANGS.ar.any_btn='📎 أي ملف';
-if(LANGS.ar)LANGS.ar.schedule_btn='🕐 جدولة';
+if(LANGS.ar)LANGS.ar.nav_newpost='منشور جديد';
+if(LANGS.ar)LANGS.ar.photo_btn='📷';
+if(LANGS.ar)LANGS.ar.video_btn='🎬';
+if(LANGS.ar)LANGS.ar.any_btn='📎';
+if(LANGS.ar)LANGS.ar.schedule_btn='🕐';
 if(LANGS.ar)LANGS.ar.schedule_title='🕐 جدولة المنشور';
 if(LANGS.ar)LANGS.ar.schedule_sub='اختر وقت النشر';
 if(LANGS.ar)LANGS.ar.schedule_datetime_lbl='التاريخ والوقت';
@@ -1797,11 +1836,11 @@ if(LANGS.ur)LANGS.ur.nav_notifications='اطلاعات';
 if(LANGS.ur)LANGS.ur.nav_dashboard='ڈیش بورڈ';
 if(LANGS.ur)LANGS.ur.nav_theme='تھیم';
 if(LANGS.ur)LANGS.ur.nav_more='مزید';
-if(LANGS.ur)LANGS.ur.nav_newpost='✏️ نئی پوسٹ';
-if(LANGS.ur)LANGS.ur.photo_btn='📷 تصویر';
-if(LANGS.ur)LANGS.ur.video_btn='🎬 ویڈیو';
-if(LANGS.ur)LANGS.ur.any_btn='📎 کچھ بھی';
-if(LANGS.ur)LANGS.ur.schedule_btn='🕐 شیڈول';
+if(LANGS.ur)LANGS.ur.nav_newpost='نئی پوسٹ';
+if(LANGS.ur)LANGS.ur.photo_btn='📷';
+if(LANGS.ur)LANGS.ur.video_btn='🎬';
+if(LANGS.ur)LANGS.ur.any_btn='📎';
+if(LANGS.ur)LANGS.ur.schedule_btn='🕐';
 if(LANGS.ur)LANGS.ur.schedule_title='🕐 پوسٹ شیڈول کریں';
 if(LANGS.ur)LANGS.ur.schedule_sub='پوسٹ کا وقت منتخب کریں';
 if(LANGS.ur)LANGS.ur.schedule_datetime_lbl='تاریخ اور وقت';
@@ -1846,11 +1885,11 @@ if(LANGS.ja)LANGS.ja.nav_notifications='通知';
 if(LANGS.ja)LANGS.ja.nav_dashboard='ダッシュボード';
 if(LANGS.ja)LANGS.ja.nav_theme='テーマ';
 if(LANGS.ja)LANGS.ja.nav_more='その他';
-if(LANGS.ja)LANGS.ja.nav_newpost='✏️ 新規投稿';
-if(LANGS.ja)LANGS.ja.photo_btn='📷 写真';
-if(LANGS.ja)LANGS.ja.video_btn='🎬 動画';
-if(LANGS.ja)LANGS.ja.any_btn='📎 ファイル';
-if(LANGS.ja)LANGS.ja.schedule_btn='🕐 予約投稿';
+if(LANGS.ja)LANGS.ja.nav_newpost='新規投稿';
+if(LANGS.ja)LANGS.ja.photo_btn='📷';
+if(LANGS.ja)LANGS.ja.video_btn='🎬';
+if(LANGS.ja)LANGS.ja.any_btn='📎';
+if(LANGS.ja)LANGS.ja.schedule_btn='🕐';
 if(LANGS.ja)LANGS.ja.schedule_title='🕐 投稿を予約する';
 if(LANGS.ja)LANGS.ja.schedule_sub='投稿する日時を選択';
 if(LANGS.ja)LANGS.ja.schedule_datetime_lbl='日付と時刻';
@@ -1895,11 +1934,11 @@ if(LANGS.zh)LANGS.zh.nav_notifications='通知';
 if(LANGS.zh)LANGS.zh.nav_dashboard='仪表板';
 if(LANGS.zh)LANGS.zh.nav_theme='主题';
 if(LANGS.zh)LANGS.zh.nav_more='更多';
-if(LANGS.zh)LANGS.zh.nav_newpost='✏️ 新帖子';
-if(LANGS.zh)LANGS.zh.photo_btn='📷 照片';
-if(LANGS.zh)LANGS.zh.video_btn='🎬 视频';
-if(LANGS.zh)LANGS.zh.any_btn='📎 文件';
-if(LANGS.zh)LANGS.zh.schedule_btn='🕐 定时发布';
+if(LANGS.zh)LANGS.zh.nav_newpost='新帖子';
+if(LANGS.zh)LANGS.zh.photo_btn='📷';
+if(LANGS.zh)LANGS.zh.video_btn='🎬';
+if(LANGS.zh)LANGS.zh.any_btn='📎';
+if(LANGS.zh)LANGS.zh.schedule_btn='🕐';
 if(LANGS.zh)LANGS.zh.schedule_title='🕐 定时发布';
 if(LANGS.zh)LANGS.zh.schedule_sub='选择发布时间';
 if(LANGS.zh)LANGS.zh.schedule_datetime_lbl='日期和时间';
@@ -1944,11 +1983,10 @@ if(LANGS.tr)LANGS.tr.nav_notifications='Bildirimler';
 if(LANGS.tr)LANGS.tr.nav_dashboard='Panel';
 if(LANGS.tr)LANGS.tr.nav_theme='Tema';
 if(LANGS.tr)LANGS.tr.nav_more='Daha Fazla';
-if(LANGS.tr)LANGS.tr.nav_newpost='✏️ Yeni Gönderi';
-if(LANGS.tr)LANGS.tr.photo_btn='📷 Fotoğraf';
-if(LANGS.tr)LANGS.tr.video_btn='<span data-t="video_btn"></span>';
-if(LANGS.tr)LANGS.tr.any_btn='📎 Dosya';
-if(LANGS.tr)LANGS.tr.schedule_btn='🕐 Zamanla';
+if(LANGS.tr)LANGS.tr.nav_newpost='Yeni Gönderi';
+if(LANGS.tr)LANGS.tr.photo_btn='📷';
+if(LANGS.tr)if(LANGS.tr)LANGS.tr.any_btn='📎';
+if(LANGS.tr)LANGS.tr.schedule_btn='🕐';
 if(LANGS.tr)LANGS.tr.schedule_title='🕐 Gönderiyi Zamanla';
 if(LANGS.tr)LANGS.tr.schedule_sub='Ne zaman yayınlayacağını seç';
 if(LANGS.tr)LANGS.tr.schedule_datetime_lbl='Tarih ve Saat';
@@ -1993,11 +2031,10 @@ if(LANGS.es)LANGS.es.nav_notifications='Notificaciones';
 if(LANGS.es)LANGS.es.nav_dashboard='Panel';
 if(LANGS.es)LANGS.es.nav_theme='Tema';
 if(LANGS.es)LANGS.es.nav_more='Más';
-if(LANGS.es)LANGS.es.nav_newpost='✏️ Nueva publicación';
-if(LANGS.es)LANGS.es.photo_btn='📷 Foto';
-if(LANGS.es)LANGS.es.video_btn='<span data-t="video_btn"></span>';
-if(LANGS.es)LANGS.es.any_btn='📎 Archivo';
-if(LANGS.es)LANGS.es.schedule_btn='🕐 Programar';
+if(LANGS.es)LANGS.es.nav_newpost='Nueva publicación';
+if(LANGS.es)LANGS.es.photo_btn='📷';
+if(LANGS.es)if(LANGS.es)LANGS.es.any_btn='📎';
+if(LANGS.es)LANGS.es.schedule_btn='🕐';
 if(LANGS.es)LANGS.es.schedule_title='🕐 Programar publicación';
 if(LANGS.es)LANGS.es.schedule_sub='Elige cuándo publicar';
 if(LANGS.es)LANGS.es.schedule_datetime_lbl='Fecha y hora';
@@ -2042,11 +2079,10 @@ if(LANGS.fr)LANGS.fr.nav_notifications='Notifications';
 if(LANGS.fr)LANGS.fr.nav_dashboard='Tableau de bord';
 if(LANGS.fr)LANGS.fr.nav_theme='Thème';
 if(LANGS.fr)LANGS.fr.nav_more='Plus';
-if(LANGS.fr)LANGS.fr.nav_newpost='✏️ Nouvelle publication';
-if(LANGS.fr)LANGS.fr.photo_btn='<span data-t="photo_btn"></span>';
-if(LANGS.fr)LANGS.fr.video_btn='🎬 Vidéo';
-if(LANGS.fr)LANGS.fr.any_btn='📎 Fichier';
-if(LANGS.fr)LANGS.fr.schedule_btn='🕐 Planifier';
+if(LANGS.fr)LANGS.fr.nav_newpost='Nouvelle publication';
+if(LANGS.fr)if(LANGS.fr)LANGS.fr.video_btn='🎬';
+if(LANGS.fr)LANGS.fr.any_btn='📎';
+if(LANGS.fr)LANGS.fr.schedule_btn='🕐';
 if(LANGS.fr)LANGS.fr.schedule_title='🕐 Planifier la publication';
 if(LANGS.fr)LANGS.fr.schedule_sub='Choisissez quand publier';
 if(LANGS.fr)LANGS.fr.schedule_datetime_lbl='Date et heure';
@@ -2091,11 +2127,10 @@ if(LANGS.de)LANGS.de.nav_notifications='Benachrichtigungen';
 if(LANGS.de)LANGS.de.nav_dashboard='Dashboard';
 if(LANGS.de)LANGS.de.nav_theme='Design';
 if(LANGS.de)LANGS.de.nav_more='Mehr';
-if(LANGS.de)LANGS.de.nav_newpost='✏️ Neuer Beitrag';
-if(LANGS.de)LANGS.de.photo_btn='📷 Foto';
-if(LANGS.de)LANGS.de.video_btn='<span data-t="video_btn"></span>';
-if(LANGS.de)LANGS.de.any_btn='📎 Datei';
-if(LANGS.de)LANGS.de.schedule_btn='🕐 Planen';
+if(LANGS.de)LANGS.de.nav_newpost='Neuer Beitrag';
+if(LANGS.de)LANGS.de.photo_btn='📷';
+if(LANGS.de)if(LANGS.de)LANGS.de.any_btn='📎';
+if(LANGS.de)LANGS.de.schedule_btn='🕐';
 if(LANGS.de)LANGS.de.schedule_title='🕐 Beitrag planen';
 if(LANGS.de)LANGS.de.schedule_sub='Wähle wann du posten möchtest';
 if(LANGS.de)LANGS.de.schedule_datetime_lbl='Datum und Uhrzeit';
@@ -2140,11 +2175,11 @@ if(LANGS.ru)LANGS.ru.nav_notifications='Уведомления';
 if(LANGS.ru)LANGS.ru.nav_dashboard='Панель';
 if(LANGS.ru)LANGS.ru.nav_theme='Тема';
 if(LANGS.ru)LANGS.ru.nav_more='Ещё';
-if(LANGS.ru)LANGS.ru.nav_newpost='✏️ Новый пост';
-if(LANGS.ru)LANGS.ru.photo_btn='📷 Фото';
-if(LANGS.ru)LANGS.ru.video_btn='🎬 Видео';
-if(LANGS.ru)LANGS.ru.any_btn='📎 Файл';
-if(LANGS.ru)LANGS.ru.schedule_btn='🕐 Запланировать';
+if(LANGS.ru)LANGS.ru.nav_newpost='Новый пост';
+if(LANGS.ru)LANGS.ru.photo_btn='📷';
+if(LANGS.ru)LANGS.ru.video_btn='🎬';
+if(LANGS.ru)LANGS.ru.any_btn='📎';
+if(LANGS.ru)LANGS.ru.schedule_btn='🕐';
 if(LANGS.ru)LANGS.ru.schedule_title='🕐 Запланировать пост';
 if(LANGS.ru)LANGS.ru.schedule_sub='Выберите время публикации';
 if(LANGS.ru)LANGS.ru.schedule_datetime_lbl='Дата и время';
@@ -2189,11 +2224,11 @@ if(LANGS.ko)LANGS.ko.nav_notifications='알림';
 if(LANGS.ko)LANGS.ko.nav_dashboard='대시보드';
 if(LANGS.ko)LANGS.ko.nav_theme='테마';
 if(LANGS.ko)LANGS.ko.nav_more='더보기';
-if(LANGS.ko)LANGS.ko.nav_newpost='✏️ 새 게시물';
-if(LANGS.ko)LANGS.ko.photo_btn='📷 사진';
-if(LANGS.ko)LANGS.ko.video_btn='🎬 동영상';
-if(LANGS.ko)LANGS.ko.any_btn='📎 파일';
-if(LANGS.ko)LANGS.ko.schedule_btn='🕐 예약';
+if(LANGS.ko)LANGS.ko.nav_newpost='새 게시물';
+if(LANGS.ko)LANGS.ko.photo_btn='📷';
+if(LANGS.ko)LANGS.ko.video_btn='🎬';
+if(LANGS.ko)LANGS.ko.any_btn='📎';
+if(LANGS.ko)LANGS.ko.schedule_btn='🕐';
 if(LANGS.ko)LANGS.ko.schedule_title='🕐 게시물 예약';
 if(LANGS.ko)LANGS.ko.schedule_sub='게시할 시간 선택';
 if(LANGS.ko)LANGS.ko.schedule_datetime_lbl='날짜 및 시간';
@@ -2238,11 +2273,10 @@ if(LANGS.it)LANGS.it.nav_notifications='Notifiche';
 if(LANGS.it)LANGS.it.nav_dashboard='Dashboard';
 if(LANGS.it)LANGS.it.nav_theme='Tema';
 if(LANGS.it)LANGS.it.nav_more='Altro';
-if(LANGS.it)LANGS.it.nav_newpost='✏️ Nuovo post';
-if(LANGS.it)LANGS.it.photo_btn='📷 Foto';
-if(LANGS.it)LANGS.it.video_btn='<span data-t="video_btn"></span>';
-if(LANGS.it)LANGS.it.any_btn='📎 File';
-if(LANGS.it)LANGS.it.schedule_btn='🕐 Programma';
+if(LANGS.it)LANGS.it.nav_newpost='Nuovo post';
+if(LANGS.it)LANGS.it.photo_btn='📷';
+if(LANGS.it)if(LANGS.it)LANGS.it.any_btn='📎';
+if(LANGS.it)LANGS.it.schedule_btn='🕐';
 if(LANGS.it)LANGS.it.schedule_title='🕐 Programma post';
 if(LANGS.it)LANGS.it.schedule_sub='Scegli quando pubblicare';
 if(LANGS.it)LANGS.it.schedule_datetime_lbl='Data e ora';
@@ -2287,11 +2321,11 @@ if(LANGS.bn)LANGS.bn.nav_notifications='বিজ্ঞপ্তি';
 if(LANGS.bn)LANGS.bn.nav_dashboard='ড্যাশবোর্ড';
 if(LANGS.bn)LANGS.bn.nav_theme='থিম';
 if(LANGS.bn)LANGS.bn.nav_more='আরও';
-if(LANGS.bn)LANGS.bn.nav_newpost='✏️ নতুন পোস্ট';
-if(LANGS.bn)LANGS.bn.photo_btn='📷 ছবি';
-if(LANGS.bn)LANGS.bn.video_btn='🎬 ভিডিও';
-if(LANGS.bn)LANGS.bn.any_btn='📎 যেকোনো';
-if(LANGS.bn)LANGS.bn.schedule_btn='🕐 সময়সূচী';
+if(LANGS.bn)LANGS.bn.nav_newpost='নতুন পোস্ট';
+if(LANGS.bn)LANGS.bn.photo_btn='📷';
+if(LANGS.bn)LANGS.bn.video_btn='🎬';
+if(LANGS.bn)LANGS.bn.any_btn='📎';
+if(LANGS.bn)LANGS.bn.schedule_btn='🕐';
 if(LANGS.bn)LANGS.bn.schedule_title='🕐 পোস্ট শিডিউল করুন';
 if(LANGS.bn)LANGS.bn.schedule_sub='কখন পোস্ট করবেন বেছে নিন';
 if(LANGS.bn)LANGS.bn.schedule_datetime_lbl='তারিখ ও সময়';
@@ -2336,11 +2370,11 @@ if(LANGS.pa)LANGS.pa.nav_notifications='ਸੂਚਨਾਵਾਂ';
 if(LANGS.pa)LANGS.pa.nav_dashboard='ਡੈਸ਼ਬੋਰਡ';
 if(LANGS.pa)LANGS.pa.nav_theme='ਥੀਮ';
 if(LANGS.pa)LANGS.pa.nav_more='ਹੋਰ';
-if(LANGS.pa)LANGS.pa.nav_newpost='✏️ ਨਵੀਂ ਪੋਸਟ';
-if(LANGS.pa)LANGS.pa.photo_btn='📷 ਫੋਟੋ';
-if(LANGS.pa)LANGS.pa.video_btn='🎬 ਵੀਡੀਓ';
-if(LANGS.pa)LANGS.pa.any_btn='📎 ਕੋਈ ਵੀ';
-if(LANGS.pa)LANGS.pa.schedule_btn='🕐 ਸ਼ਡਿਊਲ';
+if(LANGS.pa)LANGS.pa.nav_newpost='ਨਵੀਂ ਪੋਸਟ';
+if(LANGS.pa)LANGS.pa.photo_btn='📷';
+if(LANGS.pa)LANGS.pa.video_btn='🎬';
+if(LANGS.pa)LANGS.pa.any_btn='📎';
+if(LANGS.pa)LANGS.pa.schedule_btn='🕐';
 if(LANGS.pa)LANGS.pa.schedule_title='🕐 ਪੋਸਟ ਸ਼ਡਿਊਲ ਕਰੋ';
 if(LANGS.pa)LANGS.pa.schedule_sub='ਪੋਸਟ ਦਾ ਸਮਾਂ ਚੁਣੋ';
 if(LANGS.pa)LANGS.pa.schedule_datetime_lbl='ਮਿਤੀ ਅਤੇ ਸਮਾਂ';
@@ -2385,11 +2419,11 @@ if(LANGS.pt)LANGS.pt.nav_notifications='Notificações';
 if(LANGS.pt)LANGS.pt.nav_dashboard='Painel';
 if(LANGS.pt)LANGS.pt.nav_theme='Tema';
 if(LANGS.pt)LANGS.pt.nav_more='Mais';
-if(LANGS.pt)LANGS.pt.nav_newpost='✏️ Nova publicação';
-if(LANGS.pt)LANGS.pt.photo_btn='📷 Foto';
-if(LANGS.pt)LANGS.pt.video_btn='🎬 Vídeo';
-if(LANGS.pt)LANGS.pt.any_btn='📎 Arquivo';
-if(LANGS.pt)LANGS.pt.schedule_btn='🕐 Agendar';
+if(LANGS.pt)LANGS.pt.nav_newpost='Nova publicação';
+if(LANGS.pt)LANGS.pt.photo_btn='📷';
+if(LANGS.pt)LANGS.pt.video_btn='🎬';
+if(LANGS.pt)LANGS.pt.any_btn='📎';
+if(LANGS.pt)LANGS.pt.schedule_btn='🕐';
 if(LANGS.pt)LANGS.pt.schedule_title='🕐 Agendar publicação';
 if(LANGS.pt)LANGS.pt.schedule_sub='Escolha quando publicar';
 if(LANGS.pt)LANGS.pt.schedule_datetime_lbl='Data e hora';
@@ -2427,22 +2461,20 @@ if(LANGS.pt)LANGS.pt.change_banner='📷 Alterar foto de capa';
 if(LANGS.pt)LANGS.pt.footer_brand='NeonP · por Plannet';
 if(LANGS.pt)LANGS.pt.footer_copy='© 2026 Plannet Agency';
 
-// ── FILL MISSING KEYS — har language mein en_us se missing keys bharo ──
-// Yahi fix karta hai Arabic/RTL text stuck rehne ki problem
-(function fillLangFallbacks(){
+// ── FILL MISSING KEYS — runs at load time ──
+function fillLangFallbacks(){
   const base = LANGS.en_us;
-  const baseKeys = Object.keys(base);
+  const baseKeys = Object.keys(base).filter(k=>k!=='name'&&k!=='flag'&&k!=='rtl'&&k!=='_fallback');
   Object.keys(LANGS).forEach(code => {
     if(code === 'en_us') return;
     const L = LANGS[code];
+    if(!L) return;
     baseKeys.forEach(key => {
-      if(key === 'name' || key === 'flag' || key === 'rtl') return;
-      if(L[key] === undefined || L[key] === null || L[key] === '') {
-        L[key] = base[key]; // fallback to English
-      }
+      if(!L[key]) L[key] = base[key];
     });
   });
-})();
+}
+fillLangFallbacks();
 
 // ═══════════════════════════════════════════
 // CORE APP
@@ -2692,11 +2724,19 @@ function buildLangGrid(filter='') {
   const grid = document.getElementById('lang-grid');
   if (!grid) return;
   const q = filter.toLowerCase();
-  const entries = Object.entries(LANGS);
-  const filtered = q ? entries.filter(([k,v]) => 
-    (v.name||'').toLowerCase().includes(q) || k.includes(q)
-  ) : entries;
-  
+
+  // Priority order — English US & UK always on top, then rest alphabetically
+  const priorityFirst = ['en_us','en_uk'];
+  const allEntries = Object.entries(LANGS);
+  const priority = priorityFirst.map(c => [c, LANGS[c]]).filter(([c,v])=>v);
+  const rest = allEntries.filter(([c])=>!priorityFirst.includes(c))
+    .sort((a,b)=>(a[1].name||a[0]).localeCompare(b[1].name||b[0]));
+  const ordered = [...priority, ...rest];
+
+  const filtered = q
+    ? ordered.filter(([k,v]) => (v.name||'').toLowerCase().includes(q) || k.includes(q))
+    : ordered;
+
   grid.innerHTML = filtered.map(([code, lang]) => {
     const isActive = code === currentLang;
     return `<button class="lang-btn ${isActive?'active':''}" onclick="setLang('${code}')">
